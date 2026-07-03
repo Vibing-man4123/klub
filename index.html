@@ -1,0 +1,2060 @@
+<!DOCTYPE html>
+<html lang="pl">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>UKS Conrad - Klub Sportowy</title>
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Montserrat:wght@700;800;900&display=swap"
+    rel="stylesheet" />
+
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            canvas: '#faf9f5',
+            ink: '#141413',
+            navy: '#0d1b3e',   /* Surface Dark - głęboki granat */
+            navyMid: '#152252',   /* granat mid - hover/karta */
+            cream: '#f0ede3',   /* jasnokremowy tekst na graficie */
+            red: '#d62828',   /* Primary CTA */
+            redHover: '#b71c1c',
+          },
+          fontFamily: {
+            serif: ['"Montserrat"', 'system-ui', 'sans-serif'],
+            sans: ['Inter', 'system-ui', 'sans-serif'],
+          },
+          borderRadius: {
+            btn: '8px',
+            card: '12px',
+            hero: '16px',
+          },
+          letterSpacing: {
+            tighter2: '-0.04em',
+          },
+        },
+      },
+    };
+  </script>
+
+  <style>
+    /* Globalne klasy bazowe */
+    html {
+      scroll-padding-top: 4.5rem;
+    }
+
+    @media (min-width: 1024px) {
+      html {
+        scroll-padding-top: 7.5rem;
+      }
+    }
+
+    @media (prefers-reduced-motion: no-preference) {
+      html {
+        scroll-behavior: smooth;
+      }
+    }
+
+    body {
+      background-color: #faf9f5;
+      color: #141413;
+      font-family: 'Inter', system-ui, sans-serif;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* ── Nawigacja ─────────────────────────────────────── */
+    #main-nav {
+      transition: background 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    #main-nav.scrolled {
+      background-color: #0d1b3e;
+      box-shadow: 0 2px 20px rgba(0, 0, 0, 0.35);
+    }
+
+    #main-nav.scrolled #header-contact {
+      background-color: rgba(13, 27, 62, 0.95);
+    }
+
+    /* Nav link - underline z prawej do lewej */
+    .nav-link {
+      position: relative;
+      color: #f0ede3;
+      font-size: 0.8125rem;
+      font-weight: 500;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      padding-bottom: 2px;
+      transition: color 0.2s;
+    }
+
+    .nav-link::after {
+      content: '';
+      position: absolute;
+      bottom: -2px;
+      left: 0;
+      width: 0;
+      height: 2px;
+      background: #d62828;
+      transition: width 0.25s ease;
+    }
+
+    .nav-link:hover::after {
+      width: 100%;
+    }
+
+    .nav-link:hover {
+      color: #ffffff;
+    }
+
+    /* Kontakt w headerze */
+    .header-contact-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.375rem;
+      color: rgba(240, 237, 227, 0.75);
+      font-size: 0.75rem;
+      font-weight: 500;
+      letter-spacing: 0.04em;
+      transition: color 0.2s;
+    }
+
+    .header-contact-link:hover {
+      color: #ffffff;
+    }
+
+    .header-contact-link svg {
+      flex-shrink: 0;
+      opacity: 0.7;
+    }
+
+    .header-contact-link:hover svg {
+      opacity: 1;
+      color: #d62828;
+    }
+
+    /* Hamburger lines */
+    .ham-line {
+      display: block;
+      width: 22px;
+      height: 2px;
+      background: #f0ede3;
+      transition: transform 0.3s, opacity 0.3s;
+    }
+
+    /* ── Hero ───────────────────────────────────────────── */
+    #hero {
+      position: relative;
+      isolation: isolate;
+      overflow: hidden;
+      background: linear-gradient(to bottom,
+          rgba(13, 27, 62, 0.72) 0%,
+          rgba(13, 27, 62, 0.50) 50%,
+          rgba(13, 27, 62, 0.80) 100%);
+    }
+
+    #hero::before {
+      content: "";
+      position: absolute;
+      inset: -8px;
+      background-image: url('images/hero-bg.jpg');
+      background-size: cover;
+      background-position: center 30%;
+      background-attachment: fixed;
+      filter: brightness(0.9);
+      transform: scale(1.04);
+      z-index: -2;
+    }
+
+    #hero::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to bottom,
+          rgba(13, 27, 62, 0.72) 0%,
+          rgba(13, 27, 62, 0.50) 50%,
+          rgba(13, 27, 62, 0.80) 100%);
+      z-index: -1;
+    }
+
+    /* Tarcza/logo - pulsujący cień */
+    .logo-shield {
+      animation: shieldPulse 3s ease-in-out infinite;
+    }
+
+    @keyframes shieldPulse {
+
+      0%,
+      100% {
+        box-shadow: 0 0 0 0 rgba(214, 40, 40, 0.0), 0 8px 40px rgba(13, 27, 62, 0.6);
+      }
+
+      50% {
+        box-shadow: 0 0 0 10px rgba(214, 40, 40, 0.15), 0 8px 40px rgba(13, 27, 62, 0.6);
+      }
+    }
+
+    /* Reveal animacja */
+    @keyframes fadeUp {
+      from {
+        opacity: 0;
+        transform: translateY(24px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .fade-up-1 {
+      animation: fadeUp 0.7s ease both 0.2s;
+    }
+
+    .fade-up-2 {
+      animation: fadeUp 0.7s ease both 0.45s;
+    }
+
+    .fade-up-3 {
+      animation: fadeUp 0.7s ease both 0.65s;
+    }
+
+    .fade-up-4 {
+      animation: fadeUp 0.7s ease both 0.85s;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+
+      .fade-up-1,
+      .fade-up-2,
+      .fade-up-3,
+      .fade-up-4 {
+        animation: none;
+      }
+
+      #hero {
+        background-attachment: scroll;
+      }
+    }
+
+    /* Przycisk CTA */
+    .btn-cta {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: #d62828;
+      color: #ffffff;
+      font-family: 'Inter', sans-serif;
+      font-size: 0.9375rem;
+      font-weight: 700;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      padding: 16px 36px;
+      border-radius: 8px;
+      border: 2px solid transparent;
+      cursor: pointer;
+      transition: background 0.2s, transform 0.15s, box-shadow 0.2s;
+      text-decoration: none;
+    }
+
+    .btn-cta:hover {
+      background: #b71c1c;
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px rgba(214, 40, 40, 0.4);
+    }
+
+    .btn-cta:active {
+      transform: translateY(0);
+    }
+
+    .btn-ghost {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: transparent;
+      color: #f0ede3;
+      font-family: 'Inter', sans-serif;
+      font-size: 0.9375rem;
+      font-weight: 600;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      padding: 14px 32px;
+      border-radius: 8px;
+      border: 2px solid rgba(240, 237, 227, 0.5);
+      cursor: pointer;
+      transition: border-color 0.2s, color 0.2s, transform 0.15s;
+      text-decoration: none;
+    }
+
+    .btn-ghost:hover {
+      border-color: #f0ede3;
+      color: #ffffff;
+      transform: translateY(-2px);
+    }
+
+    /* ── Animacje callout ──────────────────────────────────── */
+    @keyframes floatA {
+
+      0%,
+      100% {
+        transform: translate(0, 0) scale(1);
+        opacity: 0.10;
+      }
+
+      33% {
+        transform: translate(-8px, 12px) scale(1.04);
+        opacity: 0.13;
+      }
+
+      66% {
+        transform: translate(6px, -8px) scale(0.97);
+        opacity: 0.08;
+      }
+    }
+
+    @keyframes floatB {
+
+      0%,
+      100% {
+        transform: translate(0, 0) scale(1);
+        opacity: 0.07;
+      }
+
+      40% {
+        transform: translate(10px, -14px) scale(1.06);
+        opacity: 0.11;
+      }
+
+      75% {
+        transform: translate(-6px, 8px) scale(0.95);
+        opacity: 0.05;
+      }
+    }
+
+    @keyframes floatC {
+
+      0%,
+      100% {
+        transform: translateY(-50%) scale(1);
+        opacity: 0.20;
+      }
+
+      50% {
+        transform: translateY(calc(-50% + 8px)) scale(1.4);
+        opacity: 0.10;
+      }
+    }
+
+    /* ── Animacje do ciemnego tla ── */
+    @keyframes driftA {
+
+      0%,
+      100% {
+        transform: translate(0, 0) rotate(12deg);
+        opacity: 0.35;
+      }
+
+      50% {
+        transform: translate(25px, -15px) rotate(17deg);
+        opacity: 0.6;
+      }
+    }
+
+    @keyframes driftB {
+
+      0%,
+      100% {
+        transform: translate(0, 0) rotate(45deg);
+        opacity: 0.35;
+      }
+
+      50% {
+        transform: translate(-20px, 20px) rotate(39deg);
+        opacity: 0.6;
+      }
+    }
+
+    @keyframes driftC {
+
+      0%,
+      100% {
+        transform: translateY(-50%) translateX(-10px);
+        opacity: 0.25;
+      }
+
+      50% {
+        transform: translateY(-50%) translateX(40px);
+        opacity: 0.6;
+      }
+    }
+
+    @keyframes scanline {
+      0% {
+        transform: translateY(-200px);
+        opacity: 0;
+      }
+
+      10% {
+        opacity: 1;
+      }
+
+      90% {
+        opacity: 1;
+      }
+
+      100% {
+        transform: translateY(1200px);
+        opacity: 0;
+      }
+    }
+
+    @keyframes pulseDot {
+
+      0%,
+      100% {
+        transform: scale(0.9);
+        opacity: 0.35;
+      }
+
+      50% {
+        transform: scale(1.15);
+        opacity: 0.7;
+      }
+    }
+
+    .bg-geo-A,
+    .bg-geo-B,
+    .bg-geo-C,
+    .bg-geo-D,
+    .bg-scanline,
+    .bg-dot {
+      animation-fill-mode: both;
+      will-change: transform, opacity;
+    }
+
+    .bg-geo-C {
+      transform: translateY(-50%) translateX(-10px);
+      opacity: 0.25;
+    }
+
+    .bg-scanline {
+      transform: translateY(-200px);
+      opacity: 0;
+    }
+
+    .bg-dot {
+      transform: scale(0.9);
+      opacity: 0.35;
+    }
+
+    /* HOVER EFFECT */
+    #grupy .bg-geo-A,
+    #grupy .bg-geo-B,
+    #grupy .bg-geo-C,
+    #grupy .bg-geo-D {
+      transition: opacity 0.6s ease, border-color 0.6s ease;
+    }
+
+    #grupy:hover .bg-geo-A,
+    #grupy:hover .bg-geo-B,
+    #grupy:hover .bg-geo-C,
+    #grupy:hover .bg-geo-D {
+      opacity: 0.8;
+      border-color: rgba(255, 255, 255, 0.3);
+    }
+
+    #grupy:hover .bg-dot {
+      transform: scale(1.2);
+      filter: brightness(1.3);
+      transition: all 0.4s ease;
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- ══════════════════════════════════════════════════════════
+       STICKY NAWIGACJA
+       ══════════════════════════════════════════════════════════ -->
+  <nav id="main-nav" class="fixed top-0 left-0 right-0 z-50 bg-transparent">
+    <!-- Pasek kontaktowy (desktop) -->
+    <div id="header-contact" class="hidden lg:block border-b border-white/10 bg-navy/80 backdrop-blur-sm">
+      <div class="max-w-7xl mx-auto px-6 lg:px-10 py-2 flex justify-end items-center gap-6">
+        <a href="tel:+48781676558" class="header-contact-link">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-3.5 h-3.5">
+            <path fill-rule="evenodd"
+              d="M2 3.5A1.5 1.5 0 0 1 3.5 2h1.148a1.5 1.5 0 0 1 1.465 1.175l.716 3.223a1.5 1.5 0 0 1-1.052 1.767l-.933.267c-.41.117-.643.555-.48.95a11.542 11.542 0 0 0 6.254 6.254c.395.163.833-.07.95-.48l.267-.933a1.5 1.5 0 0 1 1.767-1.052l3.223.716A1.5 1.5 0 0 1 18 16.352V17.5a1.5 1.5 0 0 1-1.5 1.5H15c-8.284 0-15-6.716-15-15V3.5Z"
+              clip-rule="evenodd" />
+          </svg>
+          +48 781 676 558
+        </a>
+        <a href="mailto:tomczewski1973@wp.pl" class="header-contact-link">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-3.5 h-3.5">
+            <path d="M3 4a2 2 0 0 0-2 2v1.161l8.441 4.221a1.25 1.25 0 0 0 1.118 0L19 7.161V6a2 2 0 0 0-2-2H3Z" />
+            <path d="m19 8.839-7.77 3.885a2.75 2.75 0 0 1-2.46 0L1 8.839V14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V8.839Z" />
+          </svg>
+          tomczewski1973@wp.pl
+        </a>
+      </div>
+    </div>
+
+    <div class="max-w-7xl mx-auto px-6 lg:px-10">
+      <div class="flex items-center justify-between h-16 lg:h-20">
+
+        <!-- Logo tekstowe -->
+        <a href="#" class="flex items-center gap-3 group" aria-label="Strona główna">
+          
+          <img src="images/logo.png" alt="Logo klubu" class="h-10 w-auto" />
+          <div class="leading-tight">
+            <div class="text-cream font-bold text-sm tracking-wide uppercase">UKS Conrad</div>
+            <div class="text-cream/60 text-[10px] tracking-widest uppercase">Akademia Piłkarska</div>
+          </div>
+        </a>
+
+        <!-- Linki desktop -->
+        <ul class="hidden lg:flex items-center gap-8" role="list">
+          <li><a href="#o-nas" class="nav-link">O nas</a></li>
+          <li><a href="#grupy" class="nav-link">Grupy</a></li>
+          <li><a href="#harmonogram" class="nav-link">Harmonogram</a></li>
+          <li><a href="#obozy" class="nav-link">Obozy</a></li>
+          <li><a href="galeria.html" class="nav-link active">Galeria</a></li>
+          <li><a href="#rodo" class="nav-link">RODO</a></li>
+          <li><a href="#kontakt" class="nav-link">Kontakt</a></li>
+        </ul>
+
+        <!-- Prawa strona nav -->
+        <div class="flex items-center gap-1 lg:gap-4">
+          <!-- CTA w nav (desktop) -->
+          <a href="#zapisy" class="hidden lg:inline-flex btn-cta text-sm py-2.5 px-6">
+            Zapisz się
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="currentColor" class="w-4 h-4">
+              <path fill-rule="evenodd"
+                d="M6.22 3.22a.75.75 0 0 1 1.06 0l4.25 4.25a.75.75 0 0 1 0 1.06l-4.25 4.25a.75.75 0 0 1-1.06-1.06L9.94 8 6.22 4.28a.75.75 0 0 1 0-1.06Z"
+                clip-rule="evenodd" />
+            </svg>
+          </a>
+
+          <!-- Szybki kontakt (mobile) -->
+          <div class="lg:hidden flex items-center gap-1">
+            <a href="tel:+48781676558" class="p-2 text-cream/80 hover:text-cream transition-colors"
+              aria-label="Zadzwoń: +48 781 676 558">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-5 h-5">
+                <path fill-rule="evenodd"
+                  d="M2 3.5A1.5 1.5 0 0 1 3.5 2h1.148a1.5 1.5 0 0 1 1.465 1.175l.716 3.223a1.5 1.5 0 0 1-1.052 1.767l-.933.267c-.41.117-.643.555-.48.95a11.542 11.542 0 0 0 6.254 6.254c.395.163.833-.07.95-.48l.267-.933a1.5 1.5 0 0 1 1.767-1.052l3.223.716A1.5 1.5 0 0 1 18 16.352V17.5a1.5 1.5 0 0 1-1.5 1.5H15c-8.284 0-15-6.716-15-15V3.5Z"
+                  clip-rule="evenodd" />
+              </svg>
+            </a>
+            <a href="mailto:tomczewski1973@wp.pl" class="p-2 text-cream/80 hover:text-cream transition-colors"
+              aria-label="Napisz e-mail: tomczewski1973@wp.pl">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-5 h-5">
+                <path d="M3 4a2 2 0 0 0-2 2v1.161l8.441 4.221a1.25 1.25 0 0 0 1.118 0L19 7.161V6a2 2 0 0 0-2-2H3Z" />
+                <path
+                  d="m19 8.839-7.77 3.885a2.75 2.75 0 0 1-2.46 0L1 8.839V14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V8.839Z" />
+              </svg>
+            </a>
+          </div>
+
+          <!-- Hamburger mobile -->
+          <button id="hamburger" class="lg:hidden flex flex-col gap-[5px] p-2 -mr-2" aria-label="Otwórz menu"
+            aria-expanded="false" aria-controls="mobile-menu">
+            <span class="ham-line"></span>
+            <span class="ham-line"></span>
+            <span class="ham-line"></span>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Menu mobilne -->
+    <div id="mobile-menu" class="lg:hidden hidden bg-navy border-t border-white/10" role="dialog"
+      aria-label="Menu nawigacyjne">
+      <ul class="flex flex-col px-6 py-5 gap-4" role="list">
+        <li class="flex flex-col gap-2 pb-3 mb-1 border-b border-white/10">
+          <a href="tel:+48781676558" class="header-contact-link py-1">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-4 h-4">
+              <path fill-rule="evenodd"
+                d="M2 3.5A1.5 1.5 0 0 1 3.5 2h1.148a1.5 1.5 0 0 1 1.465 1.175l.716 3.223a1.5 1.5 0 0 1-1.052 1.767l-.933.267c-.41.117-.643.555-.48.95a11.542 11.542 0 0 0 6.254 6.254c.395.163.833-.07.95-.48l.267-.933a1.5 1.5 0 0 1 1.767-1.052l3.223.716A1.5 1.5 0 0 1 18 16.352V17.5a1.5 1.5 0 0 1-1.5 1.5H15c-8.284 0-15-6.716-15-15V3.5Z"
+                clip-rule="evenodd" />
+            </svg>
+            +48 781 676 558
+          </a>
+          <a href="mailto:tomczewski1973@wp.pl" class="header-contact-link py-1">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-4 h-4">
+              <path d="M3 4a2 2 0 0 0-2 2v1.161l8.441 4.221a1.25 1.25 0 0 0 1.118 0L19 7.161V6a2 2 0 0 0-2-2H3Z" />
+              <path d="m19 8.839-7.77 3.885a2.75 2.75 0 0 1-2.46 0L1 8.839V14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V8.839Z" />
+            </svg>
+            tomczewski1973@wp.pl
+          </a>
+        </li>
+        <li><a href="#o-nas" class="nav-link block py-1" onclick="closeMobileMenu()">O nas</a></li>
+        <li><a href="#grupy" class="nav-link block py-1" onclick="closeMobileMenu()">Grupy</a></li>
+        <li><a href="#harmonogram" class="nav-link block py-1" onclick="closeMobileMenu()">Harmonogram</a></li>
+        <li><a href="#obozy" class="nav-link block py-1" onclick="closeMobileMenu()">Obozy</a></li>
+        <li><a href="#rodo" class="nav-link block py-1" onclick="closeMobileMenu()">RODO</a></li>
+        <li><a href="#kontakt" class="nav-link block py-1" onclick="closeMobileMenu()">Kontakt</a></li>
+        <li class="pt-2">
+          <a href="#zapisy" class="btn-cta w-full justify-center" onclick="closeMobileMenu()">Zapisz się</a>
+        </li>
+      </ul>
+    </div>
+  </nav>
+
+
+  <!-- ══════════════════════════════════════════════════════════
+       HERO SECTION
+       ══════════════════════════════════════════════════════════ -->
+  <section id="hero"
+    class="relative min-h-screen flex flex-col items-center justify-center text-center px-6 py-24 overflow-hidden"
+    aria-label="Hero - strona główna">
+
+    <!-- Ozdobna linia u góry (accent) -->
+    <div class="absolute top-0 left-0 right-0 h-1 bg-red opacity-90"></div>
+
+    <!-- Subtelna kratka nakładkowa dla głębi -->
+    <div class="absolute inset-0 opacity-[0.04]"
+      style="background-image: repeating-linear-gradient(0deg,transparent,transparent 60px,#fff 60px,#fff 61px),repeating-linear-gradient(90deg,transparent,transparent 60px,#fff 60px,#fff 61px);">
+    </div>
+
+    <div class="relative z-10 flex flex-col items-center max-w-4xl mx-auto">
+
+      <!-- TARCZA LOGO -->
+      <div class="fade-up-1 mb-8">
+
+        <img src="images/logo.png" alt="Logo klubu" class="h-40 shadow-2xs object-contain p-3" />
+
+      </div>
+    </div>
+
+    <!-- Eyebrow label -->
+    <p class="fade-up-2 text-red font-semibold text-sm tracking-[0.2em] uppercase mb-4">
+      Witaj w świecie piłki nożnej
+    </p>
+
+    <!-- Główny nagłówek szeryfowy -->
+    <h1 class="fade-up-2 font-serif font-bold text-cream leading-[1.1] tracking-tighter2
+                 text-4xl sm:text-5xl lg:text-6xl xl:text-7xl mb-6">
+      Zacznij grać.<br />
+      <em class="not-italic text-white">Rozwijaj się.</em><br />
+      <span class="text-red">Wygrywaj razem.</span>
+    </h1>
+
+    <!-- Lead tekst -->
+    <p class="fade-up-3 text-cream/75 text-base lg:text-lg max-w-xl leading-relaxed mb-10">
+      Profesjonalne szkolenie piłkarskie dla dzieci i młodzieży w wieku 6-16 lat.
+      Dołącz do akademii, która wychowuje nie tylko zawodników - ale i charaktery.
+      Działamy od 2012 roku.
+      <strong class="text-cream font-semibold">Pierwsze 2 treningi bezpłatne.</strong>
+    </p>
+
+    <!-- CTA przyciski -->
+    <div class="fade-up-4 flex flex-col sm:flex-row gap-4 items-center justify-center">
+      <a href="#zapisy" class="btn-cta">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-5 h-5 flex-shrink-0">
+          <path
+            d="M10.75 4.75a.75.75 0 0 0-1.5 0v4.5h-4.5a.75.75 0 0 0 0 1.5h4.5v4.5a.75.75 0 0 0 1.5 0v-4.5h4.5a.75.75 0 0 0 0-1.5h-4.5v-4.5Z" />
+        </svg>
+        Zapisz się - 2 pierwsze treningi bezpłatne
+      </a>
+      <a href="#o-nas" class="btn-ghost">
+        Dowiedz się więcej
+      </a>
+    </div>
+
+    <!-- Trzy mini-statystyki pod CTA -->
+    <div class="fade-up-4 flex gap-8 sm:gap-16 mt-14 border-t border-white/15 pt-10">
+      <div class="text-center">
+        <div class="text-cream font-serif font-bold text-3xl lg:text-4xl">14</div>
+        <div class="text-cream/50 text-xs tracking-widest uppercase mt-1">lat&nbsp;doświadczenia</div>
+      </div>
+      <div class="text-center">
+        <div class="text-cream font-serif font-bold text-3xl lg:text-4xl">80</div>
+        <div class="text-cream/50 text-xs tracking-widest uppercase mt-1">zawodników</div>
+      </div>
+      <div class="text-center">
+        <div class="text-cream font-serif font-bold text-3xl lg:text-4xl">6-16</div>
+        <div class="text-cream/50 text-xs tracking-widest uppercase mt-1">lat&nbsp;wiek</div>
+      </div>
+    </div>
+    </div>
+
+    </div>
+  </section>
+
+
+  <!-- ══════════════════════════════════════════════════════════
+       SEKCJE STRONY
+       ══════════════════════════════════════════════════════════ -->
+  <main id="tresc">
+
+    <!-- ────────────────────────────────────────────────────────
+         SEKCJA 1 - DLACZEGO MY (Canvas #faf9f5)
+         ──────────────────────────────────────────────────────── -->
+    <section id="o-nas" class="bg-canvas py-24 lg:py-32 px-6">
+      <div class="max-w-7xl mx-auto">
+
+        <!-- Siatka: tekst (lewa) + karty wartości (prawa) -->
+        <div class="grid lg:grid-cols-2 gap-16 lg:gap-24 items-start">
+
+          <!-- LEWA - tekst -->
+          <div class="lg:sticky lg:top-32">
+            <p class="text-red font-semibold text-sm tracking-[0.2em] uppercase mb-4">
+              Dlaczego my
+            </p>
+            <h2 class="font-serif font-bold text-ink text-4xl lg:text-5xl leading-[1.1] tracking-tighter2 mb-6">
+              Trenujemy nie tylko<br />
+              <em class="not-italic text-navy">nogi - trenujemy</em><br />
+              charaktery.
+            </h2>
+            <p class="text-ink/60 text-base lg:text-lg leading-relaxed mb-6">
+              Akademia Piłkarska to miejsce, gdzie dzieci uczą się dyscypliny,
+              pracy zespołowej i ambicji - przez sport. Nasi trenerzy posiadają
+              licencje <strong class="text-ink font-semibold">UEFA C i UEFA B</strong>,
+              a każda grupa treningowa liczy maksymalnie 12 zawodników,
+              co zapewnia indywidualne podejście.
+            </p>
+            <p class="text-ink/60 text-base leading-relaxed mb-10">
+              Prowadzimy zajęcia przez cały rok - w hali i na boisku.
+              Pierwsze dwa treningi są <strong class="text-ink font-semibold">całkowicie bezpłatne</strong>.
+            </p>
+
+            <!-- Mini-lista trenerów -->
+            <div class="flex flex-col gap-3">
+              <div class="flex items-center gap-3">
+                <div class="w-8 h-8 rounded-full bg-navy flex items-center justify-center flex-shrink-0">
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="#f0ede3" class="w-4 h-4">
+                    <path fill-rule="evenodd"
+                      d="M12.416 3.376a.75.75 0 0 1 .208 1.04l-5 7.5a.75.75 0 0 1-1.154.114l-3-3a.75.75 0 0 1 1.06-1.06l2.353 2.353 4.493-6.74a.75.75 0 0 1 1.04-.207Z"
+                      clip-rule="evenodd" />
+                  </svg>
+                </div>
+                <span class="text-ink/75 text-sm">Kadra z licencjami UEFA C &amp; B</span>
+              </div>
+              <div class="flex items-center gap-3">
+                <div class="w-8 h-8 rounded-full bg-navy flex items-center justify-center flex-shrink-0">
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="#f0ede3" class="w-4 h-4">
+                    <path fill-rule="evenodd"
+                      d="M12.416 3.376a.75.75 0 0 1 .208 1.04l-5 7.5a.75.75 0 0 1-1.154.114l-3-3a.75.75 0 0 1 1.06-1.06l2.353 2.353 4.493-6.74a.75.75 0 0 1 1.04-.207Z"
+                      clip-rule="evenodd" />
+                  </svg>
+                </div>
+                <span class="text-ink/75 text-sm">Maks. 12 zawodników w grupie</span>
+              </div>
+              <div class="flex items-center gap-3">
+                <div class="w-8 h-8 rounded-full bg-navy flex items-center justify-center flex-shrink-0">
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="#f0ede3" class="w-4 h-4">
+                    <path fill-rule="evenodd"
+                      d="M12.416 3.376a.75.75 0 0 1 .208 1.04l-5 7.5a.75.75 0 0 1-1.154.114l-3-3a.75.75 0 0 1 1.06-1.06l2.353 2.353 4.493-6.74a.75.75 0 0 1 1.04-.207Z"
+                      clip-rule="evenodd" />
+                  </svg>
+                </div>
+                <span class="text-ink/75 text-sm">Zajęcia całoroczne - hala i boisko</span>
+              </div>
+              <div class="flex items-center gap-3">
+                <div class="w-8 h-8 rounded-full bg-navy flex items-center justify-center flex-shrink-0">
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="#f0ede3" class="w-4 h-4">
+                    <path fill-rule="evenodd"
+                      d="M12.416 3.376a.75.75 0 0 1 .208 1.04l-5 7.5a.75.75 0 0 1-1.154.114l-3-3a.75.75 0 0 1 1.06-1.06l2.353 2.353 4.493-6.74a.75.75 0 0 1 1.04-.207Z"
+                      clip-rule="evenodd" />
+                  </svg>
+                </div>
+                <span class="text-ink/75 text-sm">2 pierwsze treningi bezpłatne</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- PRAWA - karty wartości -->
+          <div class="grid sm:grid-cols-2 gap-5">
+
+            <!-- Karta 1: Profesjonalizm -->
+            <div
+              class="rounded-card p-6 flex flex-col gap-4 group transition-transform duration-200 hover:-translate-y-1"
+              style="background:#efece2; border:1px solid rgba(20,20,19,0.07);">
+              <div class="w-11 h-11 rounded-btn bg-navy flex items-center justify-center flex-shrink-0">
+                <!-- Ikona tarcza -->
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="#f0ede3" class="w-5 h-5">
+                  <path fill-rule="evenodd"
+                    d="M9.661 2.237a.531.531 0 0 1 .678 0 11.947 11.947 0 0 0 7.078 2.749.5.5 0 0 1 .479.425c.069.52.104 1.05.104 1.589 0 5.162-3.26 9.563-7.834 11.256a.48.48 0 0 1-.332 0C5.26 16.563 2 12.162 2 7c0-.538.035-1.069.104-1.589a.5.5 0 0 1 .48-.425 11.947 11.947 0 0 0 7.077-2.749Z"
+                    clip-rule="evenodd" />
+                </svg>
+              </div>
+              <div>
+                <h3 class="font-serif font-bold text-ink text-xl mb-1 group-hover:text-navy transition-colors">
+                  Profesjonalizm</h3>
+                <p class="text-ink/60 text-sm leading-relaxed">
+                  Trenerzy z licencjami UEFA pracują według metodyki FIFA Grassroots -
+                  sprawdzonej na poziomie europejskim.
+                </p>
+              </div>
+              <div class="mt-auto pt-3 border-t border-black/8">
+                <span class="text-red text-xs font-semibold tracking-widest uppercase">UEFA C &amp; B</span>
+              </div>
+            </div>
+
+            <!-- Karta 2: Nowoczesne metody -->
+            <div
+              class="rounded-card p-6 flex flex-col gap-4 group transition-transform duration-200 hover:-translate-y-1"
+              style="background:#efece2; border:1px solid rgba(20,20,19,0.07);">
+              <div class="w-11 h-11 rounded-btn bg-navy flex items-center justify-center flex-shrink-0">
+                <!-- Ikona wykres -->
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="#f0ede3" class="w-5 h-5">
+                  <path
+                    d="M15.5 2A1.5 1.5 0 0 0 14 3.5v13a1.5 1.5 0 0 0 3 0v-13A1.5 1.5 0 0 0 15.5 2ZM9.5 7A1.5 1.5 0 0 0 8 8.5v8a1.5 1.5 0 0 0 3 0v-8A1.5 1.5 0 0 0 9.5 7ZM3.5 12A1.5 1.5 0 0 0 2 13.5v3a1.5 1.5 0 0 0 3 0v-3A1.5 1.5 0 0 0 3.5 12Z" />
+                </svg>
+              </div>
+              <div>
+                <h3 class="font-serif font-bold text-ink text-xl mb-1 group-hover:text-navy transition-colors">
+                  Nowoczesne&nbsp;Metody</h3>
+                <p class="text-ink/60 text-sm leading-relaxed">
+                  Analiza wideo, testy motoryczne i plany treningowe dostosowane
+                  indywidualnie do każdego zawodnika.
+                </p>
+              </div>
+              <div class="mt-auto pt-3 border-t border-black/8">
+                <span class="text-red text-xs font-semibold tracking-widest uppercase">Analiza wideo</span>
+              </div>
+            </div>
+
+            <!-- Karta 3: Atmosfera -->
+            <div
+              class="rounded-card p-6 flex flex-col gap-4 group transition-transform duration-200 hover:-translate-y-1"
+              style="background:#efece2; border:1px solid rgba(20,20,19,0.07);">
+              <div class="w-11 h-11 rounded-btn bg-navy flex items-center justify-center flex-shrink-0">
+                <!-- Ikona serce -->
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" color='white' viewBox="0 0 24 24" stroke-width="1.5"
+                  stroke="currentColor" class="size-6">
+                  <path stroke-linecap="round" stroke-linejoin="round"
+                    d="M12 3v2.25m6.364.386-1.591 1.591M21 12h-2.25m-.386 6.364-1.591-1.591M12 18.75V21m-4.773-4.227-1.591 1.591M5.25 12H3m4.227-4.773L5.636 5.636M15.75 12a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0Z" />
+                </svg>
+
+              </div>
+              <div>
+                <h3 class="font-serif font-bold text-ink text-xl mb-1 group-hover:text-navy transition-colors">Atmosfera
+                </h3>
+                <p class="text-ink/60 text-sm leading-relaxed">
+                  Przyjazne, bezpieczne środowisko. Dzieci trenują z pasją
+                  i wychodzą z boiska z uśmiechem - niezależnie od wyniku.
+                </p>
+              </div>
+              <div class="mt-auto pt-3 border-t border-black/8">
+                <span class="text-red text-xs font-semibold tracking-widest uppercase">Bezpieczne środowisko</span>
+              </div>
+            </div>
+
+            <!-- Karta 4: Turnieje i obozy -->
+            <div
+              class="rounded-card p-6 flex flex-col gap-4 group transition-transform duration-200 hover:-translate-y-1"
+              style="background:#efece2; border:1px solid rgba(20,20,19,0.07);">
+              <div class="w-11 h-11 rounded-btn bg-red flex items-center justify-center flex-shrink-0">
+                <!-- Ikona trofeum -->
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="#ffffff" class="w-5 h-5">
+                  <path fill-rule="evenodd"
+                    d="M10 1c-1.828 0-3.623.149-5.371.435a.75.75 0 0 0-.629.74v.387c-.827.157-1.642.345-2.445.564a.75.75 0 0 0-.552.698 5 5 0 0 0 4.503 5.152 6 6 0 0 0 2.946 1.822A6.451 6.451 0 0 1 7.768 13H7.5A1.5 1.5 0 0 0 6 14.5V17h-.75C4.56 17 4 17.56 4 18.25v.75h12v-.75c0-.69-.56-1.25-1.25-1.25H14v-2.5a1.5 1.5 0 0 0-1.5-1.5h-.268a6.453 6.453 0 0 1-1.63-2.882 6 6 0 0 0 2.946-1.822 5 5 0 0 0 4.503-5.152.75.75 0 0 0-.552-.698A31.804 31.804 0 0 0 16 2.562v-.387a.75.75 0 0 0-.629-.74A33.227 33.227 0 0 0 10 1Z"
+                    clip-rule="evenodd" />
+                </svg>
+              </div>
+              <div>
+                <h3 class="font-serif font-bold text-ink text-xl mb-1 group-hover:text-red transition-colors">
+                  Turnieje&nbsp;&amp;&nbsp;Obozy</h3>
+                <p class="text-ink/60 text-sm leading-relaxed">
+                  Regularne rozgrywki ligowe, turnieje halowe i letnie obozy
+                  sportowe. Rywalizacja, która buduje charakter.
+                </p>
+              </div>
+              <div class="mt-auto pt-3 border-t border-black/8">
+                <span class="text-red text-xs font-semibold tracking-widest uppercase">Lato i zima</span>
+              </div>
+            </div>
+
+          </div><!-- /prawa -->
+        </div><!-- /grid -->
+      </div>
+    </section>
+
+
+    <!-- ────────────────────────────────────────────────────────
+         SEKCJA 2 - GRUPY WIEKOWE (Surface Dark - granat)
+         ──────────────────────────────────────────────────────── -->
+    <section id="grupy" class="relative py-24 lg:py-32 px-6 overflow-hidden" style="background:#0d1b3e;">
+      <!-- Animacja tla -->
+      <div class="absolute inset-0 z-0 pointer-events-none overflow-hidden" aria-hidden="true">
+
+        <div class="bg-geo-A absolute -top-20 -left-20 w-96 h-96 border-2 border-white/20 rotate-12"
+          style="animation: driftA 22s ease-in-out infinite;"></div>
+
+        <div class="bg-geo-B absolute -bottom-24 -right-16 w-80 h-80 border border-white/20 rotate-45"
+          style="animation: driftB 28s ease-in-out infinite;"></div>
+
+        <div class="bg-geo-C absolute top-1/2 left-0 right-0 h-px"
+          style="background: linear-gradient(90deg, transparent 0%, rgba(255,255,255,0.2) 30%, rgba(214,40,40,0.4) 70%, transparent 100%); animation: driftC 18s ease-in-out infinite; transform: translateY(-50%) translateX(-10px); opacity: 0.25;">
+        </div>
+
+        <div class="bg-geo-D absolute top-0 right-1/4 bottom-0 w-px"
+          style="background: linear-gradient(180deg, transparent, rgba(255,255,255,0.15), transparent); animation: driftB 24s ease-in-out infinite 4s;">
+        </div>
+
+        <div class="bg-scanline absolute left-0 right-0 h-48"
+          style="background: linear-gradient(180deg, transparent, rgba(255,255,255,0.02), transparent); animation: scanline 14s linear infinite; filter: blur(4px); transform: translateY(-200px); opacity: 0;">
+        </div>
+
+        <div class="bg-dot absolute"
+          style="top: 15%; left: 8%; width: 8px; height: 8px; border-radius: 50%; background: #60a5fa; animation: pulseDot 4s ease-in-out infinite; box-shadow: 0 0 10px rgba(96,165,250,0.8);">
+        </div>
+
+        <div class="bg-dot absolute"
+          style="top: 40%; left: 18%; width: 6px; height: 6px; border-radius: 50%; background: #93c5fd; animation: pulseDot 4.5s ease-in-out infinite 2s; box-shadow: 0 0 8px rgba(147,197,253,0.6);">
+        </div>
+
+        <div class="bg-dot absolute"
+          style="top: 65%; left: 5%; width: 10px; height: 10px; border-radius: 50%; background: #2563eb; animation: pulseDot 5.5s ease-in-out infinite 1.2s; box-shadow: 0 0 10px rgba(37,99,235,0.8);">
+        </div>
+
+        <div class="bg-dot absolute"
+          style="top: 85%; left: 14%; width: 8px; height: 8px; border-radius: 50%; background: #3b82f6; animation: pulseDot 6s ease-in-out infinite 0.7s; box-shadow: 0 0 10px rgba(59,130,246,0.8);">
+        </div>
+
+        <div class="bg-dot absolute"
+          style="top: 12%; right: 15%; width: 8px; height: 8px; border-radius: 50%; background: #3b82f6; animation: pulseDot 3.8s ease-in-out infinite 2.5s; box-shadow: 0 0 10px rgba(59,130,246,0.8);">
+        </div>
+
+        <div class="bg-dot absolute"
+          style="top: 45%; right: 7%; width: 10px; height: 10px; border-radius: 50%; background: #2563eb; animation: pulseDot 5s ease-in-out infinite 0.5s; box-shadow: 0 0 10px rgba(37,99,235,0.8);">
+        </div>
+
+        <div class="bg-dot absolute"
+          style="top: 70%; right: 18%; width: 8px; height: 8px; border-radius: 50%; background: #38bdf8; animation: pulseDot 6.5s ease-in-out infinite 1.8s; box-shadow: 0 0 10px rgba(56,189,248,0.8);">
+        </div>
+
+        <div class="bg-dot absolute"
+          style="top: 88%; right: 9%; width: 6px; height: 6px; border-radius: 50%; background: #93c5fd; animation: pulseDot 4.2s ease-in-out infinite 3s; box-shadow: 0 0 8px rgba(147,197,253,0.6);">
+        </div>
+
+      </div>
+
+
+      <!-- Dekoracyjna pionowa linia lewa -->
+      <div class="max-w-7xl mx-auto relative z-10">
+
+        <!-- Dekoracyjna pionowa linia lewa -->
+        <div class="max-w-7xl mx-auto">
+
+          <!-- Nagłówek sekcji -->
+          <div class="text-center mb-16 lg:mb-20">
+            <p class="text-red font-semibold text-sm tracking-[0.2em] uppercase mb-4">
+              Znajdź swoją grupę
+            </p>
+            <h2 class="font-serif font-bold text-cream text-4xl lg:text-5xl leading-[1.1] tracking-tighter2">
+              Cztery grupy.<br />
+              <em class="not-italic" style="color:#7b9cda;">Jeden cel.</em>
+            </h2>
+            <p class="text-cream/50 text-sm mt-5 max-w-lg mx-auto leading-relaxed">
+              Podział na 4 grupy rocznikowe: <strong class="text-cream/70">2019/2020, 2017/2018, 2015/2016 i
+                2013/2014</strong>.
+              Składka miesięczna wynosi <strong class="text-cream/70">180 zł</strong> za 2 treningi tygodniowo lub
+              <strong class="text-cream/70">200 zł</strong> za 3 treningi tygodniowo.
+            </p>
+          </div>
+
+          <!-- Siatka kart grup -->
+          <div class="grid md:grid-cols-2 xl:grid-cols-4 gap-6 lg:gap-8">
+
+            <!-- KARTA 1 -->
+            <div
+              class="relative rounded-hero overflow-hidden flex flex-col group transition-transform duration-300 hover:-translate-y-2"
+              style="background:#152252; border:1px solid rgba(255,255,255,0.08);">
+              <div class="h-1.5 w-full" style="background: linear-gradient(90deg,#7b9cda,#4a7cc1);"></div>
+
+              <div class="p-8 flex flex-col gap-5 flex-1">
+                <div class="flex flex-col items-center text-center">
+                  <div
+                    class="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-bold tracking-widest uppercase mb-5"
+                    style="background:rgba(123,156,218,0.15); color:#7b9cda; border:1px solid rgba(123,156,218,0.25);">
+                    Grupa
+                  </div>
+                  <div class="font-serif font-bold text-cream leading-none mb-1"
+                    style="font-size:clamp(1.9rem,4.2vw,2.8rem); letter-spacing:-0.04em;">
+                    2019/2020
+                  </div>
+                  <div class="text-cream/50 text-sm tracking-[0.2em] uppercase font-medium">rocznik</div>
+                </div>
+
+                <div class="h-px w-full" style="background:#7b9cda; opacity:0.4;"></div>
+
+                <div>
+                  <h3 class="font-serif font-bold text-cream text-2xl mb-3">KIDS</h3>
+                  <p class="text-cream/60 text-sm leading-relaxed">
+                    Zajęcia poprzez zabawę dla najmłodszych chłopców, którzy dopiero zaczynają swoją przygodę z piłką.
+                  </p>
+                </div>
+
+                <ul class="flex flex-col gap-2 text-cream/50 text-xs mt-2">
+                  <li class="flex items-center gap-2">
+                    <span class="w-1.5 h-1.5 rounded-full flex-shrink-0" style="background:#7b9cda;"></span>
+                    2 treningi tygodniowo, 45 min
+                  </li>
+                  <li class="flex items-center gap-2">
+                    <span class="w-1.5 h-1.5 rounded-full flex-shrink-0" style="background:#7b9cda;"></span>
+                    Zajęcia w przyjaznej atmosferze
+                  </li>
+                  <li class="flex items-center gap-2">
+                    <span class="w-1.5 h-1.5 rounded-full flex-shrink-0" style="background:#d62828;"></span>
+                    2 pierwsze treningi bezpłatne
+                  </li>
+                </ul>
+              </div>
+            </div>
+
+            <!-- KARTA 2 -->
+            <div
+              class="relative rounded-hero overflow-hidden flex flex-col group transition-transform duration-300 hover:-translate-y-2"
+              style="background:#1a0808; border:1px solid rgba(214,40,40,0.3); box-shadow:0 0 40px rgba(214,40,40,0.12);">
+              <div class="h-1.5 w-full bg-red"></div>
+
+              <div class="absolute top-6 right-6">
+                <span
+                  class="inline-flex px-2.5 py-1 rounded-full text-white text-[10px] font-bold tracking-widest uppercase"
+                  style="background:#d62828;">
+                  Popularna
+                </span>
+              </div>
+
+              <div class="p-8 flex flex-col gap-5 flex-1">
+                <div class="flex flex-col items-center text-center">
+                  <div
+                    class="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-bold tracking-widest uppercase mb-5"
+                    style="background:rgba(214,40,40,0.15); color:#e87070; border:1px solid rgba(214,40,40,0.3);">
+                    Grupa
+                  </div>
+                  <div class="font-serif font-bold text-cream leading-none mb-1"
+                    style="font-size:clamp(1.9rem,4.2vw,2.8rem); letter-spacing:-0.04em;">
+                    2017/2018
+                  </div>
+                  <div class="text-cream/50 text-sm tracking-[0.2em] uppercase font-medium">rocznik</div>
+                </div>
+
+                <div class="h-px w-full bg-red opacity-60"></div>
+
+                <div>
+                  <h3 class="font-serif font-bold text-cream text-2xl mb-3">CONRAD JUNIOR</h3>
+                  <p class="text-cream/60 text-sm leading-relaxed">
+                    Rozwój techniki, gry zespołowej i pewności siebie w kolejnych etapach szkolenia.
+                  </p>
+                </div>
+
+                <ul class="flex flex-col gap-2 text-cream/50 text-xs mt-2">
+                  <li class="flex items-center gap-2">
+                    <span class="w-1.5 h-1.5 rounded-full flex-shrink-0 bg-red"></span>
+                    3 treningi tygodniowo, 60-75 min
+                  </li>
+                  <li class="flex items-center gap-2">
+                    <span class="w-1.5 h-1.5 rounded-full flex-shrink-0 bg-red"></span>
+                    Turnieje i mecze pokazowe
+                  </li>
+                  <li class="flex items-center gap-2">
+                    <span class="w-1.5 h-1.5 rounded-full flex-shrink-0 bg-red"></span>
+                    2 pierwsze treningi bezpłatne
+                  </li>
+                </ul>
+              </div>
+            </div>
+
+            <!-- KARTA 3 -->
+            <div
+              class="relative rounded-hero overflow-hidden flex flex-col group transition-transform duration-300 hover:-translate-y-2"
+              style="background:#152252; border:1px solid rgba(255,255,255,0.08);">
+              <div class="h-1.5 w-full" style="background: linear-gradient(90deg,#4a7cc1,#7b9cda);"></div>
+
+              <div class="p-8 flex flex-col gap-5 flex-1">
+                <div class="flex flex-col items-center text-center">
+                  <div
+                    class="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-bold tracking-widest uppercase mb-5"
+                    style="background:rgba(123,156,218,0.15); color:#7b9cda; border:1px solid rgba(123,156,218,0.25);">
+                    Grupa
+                  </div>
+                  <div class="font-serif font-bold text-cream leading-none mb-1"
+                    style="font-size:clamp(1.9rem,4.2vw,2.8rem); letter-spacing:-0.04em;">
+                    2015/2016
+                  </div>
+                  <div class="text-cream/50 text-sm tracking-[0.2em] uppercase font-medium">rocznik</div>
+                </div>
+
+                <div class="h-px w-full" style="background:#7b9cda; opacity:0.4;"></div>
+
+                <div>
+                  <h3 class="font-serif font-bold text-cream text-2xl mb-3">CONRAD SENIOR</h3>
+                  <p class="text-cream/60 text-sm leading-relaxed">
+                    Intensywniejsze przygotowanie taktyczne i motoryczne dla chłopców z większym doświadczeniem.
+                  </p>
+                </div>
+
+                <ul class="flex flex-col gap-2 text-cream/50 text-xs mt-2">
+                  <li class="flex items-center gap-2">
+                    <span class="w-1.5 h-1.5 rounded-full flex-shrink-0" style="background:#7b9cda;"></span>
+                    3 treningi tygodniowo, 60-75 min
+                  </li>
+                  <li class="flex items-center gap-2">
+                    <span class="w-1.5 h-1.5 rounded-full flex-shrink-0" style="background:#7b9cda;"></span>
+                    Analiza meczów i rozwój gry zespołowej
+                  </li>
+                  <li class="flex items-center gap-2">
+                    <span class="w-1.5 h-1.5 rounded-full flex-shrink-0" style="background:#d62828;"></span>
+                    2 pierwsze treningi bezpłatne
+                  </li>
+                </ul>
+              </div>
+            </div>
+
+            <!-- KARTA 4 -->
+            <div
+              class="relative rounded-hero overflow-hidden flex flex-col group transition-transform duration-300 hover:-translate-y-2"
+              style="background:#152252; border:1px solid rgba(255,255,255,0.08);">
+              <div class="h-1.5 w-full" style="background: linear-gradient(90deg,#4a7cc1,#7b9cda);"></div>
+
+              <div class="p-8 flex flex-col gap-5 flex-1">
+                <div class="flex flex-col items-center text-center">
+                  <div
+                    class="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-bold tracking-widest uppercase mb-5"
+                    style="background:rgba(123,156,218,0.15); color:#7b9cda; border:1px solid rgba(123,156,218,0.25);">
+                    Grupa
+                  </div>
+                  <div class="font-serif font-bold text-cream leading-none mb-1"
+                    style="font-size:clamp(1.9rem,4.2vw,2.8rem); letter-spacing:-0.04em;">
+                    2013/2014
+                  </div>
+                  <div class="text-cream/50 text-sm tracking-[0.2em] uppercase font-medium">rocznik</div>
+                </div>
+
+                <div class="h-px w-full" style="background:#7b9cda; opacity:0.4;"></div>
+
+                <div>
+                  <h3 class="font-serif font-bold text-cream text-2xl mb-3">CONRAD GRANIT</h3>
+                  <p class="text-cream/60 text-sm leading-relaxed">
+                    Grupa dla chłopców o wysokim zaangażowaniu, z treningami przygotowującymi do rywalizacji na wyższym
+                    poziomie.
+                  </p>
+                </div>
+
+                <ul class="flex flex-col gap-2 text-cream/50 text-xs mt-2">
+                  <li class="flex items-center gap-2">
+                    <span class="w-1.5 h-1.5 rounded-full flex-shrink-0" style="background:#7b9cda;"></span>
+                    4 treningi tygodniowo, 90 min
+                  </li>
+                  <li class="flex items-center gap-2">
+                    <span class="w-1.5 h-1.5 rounded-full flex-shrink-0" style="background:#7b9cda;"></span>
+                    Testy motoryczne i rozwój indywidualny
+                  </li>
+                  <li class="flex items-center gap-2">
+                    <span class="w-1.5 h-1.5 rounded-full flex-shrink-0" style="background:#d62828;"></span>
+                    2 pierwsze treningi bezpłatne
+                  </li>
+                </ul>
+              </div>
+            </div>
+
+          </div><!-- /grid kart -->
+
+          <!-- Tekst CTA pod kartami -->
+          <div class="text-center mt-14">
+            <p class="text-cream/50 text-sm mb-5">Nie wiesz, która grupa jest odpowiednia? Zadzwoń - pomożemy dobrać.
+              Pierwsze 2 treningi bezpłatne. Zapraszamy wszystkich chłopców bez względu na poziom umiejętności.</p>
+            <a href="#zapisy" class="btn-cta">
+              Zapisz się - 2 pierwsze treningi bezpłatne
+            </a>
+          </div>
+
+        </div>
+    </section>
+
+
+    <!-- ────────────────────────────────────────────────────────
+         SEKCJA 3 - HARMONOGRAM
+         ──────────────────────────────────────────────────────── -->
+    <section id="harmonogram" class="bg-canvas py-24 lg:py-32 px-6">
+      <div class="max-w-5xl mx-auto">
+
+        <div class="text-center mb-14">
+          <p class="text-red font-semibold text-sm tracking-[0.2em] uppercase mb-4">Plan zajęć</p>
+          <h2 class="font-serif font-bold text-ink text-4xl lg:text-5xl leading-[1.1] tracking-tighter2">
+            Harmonogram<br />
+            <em class="not-italic text-navy">treningów</em>
+          </h2>
+          <p class="text-ink/50 text-sm mt-4 max-w-md mx-auto leading-relaxed">
+            Aktualny harmonogram na nowy sezon pojawi się w sierpniu.
+          </p>
+        </div>
+
+        <div class="rounded-hero p-8 lg:p-10"
+          style="border:1px solid rgba(20,20,19,0.08); box-shadow:0 4px 32px rgba(20,20,19,0.06); background:#faf9f5;">
+          <div
+            class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full text-xs font-semibold tracking-[0.2em] uppercase"
+            style="background:rgba(214,40,40,0.12); color:#b71c1c;">
+            Informacja
+          </div>
+          <h3 class="font-serif font-bold text-ink text-2xl lg:text-3xl mt-4 mb-3">Aktualny harmonogram treningów</h3>
+          <p class="text-ink/60 leading-relaxed">
+            W związku z przygotowaniami do nowego sezonu publikujemy szczegółowy plan zajęć w sierpniu. Zapraszamy do
+            śledzenia aktualności oraz kontaktu z trenerami.
+          </p>
+        </div>
+
+      </div>
+    </section>
+
+
+    <!-- ────────────────────────────────────────────────────────
+         SEKCJA 4 - OBOZY I PÓŁKOLONIE (Bento Grid)
+         ──────────────────────────────────────────────────────── -->
+    <section id="obozy" class="relative overflow-hidden py-24 lg:py-32 px-6" style="background:#0d1b3e;">
+      <!-- Animacja tla -->
+      <div class="absolute inset-0 z-0 pointer-events-none overflow-hidden" aria-hidden="true">
+
+        <div class="bg-geo-A absolute -top-20 -left-20 w-96 h-96 border-2 border-white/20 rotate-12"
+          style="animation: driftA 22s ease-in-out infinite;"></div>
+
+        <div class="bg-geo-B absolute -bottom-24 -right-16 w-80 h-80 border border-white/20 rotate-45"
+          style="animation: driftB 28s ease-in-out infinite;"></div>
+
+        <div class="bg-geo-D absolute top-0 right-1/4 bottom-0 w-px"
+          style="background: linear-gradient(180deg, transparent, rgba(255,255,255,0.15), transparent); animation: driftB 24s ease-in-out infinite 4s;">
+        </div>
+
+        <div class="bg-scanline absolute left-0 right-0 h-48"
+          style="background: linear-gradient(180deg, transparent, rgba(255,255,255,0.02), transparent); animation: scanline 14s linear infinite; filter: blur(4px); transform: translateY(-200px); opacity: 0;">
+        </div>
+
+        <div class="bg-dot absolute"
+          style="top: 15%; left: 8%; width: 8px; height: 8px; border-radius: 50%; background: #60a5fa; animation: pulseDot 4s ease-in-out infinite; box-shadow: 0 0 10px rgba(96,165,250,0.8);">
+        </div>
+
+        <div class="bg-dot absolute"
+          style="top: 40%; left: 18%; width: 6px; height: 6px; border-radius: 50%; background: #93c5fd; animation: pulseDot 4.5s ease-in-out infinite 2s; box-shadow: 0 0 8px rgba(147,197,253,0.6);">
+        </div>
+
+        <div class="bg-dot absolute"
+          style="top: 65%; left: 5%; width: 10px; height: 10px; border-radius: 50%; background: #2563eb; animation: pulseDot 5.5s ease-in-out infinite 1.2s; box-shadow: 0 0 10px rgba(37,99,235,0.8);">
+        </div>
+
+        <div class="bg-dot absolute"
+          style="top: 85%; left: 14%; width: 8px; height: 8px; border-radius: 50%; background: #3b82f6; animation: pulseDot 6s ease-in-out infinite 0.7s; box-shadow: 0 0 10px rgba(59,130,246,0.8);">
+        </div>
+
+        <div class="bg-dot absolute"
+          style="top: 12%; right: 15%; width: 8px; height: 8px; border-radius: 50%; background: #3b82f6; animation: pulseDot 3.8s ease-in-out infinite 2.5s; box-shadow: 0 0 10px rgba(59,130,246,0.8);">
+        </div>
+
+        <div class="bg-dot absolute"
+          style="top: 45%; right: 7%; width: 10px; height: 10px; border-radius: 50%; background: #2563eb; animation: pulseDot 5s ease-in-out infinite 0.5s; box-shadow: 0 0 10px rgba(37,99,235,0.8);">
+        </div>
+
+        <div class="bg-dot absolute"
+          style="top: 70%; right: 18%; width: 8px; height: 8px; border-radius: 50%; background: #38bdf8; animation: pulseDot 6.5s ease-in-out infinite 1.8s; box-shadow: 0 0 10px rgba(56,189,248,0.8);">
+        </div>
+
+        <div class="bg-dot absolute"
+          style="top: 88%; right: 9%; width: 6px; height: 6px; border-radius: 50%; background: #93c5fd; animation: pulseDot 4.2s ease-in-out infinite 3s; box-shadow: 0 0 8px rgba(147,197,253,0.6);">
+        </div>
+
+      </div>
+      <div class="max-w-7xl mx-auto">
+
+        <div class="text-center mb-14">
+          <p class="text-red font-semibold text-sm tracking-[0.2em] uppercase mb-4">Poza sezonem</p>
+          <h2 class="font-serif font-bold text-cream text-4xl lg:text-5xl leading-[1.1] tracking-tighter2">
+            Obozy &amp; Półkolonie<br />
+            <em class="not-italic" style="color:#7b9cda;">UKS Conrad</em>
+          </h2>
+          <p class="text-cream/45 text-sm mt-4 max-w-md mx-auto leading-relaxed">
+            Intensywne szkolenie piłkarskie połączone z wypoczynkiem i przygodą.
+            Miejsca limitowane - rezerwuj z wyprzedzeniem.
+          </p>
+        </div>
+
+        <!-- ═══ BENTO GRID ═══ -->
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 auto-rows-auto">
+
+          <!-- KAFELEK 1 - Obóz letni (duży, zajmuje 2 kolumny lg) -->
+          <div class="lg:col-span-2 relative overflow-hidden group" style="border-radius:16px; min-height:420px;">
+
+            <img src="images/oboz-letni.jpg" alt="Obóz letni UKS Conrad - dzieci grające w piłkę na otwartym boisku"
+              class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-105"
+              loading="lazy" />
+
+            <!-- Gradient overlay -->
+            <div class="absolute inset-0 pointer-events-none"
+              style="background: linear-gradient(160deg, rgba(13,27,62,0.25) 0%, rgba(13,27,62,0.85) 70%, rgba(5,10,25,0.97) 100%);">
+            </div>
+
+            <!-- Odznaka sezonu -->
+            <div class="absolute top-6 left-6">
+              <span
+                class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-bold tracking-widest uppercase text-white"
+                style="background:#d62828; box-shadow:0 2px 12px rgba(214,40,40,0.45);">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="currentColor" class="w-3 h-3">
+                  <path
+                    d="M8 1a.75.75 0 0 1 .75.75v1.5a.75.75 0 0 1-1.5 0v-1.5A.75.75 0 0 1 8 1Zm4.142 2.107a.75.75 0 0 1 0 1.061L11.1 5.21a.75.75 0 1 1-1.06-1.061l1.04-1.042a.75.75 0 0 1 1.062 0Zm-8.284 0a.75.75 0 0 1 1.061 0L5.96 4.149A.75.75 0 0 1 4.9 5.21L3.858 4.168a.75.75 0 0 1 0-1.061ZM8 5.5a2.5 2.5 0 1 1 0 5 2.5 2.5 0 0 1 0-5Zm-4.5 2.75a.75.75 0 0 1-.75.75h-1.5a.75.75 0 0 1 0-1.5h1.5a.75.75 0 0 1 .75.75Zm10.5 0a.75.75 0 0 1-.75.75h-1.5a.75.75 0 0 1 0-1.5h1.5a.75.75 0 0 1 .75.75ZM4.9 10.79a.75.75 0 0 1 1.061 1.061L4.919 12.893a.75.75 0 0 1-1.061-1.06l1.042-1.043Zm6.2 0 1.042 1.042a.75.75 0 1 1-1.061 1.061l-1.042-1.042A.75.75 0 0 1 11.1 10.79ZM8 13.25a.75.75 0 0 1 .75.75v1.5a.75.75 0 0 1-1.5 0v-1.5a.75.75 0 0 1 .75-.75Z" />
+                </svg>
+                Lato 2026
+              </span>
+            </div>
+
+            <!-- Treść na zdjęciu -->
+            <div class="absolute bottom-0 left-0 right-0 p-8">
+              <p class="text-cream/60 text-xs tracking-[0.2em] uppercase font-semibold mb-2">Obóz piłkarski</p>
+              <h3 class="font-serif font-bold text-cream text-3xl lg:text-4xl leading-tight tracking-tighter2 mb-3">
+                Letni Obóz<br />Sportowy
+              </h3>
+              <p class="text-cream/70 text-sm leading-relaxed mb-5 max-w-sm">
+                14 dni intensywnego szkolenia piłkarskiego nad morzem.
+                Dwa treningi dziennie, turnieje, wieczory integracyjne.
+                Dla zawodników 6-16 lat.
+              </p>
+              <div class="flex flex-wrap items-center gap-4 mb-6">
+                <div class="flex items-center gap-2 text-cream/60 text-xs">
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="currentColor"
+                    class="w-3.5 h-3.5 text-red flex-shrink-0">
+                    <path fill-rule="evenodd"
+                      d="M15 8A7 7 0 1 1 1 8a7 7 0 0 1 14 0Zm-5-2.844a.5.5 0 0 0-.854-.353L6 8H4.25a.75.75 0 0 0 0 1.5h2.25a.75.75 0 0 0 .53-.22l2-2v1.97a.75.75 0 0 0 1.5 0V5.5a.5.5 0 0 0-.5-.5H7.97a.75.75 0 0 0 0 1.5h1.47l.032-.313A.5.5 0 0 0 10 5.156Z"
+                      clip-rule="evenodd" />
+                  </svg>
+                  6-16 lat
+                </div>
+                <div class="flex items-center gap-2 text-cream/60 text-xs">
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="currentColor"
+                    class="w-3.5 h-3.5 text-red flex-shrink-0">
+                    <path fill-rule="evenodd"
+                      d="M1 8.74c0 .983.713 1.825 1.69 1.943.764.092 1.534.164 2.31.216v2.351a.75.75 0 0 0 1.28.53l2-2.002c.15-.149.354-.233.567-.233h2.733c1.673 0 3.12-1.096 3.55-2.673.107-.39.163-.8.163-1.223v-1.2a.75.75 0 0 0-.75-.75h-2.5V5.25a.75.75 0 0 0-.75-.75H7.75a.75.75 0 0 0-.75.75V6.5H4.75a.75.75 0 0 0-.75.75v1a.75.75 0 0 0 1.5 0V7.25H7v1.5H5.5a.75.75 0 0 0 0 1.5H7v.06c-.62-.036-1.234-.087-1.84-.152a.75.75 0 0 0-.16 1.492c.668.072 1.342.126 2.02.161l-.53.53a.75.75 0 0 0 1.06 1.06l2-2a.75.75 0 0 0 .22-.53V8.5h2.5v.74c0 .293-.036.578-.104.848-.281 1.026-1.225 1.662-2.296 1.662H9.15l-1.97 1.97a2.25 2.25 0 0 1-3.836-1.592V10.9a18.512 18.512 0 0 1-1.645-.186A2.25 2.25 0 0 1 1 8.74Z"
+                      clip-rule="evenodd" />
+                  </svg>
+                  14 dni / 13 nocy
+                </div>
+                <div class="flex items-center gap-2 text-cream/60 text-xs">
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="currentColor"
+                    class="w-3.5 h-3.5 text-red flex-shrink-0">
+                    <path
+                      d="M3.5 2A1.5 1.5 0 0 0 2 3.5V5c0 1.149.15 2.263.43 3.326a13.022 13.022 0 0 0 9.244 9.244c1.063.28 2.177.43 3.326.43h1.5a1.5 1.5 0 0 0 1.5-1.5v-1.148a1.5 1.5 0 0 0-1.175-1.465l-3.223-.716a1.5 1.5 0 0 0-1.767 1.052l-.267.933c-.117.41-.555.643-.95.48a11.542 11.542 0 0 1-6.254-6.254c-.163-.395.07-.833.48-.95l.933-.267a1.5 1.5 0 0 0 1.052-1.767L4.648 3.175A1.5 1.5 0 0 0 3.5 2Z" />
+                  </svg>
+                  Morze Bałtyckie
+                </div>
+              </div>
+              <div class="flex items-center gap-4">
+                <a href="#zapisy" class="btn-cta text-sm py-3 px-6">Sprawdź wolne miejsca</a>
+              </div>
+            </div>
+          </div>
+
+          <!-- KAFELEK 2 - Półkolonie (kolumna prawa, wiersz 1) -->
+          <div class="relative overflow-hidden group" style="border-radius:16px; min-height:420px;">
+
+            <img src="images/polkolonie.jpg" alt="Półkolonie piłkarskie UKS Conrad - dzieci na boisku"
+              class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-105"
+              loading="lazy" />
+
+            <div class="absolute inset-0 pointer-events-none"
+              style="background: linear-gradient(170deg, rgba(13,27,62,0.1) 0%, rgba(13,27,62,0.9) 65%, rgba(5,10,25,0.98) 100%);">
+            </div>
+
+            <div class="absolute top-6 left-6">
+              <span class="inline-flex px-3 py-1.5 rounded-full text-xs font-bold tracking-widest uppercase"
+                style="background:rgba(123,156,218,0.25); color:#a8c4f0; border:1px solid rgba(123,156,218,0.35);">
+                Wakacje w mieście
+              </span>
+            </div>
+
+            <div class="absolute bottom-0 left-0 right-0 p-7">
+              <p class="text-cream/60 text-xs tracking-[0.2em] uppercase font-semibold mb-2">Półkolonie piłkarskie</p>
+              <h3 class="font-serif font-bold text-cream text-2xl lg:text-3xl leading-tight tracking-tighter2 mb-3">
+                Wakacje<br />z Piłką
+              </h3>
+              <p class="text-cream/65 text-sm leading-relaxed mb-5">
+                Codzienne zajęcia 9:00-15:00 przez cały lipiec i sierpień.
+                Dla dzieci 6-12 lat. Opieka, posiłki i turnieje w cenie.
+              </p>
+              <div class="flex items-center gap-4">
+                <a href="#zapisy"
+                  class="inline-flex items-center gap-2 text-sm font-semibold py-3 px-5 rounded-btn transition-all"
+                  style="background:rgba(123,156,218,0.2); color:#a8c4f0; border:1px solid rgba(123,156,218,0.3);"
+                  onmouseover="this.style.background='rgba(123,156,218,0.35)'"
+                  onmouseout="this.style.background='rgba(123,156,218,0.2)'">
+                  Sprawdź terminy
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="currentColor" class="w-4 h-4">
+                    <path fill-rule="evenodd"
+                      d="M2 8a.75.75 0 0 1 .75-.75h8.69L8.22 4.03a.75.75 0 0 1 1.06-1.06l4.5 4.5a.75.75 0 0 1 0 1.06l-4.5 4.5a.75.75 0 0 1-1.06-1.06l3.22-3.22H2.75A.75.75 0 0 1 2 8Z"
+                      clip-rule="evenodd" />
+                  </svg>
+                </a>
+              </div>
+            </div>
+          </div>
+
+          <!-- KAFELEK 3 - Obóz zimowy (mniejszy, pełna szerokość md, 1/3 lg) -->
+          <div class="relative overflow-hidden group" style="border-radius:16px; min-height:300px;">
+            <img src="images/oboz-zimowy.jpg" alt="Zimowy obóz halowy UKS Conrad"
+              class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-105"
+              loading="lazy" />
+
+            <div class="absolute inset-0 pointer-events-none"
+              style="background: linear-gradient(170deg, rgba(13,27,62,0.05) 0%, rgba(13,27,62,0.88) 60%, rgba(5,10,25,0.97) 100%);">
+            </div>
+
+            <div class="absolute top-5 left-5">
+              <span class="inline-flex px-2.5 py-1 rounded-full text-[10px] font-bold tracking-widest uppercase"
+                style="background:rgba(255,255,255,0.12); color:rgba(240,237,227,0.8); border:1px solid rgba(255,255,255,0.15);">
+                Ferie 2027
+              </span>
+            </div>
+
+            <div class="absolute bottom-0 left-0 right-0 p-6">
+              <p class="text-cream/55 text-xs tracking-[0.2em] uppercase font-semibold mb-1.5">Halowy</p>
+              <h3 class="font-serif font-bold text-cream text-xl lg:text-2xl leading-tight tracking-tighter2 mb-2">
+                Zimowy Obóz<br />Halowy
+              </h3>
+              <p class="text-cream/60 text-xs leading-relaxed mb-4">
+                7 dni treningów w hali podczas ferii zimowych. Intensywna technika
+                i małe gry. Wiek 6-14 lat.
+              </p>
+              <div class="flex items-center gap-3">
+                <a href="#zapisy"
+                  class="inline-flex items-center gap-2 text-xs font-semibold py-2.5 px-4 rounded-btn transition-all"
+                  style="background:rgba(255,255,255,0.1); color:rgba(240,237,227,0.85); border:1px solid rgba(255,255,255,0.15);"
+                  onmouseover="this.style.background='rgba(255,255,255,0.18)'"
+                  onmouseout="this.style.background='rgba(255,255,255,0.1)'">
+                  Sprawdź wolne miejsca
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="currentColor" class="w-3.5 h-3.5">
+                    <path fill-rule="evenodd"
+                      d="M2 8a.75.75 0 0 1 .75-.75h8.69L8.22 4.03a.75.75 0 0 1 1.06-1.06l4.5 4.5a.75.75 0 0 1 0 1.06l-4.5 4.5a.75.75 0 0 1-1.06-1.06l3.22-3.22H2.75A.75.75 0 0 1 2 8Z"
+                      clip-rule="evenodd" />
+                  </svg>
+                </a>
+              </div>
+            </div>
+          </div>
+
+          <!-- KAFELEK 4 - Turnieje wyjazdowe (2/3 szerokości lg) -->
+          <div class="lg:col-span-2 relative overflow-hidden group" style="border-radius:16px; min-height:280px;">
+
+            <img src="images/turnieje.jpg" alt="Turnieje wyjazdowe UKS Conrad - dzieci celebrują zwycięstwo"
+              class="absolute inset-0 w-full h-full object-cover object-center transition-transform duration-700 ease-out group-hover:scale-105 bac"
+              loading="lazy" />
+
+            <div class="absolute inset-0 pointer-events-none"
+              style="background: linear-gradient(90deg, rgba(5,10,25,0.95) 0%, rgba(13,27,62,0.75) 50%, rgba(13,27,62,0.2) 100%);">
+            </div>
+
+            <div class="absolute inset-0 flex items-center p-8 lg:p-10">
+              <div class="max-w-sm">
+                <span class="inline-flex px-3 py-1 rounded-full text-[10px] font-bold tracking-widest uppercase mb-4"
+                  style="background:rgba(214,40,40,0.2); color:#e87070; border:1px solid rgba(214,40,40,0.3);">
+                  Cały rok
+                </span>
+                <h3 class="font-serif font-bold text-cream text-2xl lg:text-3xl leading-tight tracking-tighter2 mb-3">
+                  Turnieje<br />Wyjazdowe
+                </h3>
+                <p class="text-cream/65 text-sm leading-relaxed mb-6">
+                  Organizujemy wyjazdy na turnieje krajowe i zagraniczne. Reprezentuj
+                  barwy UKS Conrad i mierz się z najlepszymi rówieśnikami z całej Polski.
+                </p>
+                <a href="#kontakt" class="btn-ghost text-sm py-3 px-6">
+                  Zapytaj o kalendarz
+                </a>
+              </div>
+            </div>
+          </div>
+
+        </div><!-- /bento grid -->
+      </div>
+    </section>
+
+    <!-- ────────────────────────────────────────────────────────
+         SEKCJA 5 - NABORY & KONTAKT
+         ──────────────────────────────────────────────────────── -->
+    <section id="kontakt" class="bg-canvas py-24 lg:py-32 px-6">
+      <div class="max-w-6xl mx-auto">
+
+        <!-- CALLOUT - czerwony blok -->
+        <div class="relative overflow-hidden rounded-hero mb-14 lg:mb-16"
+          style="background: linear-gradient(135deg, #b71c1c 0%, #d62828 45%, #c62020 100%);">
+
+          <!-- Dekoracyjne kółka w tle callout -->
+          <div class="absolute -top-16 -right-16 w-72 h-72 rounded-full"
+            style="background:#fff; animation: floatA 14s ease-in-out infinite;"></div>
+          <div class="absolute -bottom-20 -left-10 w-56 h-56 rounded-full"
+            style="background:#fff; animation: floatB 18s ease-in-out infinite;"></div>
+          <div class="absolute top-1/2 right-1/3 w-4 h-4 rounded-full"
+            style="background:#fff; animation: floatC 9s ease-in-out infinite;"></div>
+
+          <div class="relative z-10 grid lg:grid-cols-2 gap-8 items-center p-10 lg:p-14">
+            <!-- Lewa: tekst -->
+            <div>
+              <span
+                class="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-bold tracking-widest uppercase mb-6"
+                style="background:rgba(255,255,255,0.18); color:#fff;">
+                <span class="w-2 h-2 rounded-full bg-white animate-pulse"></span>
+                Nabory otwarte - Sezon 2026/2027
+              </span>
+              <h2
+                class="font-serif font-black text-white text-4xl lg:text-5xl uppercase leading-[1.05] tracking-wide mb-4">
+                Pierwsze 2 treningi<br />
+                <span style="color:rgba(255,255,255,0.75);">całkowicie</span><br />
+                bezpłatne
+              </h2>
+              <p class="text-white/75 text-base leading-relaxed max-w-md">
+                Nie musisz się od razu zobowiązywać. Przyjdź, sprawdź atmosferę
+                i przekonaj się, czy UKS Conrad to miejsce dla Twojego dziecka.
+                Zapisy przez formularz obok lub telefonicznie.
+              </p>
+            </div>
+
+            <!-- Prawa: mini-statsy -->
+            <div class="grid grid-cols-2 gap-4">
+
+              <div class="rounded-card p-5 text-center cursor-default
+           transition-all duration-300 ease-out
+           hover:-translate-y-1.5 hover:scale-[1.03]"
+                style="background:rgba(255,255,255,0.12); border:1px solid rgba(255,255,255,0.2);"
+                onmouseover="this.style.background='rgba(255,255,255,0.22)'; this.style.borderColor='rgba(255,255,255,0.45)'; this.style.boxShadow='0 12px 32px rgba(0,0,0,0.25)';"
+                onmouseout="this.style.background='rgba(255,255,255,0.12)'; this.style.borderColor='rgba(255,255,255,0.2)'; this.style.boxShadow='none';">
+                <div class="font-serif font-black text-white text-4xl leading-none mb-1
+             transition-transform duration-300">2</div>
+                <div class="text-white/65 text-xs tracking-widest uppercase">Darmowe treningi</div>
+              </div>
+
+              <div class="rounded-card p-5 text-center cursor-default
+           transition-all duration-300 ease-out
+           hover:-translate-y-1.5 hover:scale-[1.03]"
+                style="background:rgba(255,255,255,0.12); border:1px solid rgba(255,255,255,0.2);"
+                onmouseover="this.style.background='rgba(255,255,255,0.22)'; this.style.borderColor='rgba(255,255,255,0.45)'; this.style.boxShadow='0 12px 32px rgba(0,0,0,0.25)';"
+                onmouseout="this.style.background='rgba(255,255,255,0.12)'; this.style.borderColor='rgba(255,255,255,0.2)'; this.style.boxShadow='none';">
+                <div class="font-serif font-black text-white text-4xl leading-none mb-1">6-16</div>
+                <div class="text-white/65 text-xs tracking-widest uppercase">Lat - wiek</div>
+              </div>
+
+              <div class="rounded-card p-5 text-center cursor-default
+           transition-all duration-300 ease-out
+           hover:-translate-y-1.5 hover:scale-[1.03]"
+                style="background:rgba(255,255,255,0.12); border:1px solid rgba(255,255,255,0.2);"
+                onmouseover="this.style.background='rgba(255,255,255,0.22)'; this.style.borderColor='rgba(255,255,255,0.45)'; this.style.boxShadow='0 12px 32px rgba(0,0,0,0.25)';"
+                onmouseout="this.style.background='rgba(255,255,255,0.12)'; this.style.borderColor='rgba(255,255,255,0.2)'; this.style.boxShadow='none';">
+                <div class="font-serif font-black text-white text-4xl leading-none mb-1">5</div>
+                <div class="text-white/65 text-xs tracking-widets uppercase">Grup wiekowych</div>
+              </div>
+
+              <div class="rounded-card p-5 text-center cursor-default
+           transition-all duration-300 ease-out
+           hover:-translate-y-1.5 hover:scale-[1.03]"
+                style="background:rgba(255,255,255,0.12); border:1px solid rgba(255,255,255,0.2);"
+                onmouseover="this.style.background='rgba(255,255,255,0.22)'; this.style.borderColor='rgba(255,255,255,0.45)'; this.style.boxShadow='0 12px 32px rgba(0,0,0,0.25)';"
+                onmouseout="this.style.background='rgba(255,255,255,0.12)'; this.style.borderColor='rgba(255,255,255,0.2)'; this.style.boxShadow='none';">
+                <div class="font-serif font-black text-white text-4xl leading-none mb-1">12</div>
+                <div class="text-white/65 text-xs tracking-widest uppercase">Max w grupie</div>
+              </div>
+
+            </div>
+          </div>
+        </div>
+
+        <!-- FORMULARZ + DANE KONTAKTOWE -->
+        <div class="grid lg:grid-cols-5 gap-12 items-start">
+
+          <!-- Lewa: dane + dojazd (2 kol.) -->
+          <div class="lg:col-span-2 flex flex-col gap-8">
+            <div>
+              <h3 class="font-serif font-extrabold text-ink text-2xl uppercase tracking-wide mb-5">
+                Skontaktuj się z nami
+              </h3>
+              <div class="flex flex-col gap-4">
+                <a href="tel:+48781676558" class="flex items-center gap-4 p-4 rounded-card group transition-colors"
+                  style="background:#efece2; border:1px solid rgba(20,20,19,0.07);">
+                  <div
+                    class="w-10 h-10 rounded-btn bg-navy flex items-center justify-center flex-shrink-0 transition-colors group-hover:bg-red">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="#f0ede3" class="w-5 h-5">
+                      <path fill-rule="evenodd"
+                        d="M2 3.5A1.5 1.5 0 0 1 3.5 2h1.148a1.5 1.5 0 0 1 1.465 1.175l.716 3.223a1.5 1.5 0 0 1-1.052 1.767l-.933.267c-.41.117-.643.555-.48.95a11.542 11.542 0 0 0 6.254 6.254c.395.163.833-.07.95-.48l.267-.933a1.5 1.5 0 0 1 1.767-1.052l3.223.716A1.5 1.5 0 0 1 18 16.352V17.5a1.5 1.5 0 0 1-1.5 1.5H15c-8.284 0-15-6.716-15-15V3.5Z"
+                        clip-rule="evenodd" />
+                    </svg>
+                  </div>
+                  <div>
+                    <div class="text-ink/40 text-[10px] tracking-widest uppercase mb-0.5">Telefon</div>
+                    <div class="text-ink font-semibold text-sm">+48 781 676 558</div>
+                  </div>
+                </a>
+
+                <a href="mailto:tomczewski1973@wp.pl"
+                  class="flex items-center gap-4 p-4 rounded-card group transition-colors"
+                  style="background:#efece2; border:1px solid rgba(20,20,19,0.07);">
+                  <div
+                    class="w-10 h-10 rounded-btn bg-navy flex items-center justify-center flex-shrink-0 transition-colors group-hover:bg-red">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="#f0ede3" class="w-5 h-5">
+                      <path
+                        d="M3 4a2 2 0 0 0-2 2v1.161l8.441 4.221a1.25 1.25 0 0 0 1.118 0L19 7.161V6a2 2 0 0 0-2-2H3Z" />
+                      <path
+                        d="m19 8.839-7.77 3.885a2.75 2.75 0 0 1-2.46 0L1 8.839V14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V8.839Z" />
+                    </svg>
+                  </div>
+                  <div>
+                    <div class="text-ink/40 text-[10px] tracking-widest uppercase mb-0.5">E-mail</div>
+                    <div class="text-ink font-semibold text-sm">tomczewski1973@wp.pl</div>
+                  </div>
+                </a>
+
+                <div class="flex items-center gap-4 p-4 rounded-card"
+                  style="background:#efece2; border:1px solid rgba(20,20,19,0.07);">
+                  <div class="w-10 h-10 rounded-btn bg-navy flex items-center justify-center flex-shrink-0">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="#f0ede3" class="w-5 h-5">
+                      <path fill-rule="evenodd"
+                        d="m9.69 18.933.003.001C9.89 19.02 10 19 10 19s.11.02.308-.066l.002-.001.006-.003.018-.008a5.741 5.741 0 0 0 .281-.14c.186-.096.446-.24.757-.433.62-.384 1.445-.966 2.274-1.765C15.302 15.12 17 12.462 17 9A7 7 0 1 0 3 9c0 3.462 1.698 6.12 3.354 7.585.829.799 1.654 1.38 2.274 1.765.311.193.571.337.757.433a5.741 5.741 0 0 0 .299.148l.006.003ZM10 11.25a2.25 2.25 0 1 0 0-4.5 2.25 2.25 0 0 0 0 4.5Z"
+                        clip-rule="evenodd" />
+                    </svg>
+                  </div>
+                  <div>
+                    <div class="text-ink/40 text-[10px] tracking-widest uppercase mb-0.5">Adres boiska</div>
+                    <div class="text-ink font-semibold text-sm">ul. Chałubińskiego 13, 80-809 Gdańsk</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Godziny trenera -->
+            <div class="rounded-card p-5" style="background:#efece2; border:1px solid rgba(20,20,19,0.07);">
+              <div class="text-ink/40 text-[10px] tracking-widest uppercase mb-3">Godziny kontaktu</div>
+              <div class="flex flex-col gap-2 text-sm">
+                <div class="flex justify-between">
+                  <span class="text-ink/60">Pon - Pt</span>
+                  <span class="text-ink font-semibold">08:00 - 22:00</span>
+                </div>
+                <div class="flex justify-between">
+                  <span class="text-ink/60">Sobota</span>
+                  <span class="text-ink font-semibold">08:00 - 22:00</span>
+                </div>
+                <div class="flex justify-between">
+                  <span class="text-ink/60">Niedziela</span>
+                  <span class="text-ink/30">08:00 - 22:00</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Prawa: formularz (3 kol.) -->
+          <div id="zapisy" class="lg:col-span-3 rounded-hero p-8 lg:p-10"
+            style="background:#fff; border:1px solid rgba(20,20,19,0.08); box-shadow: 0 8px 48px rgba(20,20,19,0.07);">
+
+            <h3 class="font-serif font-extrabold text-ink text-2xl uppercase tracking-wide mb-1">
+              Zapisz dziecko
+            </h3>
+            <p class="text-ink/50 text-sm mb-7">
+              Wypełnij formularz - oddzwonimy w ciągu 24 godzin i umówimy 2 bezpłatne treningi próbne.
+            </p>
+
+            <!-- Formularz -->
+            <form id="zapisy-form" action="https://formspree.io/f/TWOJ_ID" method="POST" class="flex flex-col gap-5">
+              <div class="flex flex-col gap-1.5">
+                <label for="f-imie" class="text-xs font-semibold text-ink/60 tracking-widest uppercase">
+                  Imię i nazwisko rodzica <span class="text-red">*</span>
+                </label>
+                <input id="f-imie" name="imie_rodzica" type="text" placeholder="np. Anna Kowalska" required class="w-full px-4 py-3.5 rounded-btn text-sm text-ink placeholder-ink/30
+             border outline-none transition-all duration-200"
+                  style="background:#faf9f5; border-color:rgba(20,20,19,0.15);"
+                  onfocus="this.style.borderColor='#d62828'; this.style.boxShadow='0 0 0 4px rgba(214,40,40,0.10)';"
+                  onblur="this.style.borderColor='rgba(20,20,19,0.15)'; this.style.boxShadow='none';" />
+              </div>
+
+              <!-- Telefon -->
+              <div class="flex flex-col gap-1.5">
+                <label for="f-tel" class="text-xs font-semibold text-ink/60 tracking-widest uppercase">
+                  Numer telefonu <span class="text-red">*</span>
+                </label>
+                <input id="f-tel" name="telefon" type="tel" placeholder="+48 " required class="w-full px-4 py-3.5 rounded-btn text-sm text-ink placeholder-ink/30
+             border outline-none transition-all duration-200"
+                  style="background:#faf9f5; border-color:rgba(20,20,19,0.15);"
+                  onfocus="this.style.borderColor='#d62828'; this.style.boxShadow='0 0 0 4px rgba(214,40,40,0.10)';"
+                  onblur="this.style.borderColor='rgba(20,20,19,0.15)'; this.style.boxShadow='none';" />
+              </div>
+
+              <!-- Wiek + Sekcja -->
+              <div class="grid sm:grid-cols-2 gap-5">
+                <div class="flex flex-col gap-1.5">
+                  <label for="f-wiek" class="text-xs font-semibold text-ink/60 tracking-widets uppercase">
+                    Wiek dziecka <span class="text-red">*</span>
+                  </label>
+                  <input id="f-wiek" name="wiek_dziecka" type="number" min="6" max="16" placeholder="np. 8" required
+                    class="w-full px-4 py-3.5 rounded-btn text-sm text-ink placeholder-ink/30
+               border outline-none transition-all duration-200"
+                    style="background:#faf9f5; border-color:rgba(20,20,19,0.15);"
+                    onfocus="this.style.borderColor='#d62828'; this.style.boxShadow='0 0 0 4px rgba(214,40,40,0.10)';"
+                    onblur="this.style.borderColor='rgba(20,20,19,0.15)'; this.style.boxShadow='none';" />
+                </div>
+
+                <div class="flex flex-col gap-1.5">
+                  <label for="f-sekcja" class="text-xs font-semibold text-ink/60 tracking-widest uppercase">
+                    Wybór sekcji <span class="text-red">*</span>
+                  </label>
+                  <div class="relative">
+                    <select id="f-sekcja" name="sekcja" required class="w-full px-4 py-3.5 rounded-btn text-sm text-ink
+                 border outline-none transition-all duration-200 appearance-none cursor-pointer"
+                      style="background:#faf9f5; border-color:rgba(20,20,19,0.15);"
+                      onfocus="this.style.borderColor='#d62828'; this.style.boxShadow='0 0 0 4px rgba(214,40,40,0.10)';"
+                      onblur="this.style.borderColor='rgba(20,20,19,0.15)'; this.style.boxShadow='none';">
+                      <option value="" disabled selected>Wybierz grupę</option>
+                      <option value="KIDS (6-8 lat)">KIDS (6-8 lat)</option>
+                      <option value="JUNIOR I (9-12 lat)">JUNIOR I (9-12 lat)</option>
+                      <option value="GRANIT (13-16 lat)">GRANIT (13-16 lat)</option>
+                      <option value="DZIEWCZĘTA (8-14 lat)">DZIEWCZĘTA (8-14 lat)</option>
+                    </select>
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="currentColor"
+                      class="w-4 h-4 absolute right-3.5 top-1/2 -translate-y-1/2 text-ink/35 pointer-events-none">
+                      <path fill-rule="evenodd"
+                        d="M4.22 6.22a.75.75 0 0 1 1.06 0L8 8.94l2.72-2.72a.75.75 0 1 1 1.06 1.06l-3.25 3.25a.75.75 0 0 1-1.06 0L4.22 7.28a.75.75 0 0 1 0-1.06Z"
+                        clip-rule="evenodd" />
+                    </svg>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Wiadomość -->
+              <div class="flex flex-col gap-1.5">
+                <label for="f-wiad" class="text-xs font-semibold text-ink/60 tracking-widest uppercase">
+                  Dodatkowe informacje
+                  <span class="text-ink/30 font-normal normal-case">(opcjonalne)</span>
+                </label>
+                <textarea id="f-wiad" name="wiadomosc" rows="3" placeholder="np. preferowane dni tygodnia, pytania..."
+                  class="w-full px-4 py-3.5 rounded-btn text-sm text-ink placeholder-ink/30
+             border outline-none transition-all duration-200 resize-none"
+                  style="background:#faf9f5; border-color:rgba(20,20,19,0.15);"
+                  onfocus="this.style.borderColor='#d62828'; this.style.boxShadow='0 0 0 4px rgba(214,40,40,0.10)';"
+                  onblur="this.style.borderColor='rgba(20,20,19,0.15)'; this.style.boxShadow='none';"></textarea>
+              </div>
+
+              <!-- Zgoda RODO -->
+              <label class="flex items-start gap-3 cursor-pointer">
+                <input id="f-rodo" type="checkbox" name="_rodo" required
+                  class="mt-0.5 w-4 h-4 flex-shrink-0 rounded accent-red cursor-pointer" />
+                <span class="text-ink/50 text-xs leading-relaxed">
+                  Wyrażam zgodę na przetwarzanie danych osobowych przez UKS Conrad
+                  zgodnie z <a href="#rodo" class="text-red underline underline-offset-2">Polityką Prywatności</a>.
+                  <span class="text-red">*</span>
+                </span>
+              </label>
+
+              <!-- Honeypot - pułapka na boty (ukryte przed ludźmi) -->
+              <input type="text" name="_gotcha" style="display:none" tabindex="-1" autocomplete="off" />
+
+              <!-- Przekierowanie po wysyłce -->
+              <input type="hidden" name="_next" value="https://TWOJA-DOMENA.pl/dziekujemy.html" />
+
+              <!-- Submit -->
+              <button type="submit" class="btn-cta w-full justify-center text-base py-4 mt-1">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-5 h-5">
+                  <path
+                    d="M3.105 2.288a.75.75 0 0 0-.826.95l1.414 4.926A1.5 1.5 0 0 0 5.135 9.25h6.115a.75.75 0 0 1 0 1.5H5.135a1.5 1.5 0 0 0-1.442 1.086l-1.414 4.926a.75.75 0 0 0 .826.95 28.897 28.897 0 0 0 15.293-7.155.75.75 0 0 0 0-1.114A28.897 28.897 0 0 0 3.105 2.288Z" />
+                </svg>
+                Wyślij zgłoszenie - umów darmowy trening
+              </button>
+            </form>
+            <!-- /formularz -->
+
+          </div><!-- /prawa kolumna -->
+        </div><!-- /grid -->
+
+      </div>
+    </section>
+
+
+    <!-- ────────────────────────────────────────────────────────
+         SEKCJA 6 - RODO (nota prawna)
+         ──────────────────────────────────────────────────────── -->
+    <section id="rodo" class="bg-canvas border-t px-6 py-12" style="border-color:rgba(20,20,19,0.08);">
+      <div class="max-w-4xl mx-auto">
+        <div class="flex items-start gap-4">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"
+            class="w-5 h-5 text-ink/25 flex-shrink-0 mt-0.5">
+            <path fill-rule="evenodd"
+              d="M10 1a4.5 4.5 0 0 0-4.5 4.5V9H5a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-6a2 2 0 0 0-2-2h-.5V5.5A4.5 4.5 0 0 0 10 1Zm3 8V5.5a3 3 0 1 0-6 0V9h6Z"
+              clip-rule="evenodd" />
+          </svg>
+          <div class="flex flex-col gap-3 text-xs text-ink/45 leading-relaxed">
+            <p>
+              <strong class="text-ink/60 font-semibold">Administrator danych osobowych:</strong>
+              Uczniowski Klub Sportowy Conrad z siedzibą przy ul. Chałubińskiego 13, wpisany do ewidencji Starosty.
+            </p>
+            <p>
+              Dane osobowe podane w formularzu kontaktowym (imię, nazwisko, numer telefonu, wiek dziecka)
+              przetwarzane są na podstawie art. 6 ust. 1 lit. a) RODO - tj. na podstawie Twojej dobrowolnej zgody -
+              wyłącznie w celu nawiązania kontaktu i realizacji zapytania dotyczącego zajęć sportowych.
+            </p>
+            <p>
+              Dane nie są przekazywane podmiotom trzecim ani poza Europejski Obszar Gospodarczy.
+              Przysługuje Ci prawo dostępu do danych, ich sprostowania, usunięcia, ograniczenia przetwarzania
+              oraz prawo do cofnięcia zgody w dowolnym momencie, bez wpływu na zgodność z prawem przetwarzania
+              dokonanego przed jej cofnięciem. W sprawie danych osobowych pisz na:
+              <a href="mailto:tomczewski1973@wp.pl"
+                class="underline underline-offset-2 hover:text-ink/70 transition-colors">tomczewski1973@wp.pl</a>
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+
+  <!-- ══════════════════════════════════════════════════════════
+       FOOTER
+       ══════════════════════════════════════════════════════════ -->
+  <footer style="background:#07101f;" role="contentinfo">
+
+    <!-- Górna część stopki -->
+    <div class="max-w-7xl mx-auto px-6 lg:px-10 pt-16 pb-10">
+      <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-10">
+
+        <!-- Kolumna 1: Logo + opis -->
+        <div class="lg:col-span-2 flex flex-col gap-5">
+          <div class="flex items-center gap-3">
+            <div class="w-10 h-10 flex items-center justify-center flex-shrink-0">
+              <img src="images/logo.png" class="">
+            </div>
+            <div>
+              <div class="text-cream font-black text-base tracking-wide uppercase"
+                style="font-family:'Montserrat',sans-serif;">UKS Conrad</div>
+              <div class="text-cream/40 text-[10px] tracking-widest uppercase">Akademia Piłkarska</div>
+            </div>
+          </div>
+          <p class="text-cream/45 text-sm leading-relaxed max-w-xs">
+            Profesjonalne szkolenie piłkarskie dla dzieci i młodzieży w wieku 6-16 lat.
+            Rozwijamy talenty, kształtujemy charaktery.
+          </p>
+          <!-- Social icons -->
+          <div class="flex gap-3 mt-1">
+            <a href="https://www.facebook.com/uksconradpilka/" aria-label="Facebook"
+              class="w-9 h-9 rounded-btn flex items-center justify-center transition-colors"
+              style="background:rgba(255,255,255,0.07); color:rgba(240,237,227,0.5);"
+              onmouseover="this.style.background='#d62828'; this.style.color='#fff';"
+              onmouseout="this.style.background='rgba(255,255,255,0.07)'; this.style.color='rgba(240,237,227,0.5)';">
+              <svg viewBox="0 0 24 24" fill="currentColor" class="w-4 h-4">
+                <path
+                  d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z" />
+              </svg>
+            </a>
+          </div>
+        </div>
+
+        <!-- Kolumna 2: Nawigacja -->
+        <div>
+          <div class="text-cream/30 text-[10px] tracking-[0.2em] uppercase font-semibold mb-5">Menu</div>
+          <ul class="flex flex-col gap-3">
+            <li><a href="#o-nas" class="text-cream/55 text-sm hover:text-cream transition-colors">O nas</a></li>
+            <li><a href="#grupy" class="text-cream/55 text-sm hover:text-cream transition-colors">Grupy wiekowe</a></li>
+            <li><a href="#harmonogram" class="text-cream/55 text-sm hover:text-cream transition-colors">Harmonogram</a>
+            </li>
+            <li><a href="#obozy" class="text-cream/55 text-sm hover:text-cream transition-colors">Obozy i półkolonie</a>
+            </li>
+            <li><a href="galeria.html" class="text-cream/55 text-sm hover:text-cream transition-colors">Galeria ↗</a>
+            </li>
+            <li><a href="#kontakt" class="text-cream/55 text-sm hover:text-cream transition-colors">Kontakt</a></li>
+            <li><a href="#rodo" class="text-cream/55 text-sm hover:text-cream transition-colors">RODO / Prywatność</a>
+            </li>
+          </ul>
+        </div>
+
+        <!-- Kolumna 3: Kontakt -->
+        <div>
+          <div class="text-cream/30 text-[10px] tracking-[0.2em] uppercase font-semibold mb-5">Kontakt</div>
+          <div class="flex flex-col gap-4">
+            <div>
+              <div class="text-cream/30 text-[10px] uppercase tracking-widest mb-1">Telefon</div>
+              <a href="tel:+48781676558" class="text-cream/70 text-sm hover:text-cream transition-colors">+48 781 676
+                558</a>
+            </div>
+            <div>
+              <div class="text-cream/30 text-[10px] uppercase tracking-widest mb-1">E-mail</div>
+              <a href="mailto:tomczewski1973@wp.pl"
+                class="text-cream/70 text-sm hover:text-cream transition-colors">tomczewski1973@wp.pl</a>
+            </div>
+            <div>
+              <div class="text-cream/30 text-[10px] uppercase tracking-widest mb-1">Adres</div>
+              <p class="text-cream/70 text-sm">ul. Chałubińskiego 13<br />80-809 Gdańsk</p>
+            </div>
+            <div>
+              <div class="text-cream/30 text-[10px] uppercase tracking-widest mb-1">NIP</div>
+              <p class="text-cream/40 text-xs">583 216 43 29</p>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- Dolna belka stopki -->
+    <div class="border-t px-6 lg:px-10 py-6" style="border-color:rgba(255,255,255,0.06);">
+      <div class="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-3">
+        <p class="text-cream/30 text-xs">
+          &copy; <span id="footer-year">2025</span> UKS Conrad - Uczniowski Klub Sportowy. Wszelkie prawa zastrzeżone.
+        </p>
+        <div class="flex gap-5">
+          <a href="#rodo" class="text-cream/30 text-xs hover:text-cream/60 transition-colors">Polityka prywatności</a>
+          <a href="#rodo" class="text-cream/30 text-xs hover:text-cream/60 transition-colors">RODO</a>
+          <a href="#kontakt" class="text-cream/30 text-xs hover:text-cream/60 transition-colors">Kontakt</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+  <!-- ══════════════════════════════════════════════════════════
+       JAVASCRIPT - Nav scroll + Mobile menu + Formularz
+       ══════════════════════════════════════════════════════════ -->
+  <script>
+    // Rok w stopce
+    document.getElementById('footer-year').textContent = new Date().getFullYear();
+
+    // Obsługa formularza
+    const form = document.getElementById('zapisy-form');
+
+    function resetValidationStyles() {
+      ['f-imie', 'f-tel', 'f-wiek', 'f-sekcja'].forEach(id => {
+        const el = document.getElementById(id);
+        if (!el) return;
+        el.style.borderColor = 'rgba(20,20,19,0.15)';
+        el.style.boxShadow = 'none';
+      });
+      const rodoEl = document.getElementById('f-rodo');
+      if (rodoEl) {
+        rodoEl.style.outline = '';
+      }
+    }
+
+    function markInvalidField(id) {
+      const el = document.getElementById(id);
+      if (!el) return;
+      el.style.borderColor = '#d62828';
+      el.style.boxShadow = '0 0 0 4px rgba(214,40,40,0.15)';
+    }
+
+    function handleFormSubmit(event) {
+      resetValidationStyles();
+
+      if (!form) return;
+      const formData = new FormData(form);
+      const imie = (formData.get('imie_rodzica') || '').toString().trim();
+      const tel = (formData.get('telefon') || '').toString().trim();
+      const wiek = (formData.get('wiek_dziecka') || '').toString().trim();
+      const sekcja = (formData.get('sekcja') || '').toString().trim();
+      const rodo = document.getElementById('f-rodo')?.checked;
+      const gotcha = (formData.get('_gotcha') || '').toString().trim();
+
+      if (gotcha) {
+        event.preventDefault();
+        return; // pułapka antyspamowa - ignoruj wysyłki botów
+      }
+
+      let invalid = false;
+      if (!imie) {
+        markInvalidField('f-imie');
+        invalid = true;
+      }
+      if (!tel || !/^\+?[0-9\s-]{6,}$/.test(tel)) {
+        markInvalidField('f-tel');
+        invalid = true;
+      }
+      const wiekNum = Number(wiek);
+      if (!wiek || Number.isNaN(wiekNum) || wiekNum < 6 || wiekNum > 16) {
+        markInvalidField('f-wiek');
+        invalid = true;
+      }
+      if (!sekcja) {
+        markInvalidField('f-sekcja');
+        invalid = true;
+      }
+      if (!rodo) {
+        const rodoEl = document.getElementById('f-rodo');
+        if (rodoEl) {
+          rodoEl.style.outline = '2px solid #d62828';
+        }
+        invalid = true;
+      }
+
+      if (invalid) {
+        event.preventDefault();
+      }
+    }
+
+    if (form) {
+      form.addEventListener('submit', handleFormSubmit);
+    }
+
+    const nav = document.getElementById('main-nav');
+    const onScroll = () => {
+      nav.classList.toggle('scrolled', window.scrollY > 40);
+    };
+    window.addEventListener('scroll', onScroll, { passive: true });
+    onScroll(); // wywołaj na starcie
+
+    // Mobile hamburger toggle
+    const hamburger = document.getElementById('hamburger');
+    const mobileMenu = document.getElementById('mobile-menu');
+    const [l1, l2, l3] = hamburger.querySelectorAll('.ham-line');
+    let menuOpen = false;
+
+    hamburger.addEventListener('click', () => {
+      menuOpen = !menuOpen;
+      hamburger.setAttribute('aria-expanded', menuOpen);
+      mobileMenu.classList.toggle('hidden', !menuOpen);
+      // Animacja do X
+      l1.style.transform = menuOpen ? 'translateY(7px) rotate(45deg)' : '';
+      l2.style.opacity = menuOpen ? '0' : '1';
+      l3.style.transform = menuOpen ? 'translateY(-7px) rotate(-45deg)' : '';
+    });
+
+    function closeMobileMenu() {
+      menuOpen = false;
+      hamburger.setAttribute('aria-expanded', false);
+      mobileMenu.classList.add('hidden');
+      l1.style.transform = l3.style.transform = '';
+      l2.style.opacity = '1';
+    }
+
+    // Płynne przewijanie do sekcji (nav + pozostałe linki kotwicowe)
+    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    function scrollToAnchor(hash, { updateHistory = true } = {}) {
+      if (!hash || hash === '#') return;
+      const target = document.getElementById(hash.slice(1));
+      if (!target) return;
+
+      const offset = nav.offsetHeight + 8;
+      const top = target.getBoundingClientRect().top + window.scrollY - offset;
+
+      window.scrollTo({
+        top,
+        behavior: prefersReducedMotion ? 'auto' : 'smooth',
+      });
+
+      if (updateHistory) history.pushState(null, '', hash);
+    }
+
+    document.querySelectorAll('a[href^="#"]').forEach(link => {
+      link.addEventListener('click', (e) => {
+        const href = link.getAttribute('href');
+        if (!href || href === '#') return;
+        if (!document.getElementById(href.slice(1))) return;
+
+        e.preventDefault();
+        if (link.closest('#main-nav')) closeMobileMenu();
+        scrollToAnchor(href);
+      });
+    });
+
+    if (window.location.hash) {
+      requestAnimationFrame(() => {
+        scrollToAnchor(window.location.hash, { updateHistory: false });
+      });
+    }
+  </script>
+
+</body>
+
+</html>

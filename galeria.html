@@ -1,0 +1,743 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Galeria - UKS Conrad Akademia Piłkarska</title>
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Montserrat:wght@700;800;900&display=swap"
+    rel="stylesheet"
+  />
+
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            canvas:  '#faf9f5',
+            ink:     '#141413',
+            navy:    '#0d1b3e',
+            navyMid: '#152252',
+            cream:   '#f0ede3',
+            red:     '#d62828',
+            redHover:'#b71c1c',
+          },
+          fontFamily: {
+            serif: ['"Montserrat"', 'system-ui', 'sans-serif'],
+            sans:  ['Inter', 'system-ui', 'sans-serif'],
+          },
+          borderRadius: {
+            btn:  '8px',
+            card: '12px',
+            hero: '16px',
+          },
+          letterSpacing: {
+            tighter2: '-0.04em',
+          },
+        },
+      },
+    };
+  </script>
+
+  <style>
+    /* ── Baza ──────────────────────────────────────────────── */
+    body {
+      background-color: #faf9f5;
+      color: #141413;
+      font-family: 'Inter', system-ui, sans-serif;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* ── Nawigacja (1:1 z index.html) ─────────────────────── */
+    #main-nav { transition: background 0.3s ease, box-shadow 0.3s ease; }
+    #main-nav.scrolled {
+      background-color: #0d1b3e;
+      box-shadow: 0 2px 20px rgba(0,0,0,0.35);
+    }
+    .nav-link {
+      position: relative;
+      color: #f0ede3;
+      font-size: 0.8125rem;
+      font-weight: 500;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      padding-bottom: 2px;
+      transition: color 0.2s;
+    }
+    .nav-link::after {
+      content: '';
+      position: absolute;
+      bottom: -2px; left: 0;
+      width: 0; height: 2px;
+      background: #d62828;
+      transition: width 0.25s ease;
+    }
+    .nav-link:hover::after { width: 100%; }
+    .nav-link:hover { color: #ffffff; }
+    .nav-link.active::after { width: 100%; }
+
+    .ham-line {
+      display: block;
+      width: 22px; height: 2px;
+      background: #f0ede3;
+      transition: transform 0.3s, opacity 0.3s;
+    }
+
+    /* ── Przyciski (1:1 z index.html) ─────────────────────── */
+    .btn-cta {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: #d62828; color: #ffffff;
+      font-family: 'Inter', sans-serif;
+      font-size: 0.9375rem; font-weight: 700;
+      letter-spacing: 0.04em; text-transform: uppercase;
+      padding: 16px 36px; border-radius: 8px;
+      border: 2px solid transparent; cursor: pointer;
+      transition: background 0.2s, transform 0.15s, box-shadow 0.2s;
+      text-decoration: none;
+    }
+    .btn-cta:hover {
+      background: #b71c1c;
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px rgba(214,40,40,0.4);
+    }
+    .btn-cta:active { transform: translateY(0); }
+
+    /* ── Slider / Karuzela zdjęć ───────────────────────────── */
+    .progress-bar {
+      height: 3px;
+      width: 28px;
+      border-radius: 2px;
+      background: rgba(240,237,227,0.25);
+      cursor: pointer;
+      transition: background 0.3s, width 0.3s, opacity 0.3s;
+      border: none;
+      padding: 0;
+      position: relative;
+      overflow: hidden;
+      --progress: 0;
+    }
+    .progress-bar::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: #d62828;
+      transform-origin: left;
+      transform: scaleX(var(--progress, 0));
+    }
+    .progress-bar.active {
+      width: 52px;
+      background: rgba(240,237,227,0.25);
+    }
+    .progress-bar.paused::after {
+      opacity: 0.75;
+    }
+
+    .slider-button {
+      transition: background 0.2s, transform 0.2s, border-color 0.2s;
+    }
+    .slider-button:hover {
+      background: #d62828 !important;
+      border-color: #d62828 !important;
+      transform: translateY(-50%) scale(1.08);
+    }
+
+    .social-link {
+      transition: background 0.2s, color 0.2s;
+    }
+    .social-link:hover {
+      background: #d62828 !important;
+      color: #fff !important;
+    }
+
+    .slider-track {
+      will-change: transform;
+    }
+
+    .bg-geo-A,
+    .bg-geo-B,
+    .bg-geo-C,
+    .bg-geo-D,
+    .bg-scanline,
+    .bg-dot {
+      animation-fill-mode: both;
+      will-change: transform, opacity;
+    }
+
+    .bg-geo-C {
+      transform: translateY(-50%) translateX(-10px);
+      opacity: 0.25;
+    }
+
+    .bg-scanline {
+      transform: translateY(-200px);
+      opacity: 0;
+    }
+
+    .bg-dot {
+      transform: scale(0.9);
+      opacity: 0.35;
+    }
+
+    @keyframes driftA {
+      0%, 100% { transform: translate(0, 0) rotate(12deg); opacity: 0.35; }
+      50%      { transform: translate(25px, -15px) rotate(17deg); opacity: 0.6; }
+    }
+
+    @keyframes driftB {
+      0%, 100% { transform: translate(0, 0) rotate(45deg); opacity: 0.35; }
+      50%      { transform: translate(-20px, 20px) rotate(39deg); opacity: 0.6; }
+    }
+
+    @keyframes driftC {
+      0%, 100% { transform: translateY(-50%) translateX(-10px); opacity: 0.25; }
+      50%      { transform: translateY(-50%) translateX(40px); opacity: 0.6; }
+    }
+
+    @keyframes scanline {
+      0%   { transform: translateY(-200px); opacity: 0; }
+      10%  { opacity: 1; }
+      90%  { opacity: 1; }
+      100% { transform: translateY(1200px); opacity: 0; }
+    }
+
+    @keyframes pulseDot {
+      0%, 100% { 
+        transform: scale(0.9); 
+        opacity: 0.35; 
+      }
+      50% { 
+        transform: scale(1.15); 
+        opacity: 0.7;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- ══════════════════════════════════════════════════════════
+       STICKY NAV 
+       ══════════════════════════════════════════════════════════ -->
+  <nav id="main-nav" class="fixed top-0 left-0 right-0 z-50 bg-navy">
+    <div class="max-w-7xl mx-auto px-6 lg:px-10">
+      <div class="flex items-center justify-between h-16 lg:h-20">
+
+        <!-- Logo -->
+        <a href="index.html" class="flex items-center gap-3" aria-label="Strona główna UKS Conrad">
+          <div class="w-9 h-9 flex items-center justify-center flex-shrink-0">
+            <img src="images/logo.png">
+          </div>
+          <div class="leading-tight">
+            <div class="text-cream font-black text-sm tracking-wide uppercase" style="font-family:'Montserrat',sans-serif;">UKS Conrad</div>
+            <div class="text-cream/60 text-[10px] tracking-widest uppercase">Akademia Piłkarska</div>
+          </div>
+        </a>
+
+        <!-- Linki desktop -->
+        <ul class="hidden lg:flex items-center gap-8" role="list">
+          <li><a href="index.html#o-nas"       class="nav-link">O nas</a></li>
+          <li><a href="index.html#grupy"       class="nav-link">Grupy</a></li>
+          <li><a href="index.html#harmonogram" class="nav-link">Harmonogram</a></li>
+          <li><a href="index.html#obozy"       class="nav-link">Obozy</a></li>
+          <li><a href="galeria.html"           class="nav-link active">Galeria</a></li>
+          <li><a href="index.html#rodo"        class="nav-link">RODO</a></li>
+          <li><a href="index.html#kontakt"     class="nav-link">Kontakt</a></li>
+        </ul>
+
+        <!-- CTA desktop -->
+        <a href="index.html#zapisy" class="hidden lg:inline-flex btn-cta text-sm py-2.5 px-6">
+          Zapisz się
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="currentColor" class="w-4 h-4">
+            <path fill-rule="evenodd" d="M6.22 3.22a.75.75 0 0 1 1.06 0l4.25 4.25a.75.75 0 0 1 0 1.06l-4.25 4.25a.75.75 0 0 1-1.06-1.06L9.94 8 6.22 4.28a.75.75 0 0 1 0-1.06Z" clip-rule="evenodd"/>
+          </svg>
+        </a>
+
+        <!-- Hamburger -->
+        <button id="hamburger" class="lg:hidden flex flex-col gap-[5px] p-2 -mr-2"
+                aria-label="Otwórz menu" aria-expanded="false" aria-controls="mobile-menu">
+          <span class="ham-line"></span>
+          <span class="ham-line"></span>
+          <span class="ham-line"></span>
+        </button>
+      </div>
+    </div>
+
+    <!-- Mobile menu -->
+    <div id="mobile-menu" class="lg:hidden hidden bg-navy border-t border-white/10">
+      <ul class="flex flex-col px-6 py-5 gap-4" role="list">
+        <li><a href="index.html#o-nas"       class="nav-link block py-1" onclick="closeMobileMenu()">O nas</a></li>
+        <li><a href="index.html#grupy"       class="nav-link block py-1" onclick="closeMobileMenu()">Grupy</a></li>
+        <li><a href="index.html#harmonogram" class="nav-link block py-1" onclick="closeMobileMenu()">Harmonogram</a></li>
+        <li><a href="index.html#obozy"       class="nav-link block py-1" onclick="closeMobileMenu()">Obozy</a></li>
+        <li><a href="galeria.html"           class="nav-link active block py-1" onclick="closeMobileMenu()">Galeria</a></li>
+        <li><a href="index.html#rodo"        class="nav-link block py-1" onclick="closeMobileMenu()">RODO</a></li>
+        <li><a href="index.html#kontakt"     class="nav-link block py-1" onclick="closeMobileMenu()">Kontakt</a></li>
+        <li class="pt-2">
+          <a href="index.html#zapisy" class="btn-cta w-full justify-center" onclick="closeMobileMenu()">Zapisz się</a>
+        </li>
+      </ul>
+    </div>
+  </nav>
+
+
+    <!-- ══════════════════════════════════════════════════════════
+      MAIN - GALERIA
+      ══════════════════════════════════════════════════════════ -->
+  <main style="background:#0d1b3e;" class="pt-16 lg:pt-20 min-h-[60vh]">
+
+    <!-- ══════════════════════════════════════════════════════════
+     SLIDER
+     ══════════════════════════════════════════════════════════ -->
+<section aria-label="Galeria - slider" class="px-5 lg:px-10 pt-16 pb-10">
+  <!-- Animacja tla -->
+          <div class="absolute inset-0 z-0 pointer-events-none overflow-hidden" aria-hidden="true">
+
+            <div class="bg-geo-A absolute -top-20 -left-20 w-96 h-96 border-2 border-white/20 rotate-12" style="animation: driftA 22s ease-in-out infinite;"></div>
+          
+            <div class="bg-geo-B absolute -bottom-24 -right-16 w-80 h-80 border border-white/20 rotate-45" style="animation: driftB 28s ease-in-out infinite;"></div>
+          
+            <div class="bg-geo-D absolute top-0 right-1/4 bottom-0 w-px" style="background: linear-gradient(180deg, transparent, rgba(255,255,255,0.15), transparent); animation: driftB 24s ease-in-out infinite 4s;"></div>
+          
+            <div class="bg-scanline absolute left-0 right-0 h-48" style="background: linear-gradient(180deg, transparent, rgba(255,255,255,0.02), transparent); animation: scanline 14s linear infinite; filter: blur(4px); transform: translateY(-200px); opacity: 0;"></div>
+          
+            <div class="bg-dot absolute" style="top: 15%; left: 8%; width: 8px; height: 8px; border-radius: 50%; background: #60a5fa; animation: pulseDot 4s ease-in-out infinite; box-shadow: 0 0 10px rgba(96,165,250,0.8);"></div>
+            
+            <div class="bg-dot absolute" style="top: 40%; left: 18%; width: 6px; height: 6px; border-radius: 50%; background: #93c5fd; animation: pulseDot 4.5s ease-in-out infinite 2s; box-shadow: 0 0 8px rgba(147,197,253,0.6);"></div>
+            
+            <div class="bg-dot absolute" style="top: 65%; left: 5%; width: 10px; height: 10px; border-radius: 50%; background: #2563eb; animation: pulseDot 5.5s ease-in-out infinite 1.2s; box-shadow: 0 0 10px rgba(37,99,235,0.8);"></div>
+            
+            <div class="bg-dot absolute" style="top: 85%; left: 14%; width: 8px; height: 8px; border-radius: 50%; background: #3b82f6; animation: pulseDot 6s ease-in-out infinite 0.7s; box-shadow: 0 0 10px rgba(59,130,246,0.8);"></div>
+          
+            <div class="bg-dot absolute" style="top: 12%; right: 15%; width: 8px; height: 8px; border-radius: 50%; background: #3b82f6; animation: pulseDot 3.8s ease-in-out infinite 2.5s; box-shadow: 0 0 10px rgba(59,130,246,0.8);"></div>
+            
+            <div class="bg-dot absolute" style="top: 45%; right: 7%; width: 10px; height: 10px; border-radius: 50%; background: #2563eb; animation: pulseDot 5s ease-in-out infinite 0.5s; box-shadow: 0 0 10px rgba(37,99,235,0.8);"></div>
+            
+            <div class="bg-dot absolute" style="top: 70%; right: 18%; width: 8px; height: 8px; border-radius: 50%; background: #38bdf8; animation: pulseDot 6.5s ease-in-out infinite 1.8s; box-shadow: 0 0 10px rgba(56,189,248,0.8);"></div>
+            
+            <div class="bg-dot absolute" style="top: 88%; right: 9%; width: 6px; height: 6px; border-radius: 50%; background: #93c5fd; animation: pulseDot 4.2s ease-in-out infinite 3s; box-shadow: 0 0 8px rgba(147,197,253,0.6);"></div>
+          
+          </div>
+  <div class="max-w-6xl mx-auto">
+
+    <!-- Eyebrow -->
+    <div class="text-center mb-10">
+      <p class="text-red font-semibold text-sm tracking-[0.2em] uppercase mb-3">UKS Conrad</p>
+      <h1 class="font-serif font-black text-cream text-5xl lg:text-6xl uppercase tracking-wide leading-none">
+        Galeria
+      </h1>
+      <p class="text-cream/40 text-sm mt-3 max-w-md mx-auto leading-relaxed">
+        Najlepsze chwile z treningów, turniejów i obozów.
+      </p>
+    </div>
+
+    <!-- ─── SLIDER WRAPPER ────────────────────────────────── -->
+    <div
+      id="slider"
+      class="relative rounded-hero overflow-hidden group"
+      style="background:#07101f; box-shadow: 0 24px 80px rgba(5,10,25,0.6);"
+    >
+
+      <!-- SLAJDY ─────────────────────────────────────────── -->
+      <div id="slider-track" class="flex slider-track" style="transition: transform 0.65s cubic-bezier(0.4,0,0.2,1);">
+
+        <!-- ─ SLIDE 1 ──────────────────────────────────────-->
+        <div class="slide flex-shrink-0 w-full relative" style="height: clamp(260px, 50vw, 560px);">
+          <img
+            src="images/gallery/slider1.jpg"
+            alt="Mecz juniorów UKS Conrad"
+            class="w-full h-full object-cover"
+            style="transition: transform 8s ease; transform: scale(1.04);"
+            loading="eager"
+          />
+          <!-- Gradient overlay -->
+          <div class="absolute inset-0 pointer-events-none"
+               style="background: linear-gradient(160deg, transparent 40%, rgba(5,10,25,0.85) 100%);"></div>
+          <!-- Podpis -->
+          <div class="absolute bottom-7 left-8 right-20">
+            <span class="inline-block px-2.5 py-1 rounded-full text-[10px] font-bold tracking-widest uppercase mb-2"
+                  style="background:#d62828; color:#fff;">Mecz</span>
+            <p class="font-serif font-black text-cream text-xl lg:text-3xl uppercase tracking-wide leading-tight">
+              Finał Turnieju Wiosna 2025
+            </p>
+            <p class="text-cream/50 text-xs mt-1">Conrad Junior · Kwiecień 2025</p>
+          </div>
+        </div>
+        <!-- -->
+
+        <div class="slide flex-shrink-0 w-full relative" style="height: clamp(260px, 50vw, 560px);">
+          <img
+            src="images/gallery/slider2.jpg"
+            alt="Letni obóz piłkarski UKS Conrad"
+            class="w-full h-full object-cover"
+            loading="lazy"
+          />
+          <div class="absolute inset-0 pointer-events-none"
+               style="background: linear-gradient(160deg, transparent 40%, rgba(5,10,25,0.85) 100%);"></div>
+          <div class="absolute bottom-7 left-8 right-20">
+            <span class="inline-block px-2.5 py-1 rounded-full text-[10px] font-bold tracking-widest uppercase mb-2"
+                  style="background:rgba(123,156,218,0.9); color:#fff;">Obóz letni</span>
+            <p class="font-serif font-black text-cream text-xl lg:text-3xl uppercase tracking-wide leading-tight">
+              Letni Obóz Sportowy 2025
+            </p>
+            <p class="text-cream/50 text-xs mt-1">Morze Bałtyckie · Lipiec 2025</p>
+          </div>
+        </div>
+
+        <div class="slide flex-shrink-0 w-full relative" style="height: clamp(260px, 50vw, 560px);">
+          <img
+            src="images/gallery/slider3.jpg"
+            alt="Trening grupy KIDS"
+            class="w-full h-full object-cover object-top"
+            loading="lazy"
+          />
+          <div class="absolute inset-0 pointer-events-none"
+               style="background: linear-gradient(160deg, transparent 40%, rgba(5,10,25,0.85) 100%);"></div>
+          <div class="absolute bottom-7 left-8 right-20">
+            <span class="inline-block px-2.5 py-1 rounded-full text-[10px] font-bold tracking-widest uppercase mb-2"
+                  style="background:#d62828; color:#fff;">Trening</span>
+            <p class="font-serif font-black text-cream text-xl lg:text-3xl uppercase tracking-wide leading-tight">
+              Finał ogólnopolskich rozgrywek LMT
+            </p>
+            <p class="text-cream/50 text-xs mt-1">Dzieci 11-12 lat · Środa, hala</p>
+          </div>
+        </div>
+        
+
+      </div><!-- /slider-track -->
+
+      <!-- Licznik (prawy górny róg) -->
+      <div class="absolute top-5 right-5 z-20 px-3 py-1 rounded-full text-xs font-semibold text-cream/80 pointer-events-none"
+           style="background:rgba(5,10,25,0.65); backdrop-filter:blur(8px);">
+        <span id="slide-current">1</span>&thinsp;/&thinsp;<span id="slide-total">3</span>
+      </div>
+
+      <!-- Strzałka lewa -->
+      <button
+        id="btn-prev"
+        aria-label="Poprzednie zdjęcie"
+        class="slider-button absolute left-4 top-1/2 -translate-y-1/2 z-20
+               w-11 h-11 rounded-full flex items-center justify-center
+               transition-all duration-200"
+        style="background:rgba(13,27,62,0.72); border:1px solid rgba(255,255,255,0.16); backdrop-filter:blur(6px);"
+      >
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="#f0ede3" class="w-5 h-5 pointer-events-none">
+          <path fill-rule="evenodd" d="M11.78 5.22a.75.75 0 0 1 0 1.06L8.06 10l3.72 3.72a.75.75 0 1 1-1.06 1.06l-4.25-4.25a.75.75 0 0 1 0-1.06l4.25-4.25a.75.75 0 0 1 1.06 0Z" clip-rule="evenodd"/>
+        </svg>
+      </button>
+
+      <!-- Strzałka prawa -->
+      <button
+        id="btn-next"
+        aria-label="Następne zdjęcie"
+        class="slider-button absolute right-4 top-1/2 -translate-y-1/2 z-20
+               w-11 h-11 rounded-full flex items-center justify-center
+               transition-all duration-200"
+        style="background:rgba(13,27,62,0.72); border:1px solid rgba(255,255,255,0.16); backdrop-filter:blur(6px);"
+      >
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="#f0ede3" class="w-5 h-5 pointer-events-none">
+          <path fill-rule="evenodd" d="M8.22 5.22a.75.75 0 0 1 1.06 0l4.25 4.25a.75.75 0 0 1 0 1.06l-4.25 4.25a.75.75 0 1 1-1.06-1.06L11.94 10 8.22 6.28a.75.75 0 0 1 0-1.06Z" clip-rule="evenodd"/>
+        </svg>
+      </button>
+
+      <!-- Paski postępu -->
+      <div id="progress-bars" class="absolute bottom-4 left-1/2 -translate-x-1/2 z-20 flex items-center gap-2">
+        <!-- Generowane przez JS -->
+      </div>
+
+    </div><!-- /slider -->
+  </div>
+</section>
+
+  </main>
+
+
+  <!-- ══════════════════════════════════════════════════════════
+       FOOTER
+       ══════════════════════════════════════════════════════════ -->
+  <footer style="background:#07101f;" role="contentinfo">
+    <div class="max-w-7xl mx-auto px-6 lg:px-10 pt-16 pb-10">
+      <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-10">
+
+        <!-- Kolumna 1: Logo + opis -->
+        <div class="lg:col-span-2 flex flex-col gap-5">
+          <div class="flex items-center gap-3">
+            <div class="w-10 h-10 rounded-btn flex items-center justify-center flex-shrink-0">
+              <img src="images/logo.png" alt="Logo UKS Conrad">
+            </div>
+            <div>
+              <div class="text-cream font-black text-base tracking-wide uppercase" style="font-family:'Montserrat',sans-serif;">UKS Conrad</div>
+              <div class="text-cream/40 text-[10px] tracking-widest uppercase">Akademia Piłkarska</div>
+            </div>
+          </div>
+          <p class="text-cream/45 text-sm leading-relaxed max-w-xs">
+            Profesjonalne szkolenie piłkarskie dla dzieci i młodzieży w wieku 6-16 lat.
+            Rozwijamy talenty, kształtujemy charaktery.
+          </p>
+          <div class="flex gap-3 mt-1">
+            <a href="https://www.facebook.com/uksconradpilka/" aria-label="Facebook"
+              class="social-link w-9 h-9 rounded-btn flex items-center justify-center transition-colors"
+              style="background:rgba(255,255,255,0.07); color:rgba(240,237,227,0.5);">
+              <svg viewBox="0 0 24 24" fill="currentColor" class="w-4 h-4">
+                <path
+                  d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z" />
+              </svg>
+            </a>
+          </div>
+        </div>
+
+        <!-- Kolumna 2: Nawigacja -->
+        <div>
+          <div class="text-cream/30 text-[10px] tracking-[0.2em] uppercase font-semibold mb-5">Menu</div>
+          <ul class="flex flex-col gap-3">
+            <li><a href="index.html#o-nas"       class="text-cream/55 text-sm hover:text-cream transition-colors">O nas</a></li>
+            <li><a href="index.html#grupy"       class="text-cream/55 text-sm hover:text-cream transition-colors">Grupy wiekowe</a></li>
+            <li><a href="index.html#harmonogram" class="text-cream/55 text-sm hover:text-cream transition-colors">Harmonogram</a></li>
+            <li><a href="index.html#obozy"       class="text-cream/55 text-sm hover:text-cream transition-colors">Obozy i półkolonie</a></li>
+            <li><a href="galeria.html"           class="text-cream text-sm font-semibold">Galeria ↗</a></li>
+            <li><a href="index.html#kontakt"     class="text-cream/55 text-sm hover:text-cream transition-colors">Kontakt</a></li>
+            <li><a href="index.html#rodo"        class="text-cream/55 text-sm hover:text-cream transition-colors">RODO / Prywatność</a></li>
+          </ul>
+        </div>
+
+        <!-- Kolumna 3: Kontakt -->
+        <div>
+          <div class="text-cream/30 text-[10px] tracking-[0.2em] uppercase font-semibold mb-5">Kontakt</div>
+          <div class="flex flex-col gap-4">
+            <div>
+              <div class="text-cream/30 text-[10px] uppercase tracking-widest mb-1">Telefon</div>
+              <a href="tel:+48781676558" class="text-cream/70 text-sm hover:text-cream transition-colors">+48 781 676 558</a>
+            </div>
+            <div>
+              <div class="text-cream/30 text-[10px] uppercase tracking-widest mb-1">E-mail</div>
+              <a href="mailto:tomczewski1973@wp.pl" class="text-cream/70 text-sm hover:text-cream transition-colors">tomczewski1973@wp.pl</a>
+            </div>
+            <div>
+              <div class="text-cream/30 text-[10px] uppercase tracking-widest mb-1">Adres</div>
+              <p class="text-cream/70 text-sm">ul. Chałubińskiego 13<br />80-809 Gdańsk</p>
+            </div>
+            <div>
+              <div class="text-cream/30 text-[10px] uppercase tracking-widest mb-1">NIP</div>
+              <p class="text-cream/40 text-xs">583 216 43 29</p>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- Dolna belka stopki -->
+    <div class="border-t px-6 lg:px-10 py-6" style="border-color:rgba(255,255,255,0.06);">
+      <div class="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-3">
+        <p class="text-cream/30 text-xs">
+          &copy; <span id="footer-year">2025</span> UKS Conrad - Uczniowski Klub Sportowy. Wszelkie prawa zastrzeżone.
+        </p>
+        <div class="flex gap-5">
+          <a href="index.html#rodo"    class="text-cream/30 text-xs hover:text-cream/60 transition-colors">Polityka prywatności</a>
+          <a href="index.html#rodo"    class="text-cream/30 text-xs hover:text-cream/60 transition-colors">RODO</a>
+          <a href="index.html#kontakt" class="text-cream/30 text-xs hover:text-cream/60 transition-colors">Kontakt</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+
+  <!-- ══════════════════════════════════════════════════════════
+       JAVASCRIPT
+       ══════════════════════════════════════════════════════════ -->
+  <script>
+    /* ── Nav scroll ──────────────────────────────────────── */
+    const nav = document.getElementById('main-nav');
+    const onScroll = () => nav.classList.toggle('scrolled', window.scrollY > 40);
+    window.addEventListener('scroll', onScroll, { passive: true });
+    onScroll();
+
+    /* ── Hamburger ───────────────────────────────────────── */
+    const hamburger  = document.getElementById('hamburger');
+    const mobileMenu = document.getElementById('mobile-menu');
+    const [l1, l2, l3] = hamburger.querySelectorAll('.ham-line');
+    let menuOpen = false;
+
+    hamburger.addEventListener('click', () => {
+      menuOpen = !menuOpen;
+      hamburger.setAttribute('aria-expanded', menuOpen);
+      mobileMenu.classList.toggle('hidden', !menuOpen);
+      l1.style.transform = menuOpen ? 'translateY(7px) rotate(45deg)'  : '';
+      l2.style.opacity   = menuOpen ? '0' : '1';
+      l3.style.transform = menuOpen ? 'translateY(-7px) rotate(-45deg)' : '';
+    });
+
+    function closeMobileMenu() {
+      menuOpen = false;
+      hamburger.setAttribute('aria-expanded', false);
+      mobileMenu.classList.add('hidden');
+      l1.style.transform = l3.style.transform = '';
+      l2.style.opacity = '1';
+    }
+
+    /* ── Footer year ─────────────────────────────────────── */
+    document.getElementById('footer-year').textContent = new Date().getFullYear();
+
+    (function () {
+  const track = document.getElementById('slider-track');
+  const btnPrev = document.getElementById('btn-prev');
+  const btnNext = document.getElementById('btn-next');
+  const barsWrap = document.getElementById('progress-bars');
+  const counter = document.getElementById('slide-current');
+  const counterTotal = document.getElementById('slide-total');
+  const sliderEl = document.getElementById('slider');
+  const DELAY = 4200;
+  const transitionDuration = 650;
+  let current = 0;
+  let rafId = null;
+  let progressValue = 0;
+  let lastFrameTime = 0;
+  let autoplayActive = false;
+  let busy = false;
+  let hovered = false;
+  let tx = 0;
+
+  const slides = Array.from(track.querySelectorAll('.slide'));
+  const totalSlides = slides.length;
+  let bars = [];
+
+  function updateCounter() {
+    counter.textContent = current + 1;
+    counterTotal.textContent = totalSlides;
+  }
+
+  function updateBars() {
+    bars.forEach((bar, index) => {
+      const value = index < current ? 1 : index === current ? (progressValue / DELAY) : 0;
+      bar.style.setProperty('--progress', value.toFixed(4));
+      bar.classList.toggle('active', index === current);
+      bar.classList.toggle('paused', hovered && index === current);
+    });
+  }
+
+  function updateUI() {
+    if (!totalSlides) return;
+    track.style.transform = `translateX(-${current * 100}%)`;
+    updateCounter();
+    updateBars();
+  }
+
+  function renderBars() {
+    barsWrap.innerHTML = '';
+    for (let i = 0; i < totalSlides; i++) {
+      const btn = document.createElement('button');
+      btn.className = 'progress-bar';
+      btn.setAttribute('aria-label', 'Slajd ' + (i + 1));
+      btn.addEventListener('click', () => goTo(i, true));
+      barsWrap.appendChild(btn);
+    }
+
+    bars = Array.from(barsWrap.querySelectorAll('.progress-bar'));
+    current = Math.min(current, totalSlides - 1);
+    updateUI();
+  }
+
+  function stopAutoplay() {
+    if (rafId) {
+      cancelAnimationFrame(rafId);
+      rafId = null;
+    }
+    autoplayActive = false;
+  }
+
+  function startAutoplay(fromProgress = 0) {
+    stopAutoplay();
+    if (!totalSlides) return;
+    progressValue = fromProgress;
+    lastFrameTime = performance.now();
+    autoplayActive = true;
+    updateBars();
+
+    const tick = (now) => {
+      if (!autoplayActive) return;
+      const elapsed = now - lastFrameTime;
+      lastFrameTime = now;
+      progressValue += elapsed;
+
+      if (progressValue >= DELAY) {
+        progressValue = 0;
+        goTo(current + 1, false);
+        return;
+      }
+
+      updateBars();
+      rafId = window.requestAnimationFrame(tick);
+    };
+
+    rafId = window.requestAnimationFrame(tick);
+  }
+
+  function pauseAutoplay() {
+    if (!autoplayActive) return;
+    hovered = true;
+    stopAutoplay();
+    updateBars();
+  }
+
+  function resumeAutoplay() {
+    hovered = false;
+    if (!autoplayActive) {
+      startAutoplay(progressValue);
+    }
+  }
+
+  function goTo(index, manual = false) {
+    if (busy || !totalSlides) return;
+
+    busy = true;
+    current = ((index % totalSlides) + totalSlides) % totalSlides;
+    updateUI();
+
+    if (!hovered) {
+      startAutoplay(0);
+    } else {
+      progressValue = 0;
+      updateBars();
+    }
+
+    window.setTimeout(() => { busy = false; }, transitionDuration);
+  }
+
+  btnNext.addEventListener('click', () => goTo(current + 1, true));
+  btnPrev.addEventListener('click', () => goTo(current - 1, true));
+
+  sliderEl.addEventListener('mouseenter', pauseAutoplay);
+  sliderEl.addEventListener('mouseleave', resumeAutoplay);
+
+  track.addEventListener('touchstart', e => { tx = e.touches[0].clientX; }, { passive: true });
+  track.addEventListener('touchend', e => {
+    const diff = tx - e.changedTouches[0].clientX;
+    if (Math.abs(diff) > 45) goTo(current + (diff > 0 ? 1 : -1), true);
+  }, { passive: true });
+
+  document.addEventListener('keydown', e => {
+    if (e.key === 'ArrowRight') goTo(current + 1, true);
+    if (e.key === 'ArrowLeft') goTo(current - 1, true);
+  });
+
+  document.addEventListener('visibilitychange', () => {
+    if (document.hidden) {
+      pauseAutoplay();
+    } else if (!hovered) {
+      startAutoplay(progressValue);
+    }
+  });
+
+  renderBars();
+  startAutoplay();
+})();
+  </script>
+
+</body>
+</html>
