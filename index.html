@@ -4,7 +4,8 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>UKS Conrad - Klub Sportowy</title>
+  <title>Conrad Gdańsk | Akademia Piłkarska dla Dzieci</title>
+  <meta name="description" content="Treningi piłkarskie dla dzieci i młodzieży w Gdańsku. Zapisy już teraz - rozwijaj talent i pewność siebie w Conrad Gdańsk." />
 
   <!-- Google Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -12,6 +13,7 @@
   <link
     href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Montserrat:wght@700;800;900&display=swap"
     rel="stylesheet" />
+  <link rel="icon" type="image/x-icon" href="images/logo.png" />
 
   <!-- Tailwind CSS CDN -->
   <script src="https://cdn.tailwindcss.com"></script>
@@ -23,10 +25,10 @@
           colors: {
             canvas: '#faf9f5',
             ink: '#141413',
-            navy: '#0d1b3e',   /* Surface Dark - głęboki granat */
-            navyMid: '#152252',   /* granat mid - hover/karta */
-            cream: '#f0ede3',   /* jasnokremowy tekst na graficie */
-            red: '#d62828',   /* Primary CTA */
+            navy: '#0d1b3e',
+            navyMid: '#152252', 
+            cream: '#f0ede3',
+            red: '#d62828',
             redHover: '#b71c1c',
           },
           fontFamily: {
@@ -167,10 +169,10 @@
       position: absolute;
       inset: -8px;
       background-image: url('images/hero-bg.jpg');
-      background-size: cover;
-      background-position: center 30%;
+      background-size: 120%;
+      background-position: bottom;
       background-attachment: fixed;
-      filter: brightness(0.9);
+      filter: brightness(0.7);
       transform: scale(1.04);
       z-index: -2;
     }
@@ -523,6 +525,7 @@
         <!-- Linki desktop -->
         <ul class="hidden lg:flex items-center gap-8" role="list">
           <li><a href="#o-nas" class="nav-link">O nas</a></li>
+          <li><a href="KARTA REJESTRCYJNA Z RODO CONRAD GDAŃSK.pdf" class="nav-link">Karta Rejestracyjna</a></li>
           <li><a href="#grupy" class="nav-link">Grupy</a></li>
           <li><a href="#harmonogram" class="nav-link">Harmonogram</a></li>
           <li><a href="#obozy" class="nav-link">Obozy</a></li>
@@ -596,6 +599,7 @@
           </a>
         </li>
         <li><a href="#o-nas" class="nav-link block py-1" onclick="closeMobileMenu()">O nas</a></li>
+        <li><a href="KARTA REJESTRCYJNA Z RODO CONRAD GDAŃSK.pdf" class="nav-link block py-1" onclick="closeMobileMenu()">Karta Rejestracyjna</a></li>
         <li><a href="#grupy" class="nav-link block py-1" onclick="closeMobileMenu()">Grupy</a></li>
         <li><a href="#harmonogram" class="nav-link block py-1" onclick="closeMobileMenu()">Harmonogram</a></li>
         <li><a href="#obozy" class="nav-link block py-1" onclick="closeMobileMenu()">Obozy</a></li>
@@ -649,7 +653,7 @@
 
     <!-- Lead tekst -->
     <p class="fade-up-3 text-cream/75 text-base lg:text-lg max-w-xl leading-relaxed mb-10">
-      Profesjonalne szkolenie piłkarskie dla dzieci i młodzieży w wieku 6-16 lat.
+      Profesjonalne szkolenie piłkarskie dla dzieci i młodzieży w wieku 6-13 lat.
       Dołącz do akademii, która wychowuje nie tylko zawodników - ale i charaktery.
       Działamy od 2012 roku.
       <strong class="text-cream font-semibold">Pierwsze 2 treningi bezpłatne.</strong>
@@ -680,7 +684,7 @@
         <div class="text-cream/50 text-xs tracking-widest uppercase mt-1">zawodników</div>
       </div>
       <div class="text-center">
-        <div class="text-cream font-serif font-bold text-3xl lg:text-4xl">6-16</div>
+        <div class="text-cream font-serif font-bold text-3xl lg:text-4xl">6-13</div>
         <div class="text-cream/50 text-xs tracking-widest uppercase mt-1">lat&nbsp;wiek</div>
       </div>
     </div>
@@ -718,7 +722,7 @@
               Akademia Piłkarska to miejsce, gdzie dzieci uczą się dyscypliny,
               pracy zespołowej i ambicji - przez sport. Nasi trenerzy posiadają
               licencje <strong class="text-ink font-semibold">UEFA C i UEFA B</strong>,
-              a każda grupa treningowa liczy maksymalnie 12 zawodników,
+              a każda grupa treningowa liczy maksymalnie do 20 zawodników,
               co zapewnia indywidualne podejście.
             </p>
             <p class="text-ink/60 text-base leading-relaxed mb-10">
@@ -746,7 +750,7 @@
                       clip-rule="evenodd" />
                   </svg>
                 </div>
-                <span class="text-ink/75 text-sm">Maks. 12 zawodników w grupie</span>
+                <span class="text-ink/75 text-sm">Max do 20 zawodników w grupie</span>
               </div>
               <div class="flex items-center gap-3">
                 <div class="w-8 h-8 rounded-full bg-navy flex items-center justify-center flex-shrink-0">
@@ -757,6 +761,16 @@
                   </svg>
                 </div>
                 <span class="text-ink/75 text-sm">Zajęcia całoroczne - hala i boisko</span>
+              </div>
+              <div class="flex items-center gap-3">
+                <div class="w-8 h-8 rounded-full bg-navy flex items-center justify-center flex-shrink-0">
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="#f0ede3" class="w-4 h-4">
+                    <path fill-rule="evenodd"
+                      d="M12.416 3.376a.75.75 0 0 1 .208 1.04l-5 7.5a.75.75 0 0 1-1.154.114l-3-3a.75.75 0 0 1 1.06-1.06l2.353 2.353 4.493-6.74a.75.75 0 0 1 1.04-.207Z"
+                      clip-rule="evenodd" />
+                  </svg>
+                </div>
+                <span class="text-ink/75 text-sm">Stały harmonogram przez cały rok</span>
               </div>
               <div class="flex items-center gap-3">
                 <div class="w-8 h-8 rounded-full bg-navy flex items-center justify-center flex-shrink-0">
@@ -814,12 +828,12 @@
                 <h3 class="font-serif font-bold text-ink text-xl mb-1 group-hover:text-navy transition-colors">
                   Nowoczesne&nbsp;Metody</h3>
                 <p class="text-ink/60 text-sm leading-relaxed">
-                  Analiza wideo, testy motoryczne i plany treningowe dostosowane
+                  Testy motoryczne i plany treningowe dostosowane
                   indywidualnie do każdego zawodnika.
                 </p>
               </div>
               <div class="mt-auto pt-3 border-t border-black/8">
-                <span class="text-red text-xs font-semibold tracking-widest uppercase">Analiza wideo</span>
+                <span class="text-red text-xs font-semibold tracking-widest uppercase">Indywidualny plan</span>
               </div>
             </div>
 
@@ -989,7 +1003,7 @@
                 <div class="h-px w-full" style="background:#7b9cda; opacity:0.4;"></div>
 
                 <div>
-                  <h3 class="font-serif font-bold text-cream text-2xl mb-3">KIDS</h3>
+                  <h3 class="font-serif font-bold text-cream text-2xl mb-3">Conrad Skrzat</h3>
                   <p class="text-cream/60 text-sm leading-relaxed">
                     Zajęcia poprzez zabawę dla najmłodszych chłopców, którzy dopiero zaczynają swoją przygodę z piłką.
                   </p>
@@ -1043,7 +1057,7 @@
                 <div class="h-px w-full bg-red opacity-60"></div>
 
                 <div>
-                  <h3 class="font-serif font-bold text-cream text-2xl mb-3">CONRAD JUNIOR</h3>
+                  <h3 class="font-serif font-bold text-cream text-2xl mb-3">Conrad Żak</h3>
                   <p class="text-cream/60 text-sm leading-relaxed">
                     Rozwój techniki, gry zespołowej i pewności siebie w kolejnych etapach szkolenia.
                   </p>
@@ -1089,7 +1103,7 @@
                 <div class="h-px w-full" style="background:#7b9cda; opacity:0.4;"></div>
 
                 <div>
-                  <h3 class="font-serif font-bold text-cream text-2xl mb-3">CONRAD SENIOR</h3>
+                  <h3 class="font-serif font-bold text-cream text-2xl mb-3">Conrad Orlik</h3>
                   <p class="text-cream/60 text-sm leading-relaxed">
                     Intensywniejsze przygotowanie taktyczne i motoryczne dla chłopców z większym doświadczeniem.
                   </p>
@@ -1135,7 +1149,7 @@
                 <div class="h-px w-full" style="background:#7b9cda; opacity:0.4;"></div>
 
                 <div>
-                  <h3 class="font-serif font-bold text-cream text-2xl mb-3">CONRAD GRANIT</h3>
+                  <h3 class="font-serif font-bold text-cream text-2xl mb-3">Conrad Młodzik</h3>
                   <p class="text-cream/60 text-sm leading-relaxed">
                     Grupa dla chłopców o wysokim zaangażowaniu, z treningami przygotowującymi do rywalizacji na wyższym
                     poziomie.
@@ -1312,9 +1326,9 @@
                 Letni Obóz<br />Sportowy
               </h3>
               <p class="text-cream/70 text-sm leading-relaxed mb-5 max-w-sm">
-                14 dni intensywnego szkolenia piłkarskiego nad morzem.
+                8 dni intensywnego szkolenia piłkarskiego nad morzem.
                 Dwa treningi dziennie, turnieje, wieczory integracyjne.
-                Dla zawodników 6-16 lat.
+                Dla zawodników 6-13 lat.
               </p>
               <div class="flex flex-wrap items-center gap-4 mb-6">
                 <div class="flex items-center gap-2 text-cream/60 text-xs">
@@ -1324,7 +1338,7 @@
                       d="M15 8A7 7 0 1 1 1 8a7 7 0 0 1 14 0Zm-5-2.844a.5.5 0 0 0-.854-.353L6 8H4.25a.75.75 0 0 0 0 1.5h2.25a.75.75 0 0 0 .53-.22l2-2v1.97a.75.75 0 0 0 1.5 0V5.5a.5.5 0 0 0-.5-.5H7.97a.75.75 0 0 0 0 1.5h1.47l.032-.313A.5.5 0 0 0 10 5.156Z"
                       clip-rule="evenodd" />
                   </svg>
-                  6-16 lat
+                  6-13 lat
                 </div>
                 <div class="flex items-center gap-2 text-cream/60 text-xs">
                   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="currentColor"
@@ -1333,7 +1347,7 @@
                       d="M1 8.74c0 .983.713 1.825 1.69 1.943.764.092 1.534.164 2.31.216v2.351a.75.75 0 0 0 1.28.53l2-2.002c.15-.149.354-.233.567-.233h2.733c1.673 0 3.12-1.096 3.55-2.673.107-.39.163-.8.163-1.223v-1.2a.75.75 0 0 0-.75-.75h-2.5V5.25a.75.75 0 0 0-.75-.75H7.75a.75.75 0 0 0-.75.75V6.5H4.75a.75.75 0 0 0-.75.75v1a.75.75 0 0 0 1.5 0V7.25H7v1.5H5.5a.75.75 0 0 0 0 1.5H7v.06c-.62-.036-1.234-.087-1.84-.152a.75.75 0 0 0-.16 1.492c.668.072 1.342.126 2.02.161l-.53.53a.75.75 0 0 0 1.06 1.06l2-2a.75.75 0 0 0 .22-.53V8.5h2.5v.74c0 .293-.036.578-.104.848-.281 1.026-1.225 1.662-2.296 1.662H9.15l-1.97 1.97a2.25 2.25 0 0 1-3.836-1.592V10.9a18.512 18.512 0 0 1-1.645-.186A2.25 2.25 0 0 1 1 8.74Z"
                       clip-rule="evenodd" />
                   </svg>
-                  14 dni / 13 nocy
+                  8 dni / 7 nocy
                 </div>
                 <div class="flex items-center gap-2 text-cream/60 text-xs">
                   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="currentColor"
@@ -1371,11 +1385,10 @@
             <div class="absolute bottom-0 left-0 right-0 p-7">
               <p class="text-cream/60 text-xs tracking-[0.2em] uppercase font-semibold mb-2">Półkolonie piłkarskie</p>
               <h3 class="font-serif font-bold text-cream text-2xl lg:text-3xl leading-tight tracking-tighter2 mb-3">
-                Wakacje<br />z Piłką
+                Półkolonia
               </h3>
               <p class="text-cream/65 text-sm leading-relaxed mb-5">
-                Codzienne zajęcia 9:00-15:00 przez cały lipiec i sierpień.
-                Dla dzieci 6-12 lat. Opieka, posiłki i turnieje w cenie.
+                Zajęcia od poniedziałku do piątku w godzinach 07.30-16.00. Oferujemy treningi piłkarskie, gry i zabawy, konkursy z nagrodami. Wyjścia na dodatkowe atrakcje: Paintball elektroniczny, Kręgle, Jump City, XL Pixel, Basen. Zapewniamy opiekę kadry trenerskiej, drugie śniadanie i obiad.
               </p>
               <div class="flex items-center gap-4">
                 <a href="#zapisy"
@@ -1412,13 +1425,12 @@
             </div>
 
             <div class="absolute bottom-0 left-0 right-0 p-6">
-              <p class="text-cream/55 text-xs tracking-[0.2em] uppercase font-semibold mb-1.5">Halowy</p>
+              <p class="text-cream/55 text-xs tracking-[0.2em] uppercase font-semibold mb-1.5">Halowe</p>
               <h3 class="font-serif font-bold text-cream text-xl lg:text-2xl leading-tight tracking-tighter2 mb-2">
-                Zimowy Obóz<br />Halowy
+                Półkolonie<br />Zimowe
               </h3>
               <p class="text-cream/60 text-xs leading-relaxed mb-4">
-                7 dni treningów w hali podczas ferii zimowych. Intensywna technika
-                i małe gry. Wiek 6-14 lat.
+                Zajęcia od poniedziałku do piątku w godzinach 07.30-16.00 podczas ferii zimowych. Oferujemy treningi piłkarskie, gry i zabawy, konkursy z nagrodami. Wychodzki na atrakcje: Paintball elektroniczny, Kręgle, Jump City, XL Pixel, Basen. Kadra trenerska zapewnia opiekę, drugie śniadanie i obiad.
               </p>
               <div class="flex items-center gap-3">
                 <a href="#zapisy"
@@ -1458,8 +1470,8 @@
                   Turnieje<br />Wyjazdowe
                 </h3>
                 <p class="text-cream/65 text-sm leading-relaxed mb-6">
-                  Organizujemy wyjazdy na turnieje krajowe i zagraniczne. Reprezentuj
-                  barwy UKS Conrad i mierz się z najlepszymi rówieśnikami z całej Polski.
+                  Organizujemy wyjazdy na turnieje krajowe. Reprezentuj
+                  barwy UKS Conrad i mierz się z rówieśnikami z całego kraju.
                 </p>
                 <a href="#kontakt" class="btn-ghost text-sm py-3 px-6">
                   Zapytaj o kalendarz
@@ -1532,7 +1544,7 @@
                 style="background:rgba(255,255,255,0.12); border:1px solid rgba(255,255,255,0.2);"
                 onmouseover="this.style.background='rgba(255,255,255,0.22)'; this.style.borderColor='rgba(255,255,255,0.45)'; this.style.boxShadow='0 12px 32px rgba(0,0,0,0.25)';"
                 onmouseout="this.style.background='rgba(255,255,255,0.12)'; this.style.borderColor='rgba(255,255,255,0.2)'; this.style.boxShadow='none';">
-                <div class="font-serif font-black text-white text-4xl leading-none mb-1">6-16</div>
+                <div class="font-serif font-black text-white text-4xl leading-none mb-1">6-13</div>
                 <div class="text-white/65 text-xs tracking-widest uppercase">Lat - wiek</div>
               </div>
 
@@ -1552,8 +1564,8 @@
                 style="background:rgba(255,255,255,0.12); border:1px solid rgba(255,255,255,0.2);"
                 onmouseover="this.style.background='rgba(255,255,255,0.22)'; this.style.borderColor='rgba(255,255,255,0.45)'; this.style.boxShadow='0 12px 32px rgba(0,0,0,0.25)';"
                 onmouseout="this.style.background='rgba(255,255,255,0.12)'; this.style.borderColor='rgba(255,255,255,0.2)'; this.style.boxShadow='none';">
-                <div class="font-serif font-black text-white text-4xl leading-none mb-1">12</div>
-                <div class="text-white/65 text-xs tracking-widest uppercase">Max w grupie</div>
+                <div class="font-serif font-black text-white text-4xl leading-none mb-1">Max 20</div>
+                <div class="text-white/65 text-xs tracking-widest uppercase">w grupie</div>
               </div>
 
             </div>
@@ -1653,7 +1665,7 @@
             </p>
 
             <!-- Formularz -->
-            <form id="zapisy-form" action="https://formspree.io/f/TWOJ_ID" method="POST" class="flex flex-col gap-5">
+            <form id="zapisy-form" action="https://formspree.io/f/xojobdky" method="POST" class="flex flex-col gap-5">
               <div class="flex flex-col gap-1.5">
                 <label for="f-imie" class="text-xs font-semibold text-ink/60 tracking-widest uppercase">
                   Imię i nazwisko rodzica <span class="text-red">*</span>
@@ -1683,7 +1695,7 @@
                   <label for="f-wiek" class="text-xs font-semibold text-ink/60 tracking-widets uppercase">
                     Wiek dziecka <span class="text-red">*</span>
                   </label>
-                  <input id="f-wiek" name="wiek_dziecka" type="number" min="6" max="16" placeholder="np. 8" required
+                  <input id="f-wiek" name="wiek_dziecka" type="number" min="6" max="13" placeholder="np. 8" required
                     class="w-full px-4 py-3.5 rounded-btn text-sm text-ink placeholder-ink/30
                border outline-none transition-all duration-200"
                     style="background:#faf9f5; border-color:rgba(20,20,19,0.15);"
@@ -1691,30 +1703,7 @@
                     onblur="this.style.borderColor='rgba(20,20,19,0.15)'; this.style.boxShadow='none';" />
                 </div>
 
-                <div class="flex flex-col gap-1.5">
-                  <label for="f-sekcja" class="text-xs font-semibold text-ink/60 tracking-widest uppercase">
-                    Wybór sekcji <span class="text-red">*</span>
-                  </label>
-                  <div class="relative">
-                    <select id="f-sekcja" name="sekcja" required class="w-full px-4 py-3.5 rounded-btn text-sm text-ink
-                 border outline-none transition-all duration-200 appearance-none cursor-pointer"
-                      style="background:#faf9f5; border-color:rgba(20,20,19,0.15);"
-                      onfocus="this.style.borderColor='#d62828'; this.style.boxShadow='0 0 0 4px rgba(214,40,40,0.10)';"
-                      onblur="this.style.borderColor='rgba(20,20,19,0.15)'; this.style.boxShadow='none';">
-                      <option value="" disabled selected>Wybierz grupę</option>
-                      <option value="KIDS (6-8 lat)">KIDS (6-8 lat)</option>
-                      <option value="JUNIOR I (9-12 lat)">JUNIOR I (9-12 lat)</option>
-                      <option value="GRANIT (13-16 lat)">GRANIT (13-16 lat)</option>
-                      <option value="DZIEWCZĘTA (8-14 lat)">DZIEWCZĘTA (8-14 lat)</option>
-                    </select>
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="currentColor"
-                      class="w-4 h-4 absolute right-3.5 top-1/2 -translate-y-1/2 text-ink/35 pointer-events-none">
-                      <path fill-rule="evenodd"
-                        d="M4.22 6.22a.75.75 0 0 1 1.06 0L8 8.94l2.72-2.72a.75.75 0 1 1 1.06 1.06l-3.25 3.25a.75.75 0 0 1-1.06 0L4.22 7.28a.75.75 0 0 1 0-1.06Z"
-                        clip-rule="evenodd" />
-                    </svg>
-                  </div>
-                </div>
+
               </div>
 
               <!-- Wiadomość -->
@@ -1781,7 +1770,8 @@
           <div class="flex flex-col gap-3 text-xs text-ink/45 leading-relaxed">
             <p>
               <strong class="text-ink/60 font-semibold">Administrator danych osobowych:</strong>
-              Uczniowski Klub Sportowy Conrad z siedzibą przy ul. Chałubińskiego 13, wpisany do ewidencji Starosty.
+              Uczniowski Klub Sportowy Conrad Gdańsk z siedzibą w Gdańsku przy ul.
+              Chałubińskiego 13 80-809 Gdańsk, numer KRS 000025186 oraz NIP 5832164329.
             </p>
             <p>
               Dane osobowe podane w formularzu kontaktowym (imię, nazwisko, numer telefonu, wiek dziecka)
@@ -1826,7 +1816,7 @@
             </div>
           </div>
           <p class="text-cream/45 text-sm leading-relaxed max-w-xs">
-            Profesjonalne szkolenie piłkarskie dla dzieci i młodzieży w wieku 6-16 lat.
+            Profesjonalne szkolenie piłkarskie dla dzieci i młodzieży w wieku 6-13 lat.
             Rozwijamy talenty, kształtujemy charaktery.
           </p>
           <!-- Social icons -->
