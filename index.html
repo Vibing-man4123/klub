@@ -5,7 +5,8 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Conrad Gdańsk | Akademia Piłkarska dla Dzieci</title>
-  <meta name="description" content="Treningi piłkarskie dla dzieci i młodzieży w Gdańsku. Zapisy już teraz - rozwijaj talent i pewność siebie w Conrad Gdańsk." />
+  <meta name="description"
+    content="Treningi piłkarskie dla dzieci i młodzieży w Gdańsku. Zapisy już teraz - rozwijaj talent i pewność siebie w Conrad Gdańsk." />
 
   <!-- Google Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -26,7 +27,7 @@
             canvas: '#faf9f5',
             ink: '#141413',
             navy: '#0d1b3e',
-            navyMid: '#152252', 
+            navyMid: '#152252',
             cream: '#f0ede3',
             red: '#d62828',
             redHover: '#b71c1c',
@@ -73,7 +74,7 @@
       -webkit-font-smoothing: antialiased;
     }
 
-    /* ── Nawigacja ─────────────────────────────────────── */
+    /* -- Nawigacja --------------------------------------- */
     #main-nav {
       transition: background 0.3s ease, box-shadow 0.3s ease;
     }
@@ -153,7 +154,7 @@
       transition: transform 0.3s, opacity 0.3s;
     }
 
-    /* ── Hero ───────────────────────────────────────────── */
+    /* -- Hero --------------------------------------------- */
     #hero {
       position: relative;
       isolation: isolate;
@@ -303,7 +304,7 @@
       transform: translateY(-2px);
     }
 
-    /* ── Animacje callout ──────────────────────────────────── */
+    /* -- Animacje callout ------------------------------------ */
     @keyframes floatA {
 
       0%,
@@ -356,7 +357,7 @@
       }
     }
 
-    /* ── Animacje do ciemnego tla ── */
+    /* -- Animacje do ciemnego tla -- */
     @keyframes driftA {
 
       0%,
@@ -484,9 +485,9 @@
 
 <body>
 
-  <!-- ══════════════════════════════════════════════════════════
+  <!-- ==========================================================
        STICKY NAWIGACJA
-       ══════════════════════════════════════════════════════════ -->
+       ========================================================== -->
   <nav id="main-nav" class="fixed top-0 left-0 right-0 z-50 bg-transparent">
     <!-- Pasek kontaktowy (desktop) -->
     <div id="header-contact" class="hidden lg:block border-b border-white/10 bg-navy/80 backdrop-blur-sm">
@@ -514,7 +515,7 @@
 
         <!-- Logo tekstowe -->
         <a href="#" class="flex items-center gap-3 group" aria-label="Strona główna">
-          
+
           <img src="images/logo.png" alt="Logo klubu" class="h-10 w-auto" />
           <div class="leading-tight">
             <div class="text-cream font-bold text-sm tracking-wide uppercase">UKS Conrad</div>
@@ -599,7 +600,8 @@
           </a>
         </li>
         <li><a href="#o-nas" class="nav-link block py-1" onclick="closeMobileMenu()">O nas</a></li>
-        <li><a href="KARTA REJESTRCYJNA Z RODO CONRAD GDAŃSK.pdf" class="nav-link block py-1" onclick="closeMobileMenu()">Karta Rejestracyjna</a></li>
+        <li><a href="KARTA REJESTRCYJNA Z RODO CONRAD GDAŃSK.pdf" class="nav-link block py-1"
+            onclick="closeMobileMenu()">Karta Rejestracyjna</a></li>
         <li><a href="#grupy" class="nav-link block py-1" onclick="closeMobileMenu()">Grupy</a></li>
         <li><a href="#harmonogram" class="nav-link block py-1" onclick="closeMobileMenu()">Harmonogram</a></li>
         <li><a href="#obozy" class="nav-link block py-1" onclick="closeMobileMenu()">Obozy</a></li>
@@ -613,14 +615,14 @@
   </nav>
 
 
-  <!-- ══════════════════════════════════════════════════════════
+  <!-- ==========================================================
        HERO SECTION
-       ══════════════════════════════════════════════════════════ -->
+       ========================================================== -->
   <section id="hero"
     class="relative min-h-screen flex flex-col items-center justify-center text-center px-6 py-24 overflow-hidden"
     aria-label="Hero - strona główna">
 
-    <!-- Ozdobna linia u góry (accent) -->
+    <!-- Ozdobna linia u góry -->
     <div class="absolute top-0 left-0 right-0 h-1 bg-red opacity-90"></div>
 
     <!-- Subtelna kratka nakładkowa dla głębi -->
@@ -694,18 +696,18 @@
   </section>
 
 
-  <!-- ══════════════════════════════════════════════════════════
+  <!-- ==========================================================
        SEKCJE STRONY
-       ══════════════════════════════════════════════════════════ -->
+       ========================================================== -->
   <main id="tresc">
 
-    <!-- ────────────────────────────────────────────────────────
-         SEKCJA 1 - DLACZEGO MY (Canvas #faf9f5)
-         ──────────────────────────────────────────────────────── -->
+    <!-- --------------------------------------------------------
+         SEKCJA 1 - DLACZEGO MY
+         -------------------------------------------------------- -->
     <section id="o-nas" class="bg-canvas py-24 lg:py-32 px-6">
       <div class="max-w-7xl mx-auto">
 
-        <!-- Siatka: tekst (lewa) + karty wartości (prawa) -->
+        <!-- Siatka: tekst + karty wartości -->
         <div class="grid lg:grid-cols-2 gap-16 lg:gap-24 items-start">
 
           <!-- LEWA - tekst -->
@@ -894,9 +896,9 @@
     </section>
 
 
-    <!-- ────────────────────────────────────────────────────────
+    <!-- --------------------------------------------------------
          SEKCJA 2 - GRUPY WIEKOWE (Surface Dark - granat)
-         ──────────────────────────────────────────────────────── -->
+         -------------------------------------------------------- -->
     <section id="grupy" class="relative py-24 lg:py-32 px-6 overflow-hidden" style="background:#0d1b3e;">
       <!-- Animacja tla -->
       <div class="absolute inset-0 z-0 pointer-events-none overflow-hidden" aria-hidden="true">
@@ -1188,9 +1190,9 @@
     </section>
 
 
-    <!-- ────────────────────────────────────────────────────────
+    <!-- --------------------------------------------------------
          SEKCJA 3 - HARMONOGRAM
-         ──────────────────────────────────────────────────────── -->
+         -------------------------------------------------------- -->
     <section id="harmonogram" class="bg-canvas py-24 lg:py-32 px-6">
       <div class="max-w-5xl mx-auto">
 
@@ -1223,9 +1225,9 @@
     </section>
 
 
-    <!-- ────────────────────────────────────────────────────────
+    <!-- --------------------------------------------------------
          SEKCJA 4 - OBOZY I PÓŁKOLONIE (Bento Grid)
-         ──────────────────────────────────────────────────────── -->
+         -------------------------------------------------------- -->
     <section id="obozy" class="relative overflow-hidden py-24 lg:py-32 px-6" style="background:#0d1b3e;">
       <!-- Animacja tla -->
       <div class="absolute inset-0 z-0 pointer-events-none overflow-hidden" aria-hidden="true">
@@ -1291,10 +1293,10 @@
           </p>
         </div>
 
-        <!-- ═══ BENTO GRID ═══ -->
+        <!-- === BENTO GRID === -->
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 auto-rows-auto">
 
-          <!-- KAFELEK 1 - Obóz letni (duży, zajmuje 2 kolumny lg) -->
+          <!-- KAFELEK 1 - Obóz letni -->
           <div class="lg:col-span-2 relative overflow-hidden group" style="border-radius:16px; min-height:420px;">
 
             <img src="images/oboz-letni.jpg" alt="Obóz letni UKS Conrad - dzieci grające w piłkę na otwartym boisku"
@@ -1364,7 +1366,7 @@
             </div>
           </div>
 
-          <!-- KAFELEK 2 - Półkolonie (kolumna prawa, wiersz 1) -->
+          <!-- KAFELEK 2 - Półkolonie -->
           <div class="relative overflow-hidden group" style="border-radius:16px; min-height:420px;">
 
             <img src="images/polkolonie.jpg" alt="Półkolonie piłkarskie UKS Conrad - dzieci na boisku"
@@ -1388,7 +1390,9 @@
                 Półkolonia
               </h3>
               <p class="text-cream/65 text-sm leading-relaxed mb-5">
-                Zajęcia od poniedziałku do piątku w godzinach 07.30-16.00. Oferujemy treningi piłkarskie, gry i zabawy, konkursy z nagrodami. Wyjścia na dodatkowe atrakcje: Paintball elektroniczny, Kręgle, Jump City, XL Pixel, Basen. Zapewniamy opiekę kadry trenerskiej, drugie śniadanie i obiad.
+                Zajęcia od poniedziałku do piątku w godzinach 07.30-16.00. Oferujemy treningi piłkarskie, gry i zabawy,
+                konkursy z nagrodami. Wyjścia na dodatkowe atrakcje: Paintball elektroniczny, Kręgle, Jump City, XL
+                Pixel, Basen. Zapewniamy opiekę kadry trenerskiej, drugie śniadanie i obiad.
               </p>
               <div class="flex items-center gap-4">
                 <a href="#zapisy"
@@ -1407,7 +1411,7 @@
             </div>
           </div>
 
-          <!-- KAFELEK 3 - Obóz zimowy (mniejszy, pełna szerokość md, 1/3 lg) -->
+          <!-- KAFELEK 3 - Obóz zimowy -->
           <div class="relative overflow-hidden group" style="border-radius:16px; min-height:300px;">
             <img src="images/oboz-zimowy.jpg" alt="Zimowy obóz halowy UKS Conrad"
               class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-105"
@@ -1430,7 +1434,9 @@
                 Półkolonie<br />Zimowe
               </h3>
               <p class="text-cream/60 text-xs leading-relaxed mb-4">
-                Zajęcia od poniedziałku do piątku w godzinach 07.30-16.00 podczas ferii zimowych. Oferujemy treningi piłkarskie, gry i zabawy, konkursy z nagrodami. Wychodzki na atrakcje: Paintball elektroniczny, Kręgle, Jump City, XL Pixel, Basen. Kadra trenerska zapewnia opiekę, drugie śniadanie i obiad.
+                Zajęcia od poniedziałku do piątku w godzinach 07.30-16.00 podczas ferii zimowych. Oferujemy treningi
+                piłkarskie, gry i zabawy, konkursy z nagrodami. Wychodzki na atrakcje: Paintball elektroniczny, Kręgle,
+                Jump City, XL Pixel, Basen. Kadra trenerska zapewnia opiekę, drugie śniadanie i obiad.
               </p>
               <div class="flex items-center gap-3">
                 <a href="#zapisy"
@@ -1449,7 +1455,7 @@
             </div>
           </div>
 
-          <!-- KAFELEK 4 - Turnieje wyjazdowe (2/3 szerokości lg) -->
+          <!-- KAFELEK 4 - Turnieje wyjazdowe -->
           <div class="lg:col-span-2 relative overflow-hidden group" style="border-radius:16px; min-height:280px;">
 
             <img src="images/turnieje.jpg" alt="Turnieje wyjazdowe UKS Conrad - dzieci celebrują zwycięstwo"
@@ -1484,9 +1490,9 @@
       </div>
     </section>
 
-    <!-- ────────────────────────────────────────────────────────
+    <!-- --------------------------------------------------------
          SEKCJA 5 - NABORY & KONTAKT
-         ──────────────────────────────────────────────────────── -->
+         -------------------------------------------------------- -->
     <section id="kontakt" class="bg-canvas py-24 lg:py-32 px-6">
       <div class="max-w-6xl mx-auto">
 
@@ -1575,7 +1581,6 @@
         <!-- FORMULARZ + DANE KONTAKTOWE -->
         <div class="grid lg:grid-cols-5 gap-12 items-start">
 
-          <!-- Lewa: dane + dojazd (2 kol.) -->
           <div class="lg:col-span-2 flex flex-col gap-8">
             <div>
               <h3 class="font-serif font-extrabold text-ink text-2xl uppercase tracking-wide mb-5">
@@ -1662,7 +1667,7 @@
             </h3>
             <p class="text-ink/50 text-sm mb-7">
               Wypełnij formularz - oddzwonimy w ciągu 24 godzin i umówimy 2 bezpłatne treningi próbne.
-            </p>
+            </p>2111
 
             <!-- Formularz -->
             <form id="zapisy-form" action="https://formspree.io/f/xojobdky" method="POST" class="flex flex-col gap-5">
@@ -1734,9 +1739,6 @@
               <!-- Honeypot - pułapka na boty (ukryte przed ludźmi) -->
               <input type="text" name="_gotcha" style="display:none" tabindex="-1" autocomplete="off" />
 
-              <!-- Przekierowanie po wysyłce -->
-              <input type="hidden" name="_next" value="https://TWOJA-DOMENA.pl/dziekujemy.html" />
-
               <!-- Submit -->
               <button type="submit" class="btn-cta w-full justify-center text-base py-4 mt-1">
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-5 h-5">
@@ -1748,6 +1750,7 @@
             </form>
             <!-- /formularz -->
 
+
           </div><!-- /prawa kolumna -->
         </div><!-- /grid -->
 
@@ -1755,9 +1758,9 @@
     </section>
 
 
-    <!-- ────────────────────────────────────────────────────────
+    <!-- --------------------------------------------------------
          SEKCJA 6 - RODO (nota prawna)
-         ──────────────────────────────────────────────────────── -->
+         -------------------------------------------------------- -->
     <section id="rodo" class="bg-canvas border-t px-6 py-12" style="border-color:rgba(20,20,19,0.08);">
       <div class="max-w-4xl mx-auto">
         <div class="flex items-start gap-4">
@@ -1794,9 +1797,9 @@
   </main>
 
 
-  <!-- ══════════════════════════════════════════════════════════
+  <!-- ==========================================================
        FOOTER
-       ══════════════════════════════════════════════════════════ -->
+       ========================================================== -->
   <footer style="background:#07101f;" role="contentinfo">
 
     <!-- Górna część stopki -->
@@ -1894,9 +1897,9 @@
       </div>
     </div>
   </footer>
-  <!-- ══════════════════════════════════════════════════════════
+  <!-- ==========================================================
        JAVASCRIPT - Nav scroll + Mobile menu + Formularz
-       ══════════════════════════════════════════════════════════ -->
+       ========================================================== -->
   <script>
     // Rok w stopce
     document.getElementById('footer-year').textContent = new Date().getFullYear();
@@ -1928,17 +1931,27 @@
       resetValidationStyles();
 
       if (!form) return;
+
+      const lastSubmit = localStorage.getItem('zapisy_last_submit');
+      const now = Date.now();
+      const cooldownMs = 5 * 60 * 1000; // 5 minut
+      if (lastSubmit && now - Number(lastSubmit) < cooldownMs) {
+        event.preventDefault();
+        alert('Zgłoszenie zostało już wysłane. Spróbuj ponownie za kilka minut.');
+        return;
+      }
+
+
       const formData = new FormData(form);
       const imie = (formData.get('imie_rodzica') || '').toString().trim();
       const tel = (formData.get('telefon') || '').toString().trim();
       const wiek = (formData.get('wiek_dziecka') || '').toString().trim();
-      const sekcja = (formData.get('sekcja') || '').toString().trim();
       const rodo = document.getElementById('f-rodo')?.checked;
       const gotcha = (formData.get('_gotcha') || '').toString().trim();
 
       if (gotcha) {
         event.preventDefault();
-        return; // pułapka antyspamowa - ignoruj wysyłki botów
+        return;
       }
 
       let invalid = false;
@@ -1955,10 +1968,6 @@
         markInvalidField('f-wiek');
         invalid = true;
       }
-      if (!sekcja) {
-        markInvalidField('f-sekcja');
-        invalid = true;
-      }
       if (!rodo) {
         const rodoEl = document.getElementById('f-rodo');
         if (rodoEl) {
@@ -1970,11 +1979,13 @@
       if (invalid) {
         event.preventDefault();
       }
+      localStorage.setItem('zapisy_last_submit', now.toString());
     }
 
     if (form) {
       form.addEventListener('submit', handleFormSubmit);
     }
+
 
     const nav = document.getElementById('main-nav');
     const onScroll = () => {
