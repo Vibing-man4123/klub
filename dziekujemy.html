@@ -1,0 +1,565 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Dziękujemy! - UKS Conrad Akademia Piłkarska</title>
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Montserrat:wght@700;800;900&display=swap"
+    rel="stylesheet"
+  />
+
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            canvas:  '#faf9f5',
+            ink:     '#141413',
+            navy:    '#0d1b3e',
+            navyMid: '#152252',
+            cream:   '#f0ede3',
+            red:     '#d62828',
+            redHover:'#b71c1c',
+          },
+          fontFamily: {
+            serif: ['"Montserrat"', 'system-ui', 'sans-serif'],
+            sans:  ['Inter', 'system-ui', 'sans-serif'],
+          },
+          borderRadius: {
+            btn:  '8px',
+            card: '12px',
+            hero: '16px',
+          },
+        },
+      },
+    };
+  </script>
+
+  <style>
+    body {
+      background-color: #0d1b3e;
+      color: #f0ede3;
+      font-family: 'Inter', system-ui, sans-serif;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* ── Nav (1:1) ─────────────────────────────────────────── */
+    #main-nav {
+      transition: background 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    #main-nav.scrolled {
+      background-color: #0d1b3e;
+      box-shadow: 0 2px 20px rgba(0,0,0,0.35);
+    }
+
+    #main-nav.scrolled #header-contact {
+      background-color: rgba(13, 27, 62, 0.95);
+    }
+
+    .nav-link {
+      position: relative;
+      color: #f0ede3;
+      font-size: 0.8125rem;
+      font-weight: 500;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      padding-bottom: 2px;
+      transition: color 0.2s;
+    }
+    .nav-link::after {
+      content: '';
+      position: absolute;
+      bottom: -2px; left: 0;
+      width: 0; height: 2px;
+      background: #d62828;
+      transition: width 0.25s ease;
+    }
+    .nav-link:hover::after { width: 100%; }
+    .nav-link:hover { color: #fff; }
+
+    .header-contact-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.375rem;
+      color: rgba(240, 237, 227, 0.75);
+      font-size: 0.75rem;
+      font-weight: 500;
+      letter-spacing: 0.04em;
+      transition: color 0.2s;
+    }
+
+    .header-contact-link:hover {
+      color: #ffffff;
+    }
+
+    .header-contact-link svg {
+      flex-shrink: 0;
+      opacity: 0.7;
+    }
+
+    .header-contact-link:hover svg {
+      opacity: 1;
+      color: #d62828;
+    }
+
+    .ham-line {
+      display: block;
+      width: 22px; height: 2px;
+      background: #f0ede3;
+      transition: transform 0.3s, opacity 0.3s;
+    }
+
+    /* ── Przyciski ─────────────────────────────────────────── */
+    .btn-cta {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: #d62828; color: #fff;
+      font-family: 'Inter', sans-serif;
+      font-size: 0.9375rem; font-weight: 700;
+      letter-spacing: 0.04em; text-transform: uppercase;
+      padding: 16px 36px; border-radius: 8px;
+      border: 2px solid transparent; cursor: pointer;
+      transition: background 0.2s, transform 0.15s, box-shadow 0.2s;
+      text-decoration: none;
+    }
+    .btn-cta:hover {
+      background: #b71c1c;
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px rgba(214,40,40,0.4);
+    }
+    .btn-ghost {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: transparent; color: #f0ede3;
+      font-family: 'Inter', sans-serif;
+      font-size: 0.9375rem; font-weight: 600;
+      letter-spacing: 0.04em; text-transform: uppercase;
+      padding: 14px 32px; border-radius: 8px;
+      border: 2px solid rgba(240,237,227,0.3);
+      transition: border-color 0.2s, color 0.2s, transform 0.15s;
+      text-decoration: none;
+    }
+    .btn-ghost:hover {
+      border-color: #f0ede3;
+      color: #fff;
+      transform: translateY(-2px);
+    }
+
+    /* ── Animacje ──────────────────────────────────────────── */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(28px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes scaleIn {
+      from { opacity: 0; transform: scale(0.7); }
+      to   { opacity: 1; transform: scale(1); }
+    }
+    @keyframes drawCheck {
+      from { stroke-dashoffset: 60; }
+      to   { stroke-dashoffset: 0; }
+    }
+    @keyframes ringPulse {
+      0%, 100% { box-shadow: 0 0 0 0 rgba(214,40,40,0); }
+      50%       { box-shadow: 0 0 0 16px rgba(214,40,40,0.12); }
+    }
+    @keyframes floatA {
+      0%, 100% { transform: translate(0,0) scale(1);       opacity:0.04; }
+      50%       { transform: translate(12px,-10px) scale(1.05); opacity:0.07; }
+    }
+    @keyframes floatB {
+      0%, 100% { transform: translate(0,0) scale(1);        opacity:0.03; }
+      50%       { transform: translate(-10px,14px) scale(0.96); opacity:0.06; }
+    }
+    @keyframes countUp {
+      from { opacity: 0; transform: translateY(8px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    .fade-1 { animation: fadeUp 0.6s ease both 0.3s; }
+    .fade-2 { animation: fadeUp 0.6s ease both 0.5s; }
+    .fade-3 { animation: fadeUp 0.6s ease both 0.7s; }
+    .fade-4 { animation: fadeUp 0.6s ease both 0.9s; }
+
+    .check-circle {
+      animation: scaleIn 0.5s cubic-bezier(0.34,1.56,0.64,1) both 0.1s,
+                 ringPulse 2.5s ease-in-out 0.6s infinite;
+    }
+    .check-path {
+      stroke-dasharray: 60;
+      stroke-dashoffset: 60;
+      animation: drawCheck 0.5s ease both 0.55s;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      * { animation: none !important; }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- ══════════════════════════════════════════════════════
+       NAV
+       ══════════════════════════════════════════════════════ -->
+  <nav id="main-nav" class="fixed top-0 left-0 right-0 z-50 bg-transparent">
+    <div id="header-contact" class="hidden lg:block border-b border-white/10 bg-navy/80 backdrop-blur-sm">
+      <div class="max-w-7xl mx-auto px-6 lg:px-10 py-2 flex justify-end items-center gap-6">
+        <a href="tel:+48781676558" class="header-contact-link">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-3.5 h-3.5">
+            <path fill-rule="evenodd"
+              d="M2 3.5A1.5 1.5 0 0 1 3.5 2h1.148a1.5 1.5 0 0 1 1.465 1.175l.716 3.223a1.5 1.5 0 0 1-1.052 1.767l-.933.267c-.41.117-.643.555-.48.95a11.542 11.542 0 0 0 6.254 6.254c.395.163.833-.07.95-.48l.267-.933a1.5 1.5 0 0 1 1.767-1.052l3.223.716A1.5 1.5 0 0 1 18 16.352V17.5a1.5 1.5 0 0 1-1.5 1.5H15c-8.284 0-15-6.716-15-15V3.5Z"
+              clip-rule="evenodd" />
+          </svg>
+          +48 781 676 558
+        </a>
+        <a href="mailto:tomczewski1973@wp.pl" class="header-contact-link">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-3.5 h-3.5">
+            <path d="M3 4a2 2 0 0 0-2 2v1.161l8.441 4.221a1.25 1.25 0 0 0 1.118 0L19 7.161V6a2 2 0 0 0-2-2H3Z" />
+            <path d="m19 8.839-7.77 3.885a2.75 2.75 0 0 1-2.46 0L1 8.839V14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V8.839Z" />
+          </svg>
+          tomczewski1973@wp.pl
+        </a>
+      </div>
+    </div>
+
+    <div class="max-w-7xl mx-auto px-6 lg:px-10">
+      <div class="flex items-center justify-between h-16 lg:h-20">
+
+        <a href="index.html" class="flex items-center gap-3" aria-label="Strona główna UKS Conrad">
+          <img src="images/logo.png" alt="Logo UKS Conrad" class="h-10 w-auto" />
+          <div class="leading-tight">
+            <div class="text-cream font-black text-sm tracking-wide uppercase" style="font-family:'Montserrat',sans-serif;">UKS Conrad</div>
+            <div class="text-cream/60 text-[10px] tracking-widest uppercase">Akademia Piłkarska</div>
+          </div>
+        </a>
+
+        <ul class="hidden lg:flex items-center gap-8" role="list">
+          <li><a href="index.html#o-nas"       class="nav-link">O nas</a></li>
+          <li><a href="index.html#grupy"       class="nav-link">Grupy</a></li>
+          <li><a href="index.html#harmonogram" class="nav-link">Harmonogram</a></li>
+          <li><a href="index.html#obozy"       class="nav-link">Obozy</a></li>
+          <li><a href="galeria.html"           class="nav-link">Galeria</a></li>
+          <li><a href="index.html#rodo"        class="nav-link">RODO</a></li>
+          <li><a href="index.html#kontakt"     class="nav-link">Kontakt</a></li>
+        </ul>
+
+        <a href="index.html#zapisy" class="hidden lg:inline-flex btn-cta text-sm py-2.5 px-6">
+          Zapisz się
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="currentColor" class="w-4 h-4">
+            <path fill-rule="evenodd" d="M6.22 3.22a.75.75 0 0 1 1.06 0l4.25 4.25a.75.75 0 0 1 0 1.06l-4.25 4.25a.75.75 0 0 1-1.06-1.06L9.94 8 6.22 4.28a.75.75 0 0 1 0-1.06Z" clip-rule="evenodd"/>
+          </svg>
+        </a>
+
+        <button id="hamburger" class="lg:hidden flex flex-col gap-[5px] p-2 -mr-2"
+                aria-label="Otwórz menu" aria-expanded="false" aria-controls="mobile-menu">
+          <span class="ham-line"></span>
+          <span class="ham-line"></span>
+          <span class="ham-line"></span>
+        </button>
+      </div>
+    </div>
+
+    <div id="mobile-menu" class="lg:hidden hidden bg-navy border-t border-white/10">
+      <ul class="flex flex-col px-6 py-5 gap-4" role="list">
+        <li><a href="index.html#o-nas"       class="nav-link block py-1" onclick="closeMobileMenu()">O nas</a></li>
+        <li><a href="index.html#grupy"       class="nav-link block py-1" onclick="closeMobileMenu()">Grupy</a></li>
+        <li><a href="index.html#harmonogram" class="nav-link block py-1" onclick="closeMobileMenu()">Harmonogram</a></li>
+        <li><a href="index.html#obozy"       class="nav-link block py-1" onclick="closeMobileMenu()">Obozy</a></li>
+        <li><a href="galeria.html"           class="nav-link block py-1" onclick="closeMobileMenu()">Galeria</a></li>
+        <li><a href="index.html#rodo"        class="nav-link block py-1" onclick="closeMobileMenu()">RODO</a></li>
+        <li><a href="index.html#kontakt"     class="nav-link block py-1" onclick="closeMobileMenu()">Kontakt</a></li>
+        <li class="pt-2">
+          <a href="index.html#zapisy" class="btn-cta w-full justify-center" onclick="closeMobileMenu()">Zapisz się</a>
+        </li>
+      </ul>
+    </div>
+  </nav>
+
+
+  <!-- ══════════════════════════════════════════════════════
+       MAIN
+       ══════════════════════════════════════════════════════ -->
+  <main class="relative min-h-screen flex flex-col items-center justify-center px-6 pt-28 pb-20 overflow-hidden"
+        style="background:#0d1b3e;">
+        <!-- Animacja tla -->
+      <div class="absolute inset-0 z-0 pointer-events-none overflow-hidden" aria-hidden="true">
+
+        <div class="bg-geo-A absolute -top-20 -left-20 w-96 h-96 border-2 border-white/20 rotate-12"
+          style="animation: driftA 22s ease-in-out infinite;"></div>
+
+        <div class="bg-geo-B absolute -bottom-24 -right-16 w-80 h-80 border border-white/20 rotate-45"
+          style="animation: driftB 28s ease-in-out infinite;"></div>
+
+
+        <div class="bg-scanline absolute left-0 right-0 h-48"
+          style="background: linear-gradient(180deg, transparent, rgba(255,255,255,0.02), transparent); animation: scanline 14s linear infinite; filter: blur(4px); transform: translateY(-200px); opacity: 0;">
+        </div>
+
+        <div class="bg-dot absolute"
+          style="top: 15%; left: 8%; width: 8px; height: 8px; border-radius: 50%; background: #60a5fa; animation: pulseDot 4s ease-in-out infinite; box-shadow: 0 0 10px rgba(96,165,250,0.8);">
+        </div>
+
+        <div class="bg-dot absolute"
+          style="top: 40%; left: 18%; width: 6px; height: 6px; border-radius: 50%; background: #93c5fd; animation: pulseDot 4.5s ease-in-out infinite 2s; box-shadow: 0 0 8px rgba(147,197,253,0.6);">
+        </div>
+
+        <div class="bg-dot absolute"
+          style="top: 65%; left: 5%; width: 10px; height: 10px; border-radius: 50%; background: #2563eb; animation: pulseDot 5.5s ease-in-out infinite 1.2s; box-shadow: 0 0 10px rgba(37,99,235,0.8);">
+        </div>
+
+        <div class="bg-dot absolute"
+          style="top: 85%; left: 14%; width: 8px; height: 8px; border-radius: 50%; background: #3b82f6; animation: pulseDot 6s ease-in-out infinite 0.7s; box-shadow: 0 0 10px rgba(59,130,246,0.8);">
+        </div>
+
+        <div class="bg-dot absolute"
+          style="top: 12%; right: 15%; width: 8px; height: 8px; border-radius: 50%; background: #3b82f6; animation: pulseDot 3.8s ease-in-out infinite 2.5s; box-shadow: 0 0 10px rgba(59,130,246,0.8);">
+        </div>
+
+        <div class="bg-dot absolute"
+          style="top: 45%; right: 7%; width: 10px; height: 10px; border-radius: 50%; background: #2563eb; animation: pulseDot 5s ease-in-out infinite 0.5s; box-shadow: 0 0 10px rgba(37,99,235,0.8);">
+        </div>
+
+        <div class="bg-dot absolute"
+          style="top: 70%; right: 18%; width: 8px; height: 8px; border-radius: 50%; background: #38bdf8; animation: pulseDot 6.5s ease-in-out infinite 1.8s; box-shadow: 0 0 10px rgba(56,189,248,0.8);">
+        </div>
+
+        <div class="bg-dot absolute"
+          style="top: 88%; right: 9%; width: 6px; height: 6px; border-radius: 50%; background: #93c5fd; animation: pulseDot 4.2s ease-in-out infinite 3s; box-shadow: 0 0 8px rgba(147,197,253,0.6);">
+        </div>
+
+      </div>
+      
+
+
+    <!-- Dekoracyjne tło -->
+    <div class="absolute inset-0 pointer-events-none" aria-hidden="true">
+      <div class="absolute -top-20 -left-20 w-96 h-96 border border-white/5 rotate-12 rounded-hero"
+           style="animation: floatA 22s ease-in-out infinite;"></div>
+      <div class="absolute -bottom-24 -right-16 w-80 h-80 border border-white/5 -rotate-6 rounded-hero"
+           style="animation: floatB 28s ease-in-out infinite;"></div>
+      <div class="absolute inset-0"
+           style="background: radial-gradient(ellipse at 50% 40%, rgba(214,40,40,0.07) 0%, transparent 55%);"></div>
+      <!-- Czerwona kreska top -->
+      <div class="absolute top-0 left-0 right-0 h-1 bg-red opacity-90"></div>
+    </div>
+
+    <div class="relative z-10 flex flex-col items-center text-center max-w-2xl mx-auto">
+
+      <!-- Ikona checkmark -->
+      <div class="check-circle w-24 h-24 rounded-full flex items-center justify-center mb-8 flex-shrink-0"
+           style="background: linear-gradient(135deg, #b71c1c, #d62828);">
+        <svg viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg" class="w-12 h-12">
+          <path
+            class="check-path"
+            d="M8 20 L16 29 L32 12"
+            stroke="white"
+            stroke-width="3.5"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          />
+        </svg>
+      </div>
+
+      <!-- Eyebrow -->
+      <p class="fade-1 text-red font-semibold text-sm tracking-[0.2em] uppercase mb-4">
+        Zgłoszenie wysłane
+      </p>
+
+      <!-- Nagłówek -->
+      <h1 class="fade-2 font-serif font-black text-cream uppercase leading-[1.05] tracking-wide mb-5"
+          style="font-size: clamp(2.5rem, 6vw, 4rem);">
+        Dziękujemy!<br />
+        <span style="color:rgba(240,237,227,0.55);">Odezwiemy się</span><br />
+        wkrótce.
+      </h1>
+
+      <!-- Opis -->
+      <p class="fade-2 text-cream/60 text-base leading-relaxed max-w-md mb-10">
+        Twoje zgłoszenie dotarło do nas. Trener skontaktuje się z Tobą
+        telefonicznie w ciągu <strong class="text-cream/85">24 godzin</strong>,
+        aby umówić bezpłatny trening próbny.
+      </p>
+
+      <!-- Karty info -->
+      <div class="fade-3 grid sm:grid-cols-3 gap-4 w-full mb-12">
+
+        <div class="rounded-card p-5 text-center"
+             style="background:rgba(255,255,255,0.05); border:1px solid rgba(255,255,255,0.09);">
+          <div class="w-10 h-10 rounded-btn mx-auto mb-3 flex items-center justify-center"
+               style="background:rgba(214,40,40,0.15);">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="#d62828" class="w-5 h-5">
+              <path fill-rule="evenodd" d="M10 18a8 8 0 1 0 0-16 8 8 0 0 0 0 16Zm.75-13a.75.75 0 0 0-1.5 0v5c0 .414.336.75.75.75h4a.75.75 0 0 0 0-1.5h-3.25V5Z" clip-rule="evenodd"/>
+            </svg>
+          </div>
+          <div class="text-cream font-bold text-sm mb-1">Do 24h</div>
+          <div class="text-cream/45 text-xs leading-relaxed">Oddzwonimy i umówimy termin treningu</div>
+        </div>
+
+        <div class="rounded-card p-5 text-center"
+             style="background:rgba(255,255,255,0.05); border:1px solid rgba(255,255,255,0.09);">
+          <div class="w-10 h-10 rounded-btn mx-auto mb-3 flex items-center justify-center"
+               style="background:rgba(214,40,40,0.15);">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="#d62828" class="w-5 h-5">
+              <path d="M10.75 4.75a.75.75 0 0 0-1.5 0v4.5h-4.5a.75.75 0 0 0 0 1.5h4.5v4.5a.75.75 0 0 0 1.5 0v-4.5h4.5a.75.75 0 0 0 0-1.5h-4.5v-4.5Z"/>
+            </svg>
+          </div>
+          <div class="text-cream font-bold text-sm mb-1">2 bezpłatne</div>
+          <div class="text-cream/45 text-xs leading-relaxed">Pierwsze dwa treningi w pełni za darmo</div>
+        </div>
+
+        <div class="rounded-card p-5 text-center"
+             style="background:rgba(255,255,255,0.05); border:1px solid rgba(255,255,255,0.09);">
+          <div class="w-10 h-10 rounded-btn mx-auto mb-3 flex items-center justify-center"
+               style="background:rgba(214,40,40,0.15);">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="#d62828" class="w-5 h-5">
+              <path d="M3.5 2A1.5 1.5 0 0 0 2 3.5V5c0 1.149.15 2.263.43 3.326a13.022 13.022 0 0 0 9.244 9.244c1.063.28 2.177.43 3.326.43h1.5a1.5 1.5 0 0 0 1.5-1.5v-1.148a1.5 1.5 0 0 0-1.175-1.465l-3.223-.716a1.5 1.5 0 0 0-1.767 1.052l-.267.933c-.117.41-.555.643-.95.48a11.542 11.542 0 0 1-6.254-6.254c-.163-.395.07-.833.48-.95l.933-.267a1.5 1.5 0 0 0 1.052-1.767L4.648 3.175A1.5 1.5 0 0 0 3.5 2Z"/>
+            </svg>
+          </div>
+          <div class="text-cream font-bold text-sm mb-1">+48 781 676 558</div>
+          <div class="text-cream/45 text-xs leading-relaxed">Możesz też zadzwonić do nas bezpośrednio</div>
+        </div>
+
+      </div>
+
+      <!-- CTA przyciski -->
+      <div class="fade-4 flex flex-col sm:flex-row gap-4 items-center justify-center">
+        <a href="index.html" class="btn-cta">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-5 h-5">
+            <path fill-rule="evenodd" d="M9.293 2.293a1 1 0 0 1 1.414 0l7 7A1 1 0 0 1 17 11h-1v6a1 1 0 0 1-1 1h-2a1 1 0 0 1-1-1v-3a1 1 0 0 0-1-1H9a1 1 0 0 0-1 1v3a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1v-6H3a1 1 0 0 1-.707-1.707l7-7Z" clip-rule="evenodd"/>
+          </svg>
+          Wróć na stronę główną
+        </a>
+        <a href="galeria.html" class="btn-ghost">
+          Zobacz galerię
+        </a>
+      </div>
+
+      <!-- Podpis na dole -->
+      <p class="fade-4 text-cream/25 text-xs mt-14 tracking-wide">
+        UKS Conrad · Akademia Piłkarska · tomczewski1973@wp.pl
+      </p>
+
+    </div>
+  </main>
+
+
+  <!-- ══════════════════════════════════════════════════════
+       FOOTER
+       ══════════════════════════════════════════════════════ -->
+  <footer style="background:#07101f;" role="contentinfo">
+    <div class="max-w-7xl mx-auto px-6 lg:px-10 pt-16 pb-10">
+      <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-10">
+
+        <div class="lg:col-span-2 flex flex-col gap-5">
+          <div class="flex items-center gap-3">
+            <img src="images/logo.png" alt="Logo UKS Conrad" class="h-10 w-auto" />
+            <div>
+              <div class="text-cream font-black text-base tracking-wide uppercase" style="font-family:'Montserrat',sans-serif;">UKS Conrad</div>
+              <div class="text-cream/40 text-[10px] tracking-widest uppercase">Akademia Piłkarska</div>
+            </div>
+          </div>
+          <p class="text-cream/45 text-sm leading-relaxed max-w-xs">
+            Profesjonalne szkolenie piłkarskie dla dzieci i młodzieży w wieku 6-16 lat.
+            Rozwijamy talenty, kształtujemy charaktery.
+          </p>
+          <div class="flex gap-3 mt-1">
+            <a href="https://www.facebook.com/uksconradpilka/" aria-label="Facebook"
+              class="w-9 h-9 rounded-btn flex items-center justify-center transition-colors"
+              style="background:rgba(255,255,255,0.07); color:rgba(240,237,227,0.5);"
+              onmouseover="this.style.background='#d62828'; this.style.color='#fff';"
+              onmouseout="this.style.background='rgba(255,255,255,0.07)'; this.style.color='rgba(240,237,227,0.5)';">
+              <svg viewBox="0 0 24 24" fill="currentColor" class="w-4 h-4">
+                <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z" />
+              </svg>
+            </a>
+          </div>
+        </div>
+
+        <div>
+          <div class="text-cream/30 text-[10px] tracking-[0.2em] uppercase font-semibold mb-5">Menu</div>
+          <ul class="flex flex-col gap-3">
+            <li><a href="index.html#o-nas"       class="text-cream/55 text-sm hover:text-cream transition-colors">O nas</a></li>
+            <li><a href="index.html#grupy"       class="text-cream/55 text-sm hover:text-cream transition-colors">Grupy wiekowe</a></li>
+            <li><a href="index.html#harmonogram" class="text-cream/55 text-sm hover:text-cream transition-colors">Harmonogram</a></li>
+            <li><a href="index.html#obozy"       class="text-cream/55 text-sm hover:text-cream transition-colors">Obozy i półkolonie</a></li>
+            <li><a href="galeria.html"           class="text-cream/55 text-sm hover:text-cream transition-colors">Galeria</a></li>
+            <li><a href="index.html#kontakt"     class="text-cream/55 text-sm hover:text-cream transition-colors">Kontakt</a></li>
+            <li><a href="index.html#rodo"        class="text-cream/55 text-sm hover:text-cream transition-colors">RODO / Prywatność</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <div class="text-cream/30 text-[10px] tracking-[0.2em] uppercase font-semibold mb-5">Kontakt</div>
+          <div class="flex flex-col gap-4">
+            <div>
+              <div class="text-cream/30 text-[10px] uppercase tracking-widest mb-1">Telefon</div>
+              <a href="tel:+48781676558" class="text-cream/70 text-sm hover:text-cream transition-colors">+48 781 676 558</a>
+            </div>
+            <div>
+              <div class="text-cream/30 text-[10px] uppercase tracking-widest mb-1">E-mail</div>
+              <a href="mailto:tomczewski1973@wp.pl" class="text-cream/70 text-sm hover:text-cream transition-colors">tomczewski1973@wp.pl</a>
+            </div>
+            <div>
+              <div class="text-cream/30 text-[10px] uppercase tracking-widest mb-1">Adres</div>
+              <p class="text-cream/70 text-sm">ul. Chałubińskiego 13<br />80-809 Gdańsk</p>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <div class="border-t px-6 lg:px-10 py-6" style="border-color:rgba(255,255,255,0.06);">
+      <div class="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-3">
+        <p class="text-cream/30 text-xs">
+          &copy; <span id="footer-year">2025</span> UKS Conrad – Uczniowski Klub Sportowy. Wszelkie prawa zastrzeżone.
+        </p>
+        <div class="flex gap-5">
+          <a href="index.html#rodo"    class="text-cream/30 text-xs hover:text-cream/60 transition-colors">Polityka prywatności</a>
+          <a href="index.html#rodo"    class="text-cream/30 text-xs hover:text-cream/60 transition-colors">RODO</a>
+          <a href="index.html#kontakt" class="text-cream/30 text-xs hover:text-cream/60 transition-colors">Kontakt</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+
+  <script>
+    /* Nav */
+    const nav = document.getElementById('main-nav');
+    window.addEventListener('scroll', () => nav.classList.toggle('scrolled', window.scrollY > 40), { passive: true });
+
+    /* Hamburger */
+    const hamburger  = document.getElementById('hamburger');
+    const mobileMenu = document.getElementById('mobile-menu');
+    const [l1, l2, l3] = hamburger.querySelectorAll('.ham-line');
+    let menuOpen = false;
+    hamburger.addEventListener('click', () => {
+      menuOpen = !menuOpen;
+      hamburger.setAttribute('aria-expanded', menuOpen);
+      mobileMenu.classList.toggle('hidden', !menuOpen);
+      l1.style.transform = menuOpen ? 'translateY(7px) rotate(45deg)'  : '';
+      l2.style.opacity   = menuOpen ? '0' : '1';
+      l3.style.transform = menuOpen ? 'translateY(-7px) rotate(-45deg)' : '';
+    });
+    function closeMobileMenu() {
+      menuOpen = false;
+      hamburger.setAttribute('aria-expanded', false);
+      mobileMenu.classList.add('hidden');
+      l1.style.transform = l3.style.transform = '';
+      l2.style.opacity = '1';
+    }
+
+    /* Footer year */
+    document.getElementById('footer-year').textContent = new Date().getFullYear();
+  </script>
+
+</body>
+</html>
