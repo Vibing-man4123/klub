@@ -33,6 +33,9 @@
             serif: ['"Montserrat"', 'system-ui', 'sans-serif'],
             sans:  ['Inter', 'system-ui', 'sans-serif'],
           },
+          letterSpacing: {
+            tighter2: '-0.04em',
+          },
           borderRadius: {
             btn:  '8px',
             card: '12px',
@@ -166,8 +169,8 @@
       to   { stroke-dashoffset: 0; }
     }
     @keyframes ringPulse {
-      0%, 100% { box-shadow: 0 0 0 0 rgba(214,40,40,0); }
-      50%       { box-shadow: 0 0 0 16px rgba(214,40,40,0.12); }
+      0%, 100%  { box-shadow: 0 0 0 0 rgba(214,40,40,0); }
+      50%        { box-shadow: 0 0 45px 14px rgba(214,40,40,0.28); }
     }
     @keyframes floatA {
       0%, 100% { transform: translate(0,0) scale(1);       opacity:0.04; }
@@ -189,7 +192,7 @@
 
     .check-circle {
       animation: scaleIn 0.5s cubic-bezier(0.34,1.56,0.64,1) both 0.1s,
-                 ringPulse 2.5s ease-in-out 0.6s infinite;
+                 ringPulse 4s cubic-bezier(0.45,0,0.55,1) 0.6s infinite;
     }
     .check-path {
       stroke-dasharray: 60;
@@ -242,8 +245,9 @@
 
         <ul class="hidden lg:flex items-center gap-8" role="list">
           <li><a href="index.html#o-nas"       class="nav-link">O nas</a></li>
+          <li><a href="KARTA REJESTRCYJNA Z RODO CONRAD GDAŃSK.pdf" class="nav-link">Karta Rejestracyjna</a></li>
           <li><a href="index.html#grupy"       class="nav-link">Grupy</a></li>
-          <li><a href="index.html#harmonogram" class="nav-link">Harmonogram</a></li>
+          <li><a href="harmonogram.pdf"        class="nav-link">Harmonogram</a></li>
           <li><a href="index.html#obozy"       class="nav-link">Obozy</a></li>
           <li><a href="galeria.html"           class="nav-link">Galeria</a></li>
           <li><a href="index.html#rodo"        class="nav-link">RODO</a></li>
@@ -269,8 +273,9 @@
     <div id="mobile-menu" class="lg:hidden hidden bg-navy border-t border-white/10">
       <ul class="flex flex-col px-6 py-5 gap-4" role="list">
         <li><a href="index.html#o-nas"       class="nav-link block py-1" onclick="closeMobileMenu()">O nas</a></li>
+        <li><a href="KARTA REJESTRCYJNA Z RODO CONRAD GDAŃSK.pdf" class="nav-link block py-1" onclick="closeMobileMenu()">Karta Rejestracyjna</a></li>
         <li><a href="index.html#grupy"       class="nav-link block py-1" onclick="closeMobileMenu()">Grupy</a></li>
-        <li><a href="index.html#harmonogram" class="nav-link block py-1" onclick="closeMobileMenu()">Harmonogram</a></li>
+        <li><a href="harmonogram.pdf"        class="nav-link block py-1" onclick="closeMobileMenu()">Harmonogram</a></li>
         <li><a href="index.html#obozy"       class="nav-link block py-1" onclick="closeMobileMenu()">Obozy</a></li>
         <li><a href="galeria.html"           class="nav-link block py-1" onclick="closeMobileMenu()">Galeria</a></li>
         <li><a href="index.html#rodo"        class="nav-link block py-1" onclick="closeMobileMenu()">RODO</a></li>
@@ -286,7 +291,7 @@
   <!-- ══════════════════════════════════════════════════════
        MAIN
        ══════════════════════════════════════════════════════ -->
-  <main class="relative min-h-screen flex flex-col items-center justify-center px-6 pt-28 pb-20 overflow-hidden"
+  <main class="relative min-h-screen flex flex-col items-center justify-center px-6 pt-32 pb-20 overflow-hidden"
         style="background:#0d1b3e;">
         <!-- Animacja tla -->
       <div class="absolute inset-0 z-0 pointer-events-none overflow-hidden" aria-hidden="true">
@@ -373,10 +378,10 @@
       </p>
 
       <!-- Nagłówek -->
-      <h1 class="fade-2 font-serif font-black text-cream uppercase leading-[1.05] tracking-wide mb-5"
+      <h1 class="fade-2 font-serif font-bold text-cream leading-[1.1] tracking-tighter2 mb-5"
           style="font-size: clamp(2.5rem, 6vw, 4rem);">
         Dziękujemy!<br />
-        <span style="color:rgba(240,237,227,0.55);">Odezwiemy się</span><br />
+        <span style="color:rgba(255, 31, 31, 0.9);">Odezwiemy się</span><br />
         wkrótce.
       </h1>
 
@@ -422,7 +427,7 @@
               <path d="M3.5 2A1.5 1.5 0 0 0 2 3.5V5c0 1.149.15 2.263.43 3.326a13.022 13.022 0 0 0 9.244 9.244c1.063.28 2.177.43 3.326.43h1.5a1.5 1.5 0 0 0 1.5-1.5v-1.148a1.5 1.5 0 0 0-1.175-1.465l-3.223-.716a1.5 1.5 0 0 0-1.767 1.052l-.267.933c-.117.41-.555.643-.95.48a11.542 11.542 0 0 1-6.254-6.254c-.163-.395.07-.833.48-.95l.933-.267a1.5 1.5 0 0 0 1.052-1.767L4.648 3.175A1.5 1.5 0 0 0 3.5 2Z"/>
             </svg>
           </div>
-          <div class="text-cream font-bold text-sm mb-1">+48 781 676 558</div>
+          <div class="text-cream font-bold text-sm mb-1"><a href="tel:+48781676558">+48 781 676 558</a></div>
           <div class="text-cream/45 text-xs leading-relaxed">Możesz też zadzwonić do nas bezpośrednio</div>
         </div>
 
@@ -486,8 +491,9 @@
           <div class="text-cream/30 text-[10px] tracking-[0.2em] uppercase font-semibold mb-5">Menu</div>
           <ul class="flex flex-col gap-3">
             <li><a href="index.html#o-nas"       class="text-cream/55 text-sm hover:text-cream transition-colors">O nas</a></li>
+            <li><a href="KARTA REJESTRCYJNA Z RODO CONRAD GDAŃSK.pdf" class="text-cream/55 text-sm hover:text-cream transition-colors">Karta Rejestracyjna</a></li>
             <li><a href="index.html#grupy"       class="text-cream/55 text-sm hover:text-cream transition-colors">Grupy wiekowe</a></li>
-            <li><a href="index.html#harmonogram" class="text-cream/55 text-sm hover:text-cream transition-colors">Harmonogram</a></li>
+            <li><a href="harmonogram.pdf"        class="text-cream/55 text-sm hover:text-cream transition-colors">Harmonogram</a></li>
             <li><a href="index.html#obozy"       class="text-cream/55 text-sm hover:text-cream transition-colors">Obozy i półkolonie</a></li>
             <li><a href="galeria.html"           class="text-cream/55 text-sm hover:text-cream transition-colors">Galeria</a></li>
             <li><a href="index.html#kontakt"     class="text-cream/55 text-sm hover:text-cream transition-colors">Kontakt</a></li>
